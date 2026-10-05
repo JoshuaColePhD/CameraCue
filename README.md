@@ -11,7 +11,7 @@
 
 ![CameraCue Studio with sample scripts](docs/media/studio.png)
 
-<p align="center"><img src="docs/media/voice-follow.gif" width="548" alt="CameraCue highlights words and scrolls through a sample script" /></p>
+<p align="center"><img src="docs/media/voice-follow.gif" width="548" alt="CameraCue highlights spoken words in a sample script" /></p>
 
 *Demo: production reader driven by simulated transcript callbacks. No live camera/microphone recording. [Reader screenshot](docs/media/reader.png).*
 

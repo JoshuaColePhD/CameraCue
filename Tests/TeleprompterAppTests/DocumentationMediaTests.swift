@@ -47,19 +47,20 @@ import UniformTypeIdentifiers
         window.setContentSize(CGSize(width: 548, height: 380)); window.contentView = surface
         try await Task.sleep(for: .milliseconds(200))
         try png(surface, to: folder.appendingPathComponent("reader.png"))
+        model.load(ScriptRecord(id: UUID(), title: "A natural read", body: "Speak naturally. Pause when you need to. Keep going.", modifiedAt: .now))
         await model.start()
         XCTAssertTrue(model.isRunning)
         let url = folder.appendingPathComponent("voice-follow.gif")
-        let endpoints = Array(stride(from: 3, through: model.document.tokens.count, by: 3))
+        let endpoints = Array(2...model.document.tokens.count)
         let gif = try XCTUnwrap(CGImageDestinationCreateWithURL(url as CFURL, UTType.gif.identifier as CFString, endpoints.count, nil))
         CGImageDestinationSetProperties(gif, [kCGImagePropertyGIFDictionary: [kCGImagePropertyGIFLoopCount: 0]] as CFDictionary)
         for endpoint in endpoints {
             capture.onTranscript?(model.document.tokens.prefix(endpoint).joined(separator: " "))
             surface.updateControls(model: model, expanded: true)
-            try await Task.sleep(for: .milliseconds(180))
+            try await Task.sleep(for: .milliseconds(500))
             let rep = try bitmap(surface)
             let image = try XCTUnwrap(rep.cgImage)
-            CGImageDestinationAddImage(gif, image, [kCGImagePropertyGIFDictionary: [kCGImagePropertyGIFDelayTime: 1.1]] as CFDictionary)
+            CGImageDestinationAddImage(gif, image, [kCGImagePropertyGIFDictionary: [kCGImagePropertyGIFDelayTime: 0.65]] as CFDictionary)
         }
         XCTAssertTrue(CGImageDestinationFinalize(gif))
         model.finish()
