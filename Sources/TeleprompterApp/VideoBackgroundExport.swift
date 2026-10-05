@@ -118,6 +118,17 @@ enum VideoBackgroundExport {
     private static func exportAsset(_ asset: AVAsset, to destination: URL) async throws {
         let compatible = await AVAssetExportSession.compatibility(ofExportPreset: AVAssetExportPresetPassthrough, with: asset, outputFileType: .mp4)
         let exporter = try unwrap(AVAssetExportSession(asset: asset, presetName: compatible ? AVAssetExportPresetPassthrough : AVAssetExportPresetHighestQuality), "Could not prepare an MP4 export.")
-        try await withTaskCancellationHandler { try await exporter.export(to: destination, as: .mp4) } onCancel: { exporter.cancelExport() }
+        let operation = CancellableAssetExport(exporter)
+        try await withTaskCancellationHandler { try await operation.run(to: destination) } onCancel: { operation.cancel() }
     }
+}
+
+/// AVAssetExportSession has not adopted Sendable in this SDK. Its public
+/// cancelExport API is intended to interrupt an in-flight asynchronous export.
+/// This wrapper exposes only that supported concurrent operation, not mutations.
+private final class CancellableAssetExport: @unchecked Sendable {
+    private let session: AVAssetExportSession
+    init(_ session: AVAssetExportSession) { self.session = session }
+    func run(to url: URL) async throws { try await session.export(to: url, as: .mp4) }
+    func cancel() { session.cancelExport() }
 }

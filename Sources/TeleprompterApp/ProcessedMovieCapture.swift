@@ -25,7 +25,10 @@ final class CameraPreviewFrames: @unchecked Sendable {
 }
 
 /// Frame queue only. Preserves capture timestamps for A/V synchronization.
-final class ProcessedMovieWriter {
+// Timestamp/counter state is confined to its producer queue. The encoder lock
+// serializes cancellation with append/finalization operations.
+final class ProcessedMovieWriter: @unchecked Sendable {
+    private let encoderLock = NSLock()
     private let writer: AVAssetWriter
     private let video: AVAssetWriterInput
     private let audio: AVAssetWriterInput
@@ -52,6 +55,7 @@ final class ProcessedMovieWriter {
     var isVideoReady: Bool { video.isReadyForMoreMediaData }
     var failure: Error? { writer.status == .failed ? writer.error ?? RecordingFailure.message("Video encoding failed.") : nil }
     func appendVideo(_ buffer: CVPixelBuffer, time: CMTime) throws -> Bool {
+        encoderLock.lock(); defer { encoderLock.unlock() }
         guard time.isValid, time.isNumeric else { return false }
         if let lastVideo, CMTimeCompare(time, lastVideo) <= 0 { return false }
         if origin == nil { writer.startSession(atSourceTime: time); origin = time }
@@ -61,6 +65,7 @@ final class ProcessedMovieWriter {
         lastVideo = time; writtenFrames += 1; return true
     }
     func appendAudio(_ sample: CMSampleBuffer) throws {
+        encoderLock.lock(); defer { encoderLock.unlock() }
         guard includesAudio else { return }
         let time = CMSampleBufferGetPresentationTimeStamp(sample)
         guard let origin, CMTimeCompare(time, origin) >= 0, lastAudio == nil || CMTimeCompare(time, lastAudio!) > 0 else { return }
@@ -73,6 +78,7 @@ final class ProcessedMovieWriter {
         if writer.status == .failed { throw writer.error ?? RecordingFailure.message("Video recording failed.") }
     }
     func finish(_ completion: @escaping (Result<URL, Error>) -> Void) {
+        encoderLock.lock(); defer { encoderLock.unlock() }
         guard writtenFrames > 0 else { writer.cancelWriting(); completion(.failure(RecordingFailure.message("No camera frames arrived. Check the camera and try again."))); return }
         guard writer.status == .writing else { completion(.failure(writer.error ?? RecordingFailure.message("Video recording failed."))); return }
         video.markAsFinished(); if includesAudio { audio.markAsFinished() }
@@ -80,7 +86,7 @@ final class ProcessedMovieWriter {
             completion(writer.status == .completed ? .success(url) : .failure(writer.error ?? RecordingFailure.message("Could not finish recording.")))
         }
     }
-    func cancel() { if writer.status == .writing || writer.status == .unknown { writer.cancelWriting() } }
+    func cancel() { encoderLock.lock(); defer { encoderLock.unlock() }; if writer.status == .writing || writer.status == .unknown { writer.cancelWriting() } }
 }
 
 /// Session configuration and frame processing use separate serial queues. Neither

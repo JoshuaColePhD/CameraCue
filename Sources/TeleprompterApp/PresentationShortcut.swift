@@ -46,7 +46,7 @@ import Carbon
             error = "Shortcut unavailable: \(conflicts.joined(separator: ", ")). Free it in the other app, then reopen CameraCue."
         }
     }
-    deinit {
+    isolated deinit {
         NSLog("CameraCue presentation shortcuts released")
         for key in hotKeys { UnregisterEventHotKey(key) }
         if let handler { RemoveEventHandler(handler) }

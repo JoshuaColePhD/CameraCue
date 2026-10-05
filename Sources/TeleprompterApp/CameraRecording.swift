@@ -100,7 +100,7 @@ enum RecordingFailure: LocalizedError {
             else { self.message = reason ?? "Recording stopped unexpectedly."; self.recoveryURL = self.destination?.deletingPathExtension().appendingPathExtension("mov") }
         }
     }
-    deinit { if let sleepObserver { NSWorkspace.shared.notificationCenter.removeObserver(sleepObserver) } }
+    isolated deinit { if let sleepObserver { NSWorkspace.shared.notificationCenter.removeObserver(sleepObserver) } }
     func changeBackground(_ setting: CameraBackground) async {
         guard !isBusy, !changingBackground else { return }
         changingBackground = true; backgroundMessage = nil

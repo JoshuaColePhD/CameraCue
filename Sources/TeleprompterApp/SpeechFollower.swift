@@ -92,7 +92,7 @@ import Foundation
         }
     }
 
-    deinit {
+    isolated deinit {
         if let configurationObserver { NotificationCenter.default.removeObserver(configurationObserver) }
         if let sleepObserver { NSWorkspace.shared.notificationCenter.removeObserver(sleepObserver) }
     }

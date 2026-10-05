@@ -14,5 +14,5 @@ let package = Package(
         .testTarget(name: "TeleprompterCoreTests", dependencies: ["TeleprompterCore"]),
         .testTarget(name: "TeleprompterAppTests", dependencies: ["TeleprompterApp"])
     ],
-    swiftLanguageModes: [.v5]
+    swiftLanguageModes: [.v6]
 )

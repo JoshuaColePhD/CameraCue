@@ -166,7 +166,7 @@ private struct ReadingPhrase: View, Equatable {
     let canSelect: Bool
     let onSelect: (Int) -> Void
 
-    static func == (lhs: Self, rhs: Self) -> Bool {
+    nonisolated static func == (lhs: Self, rhs: Self) -> Bool {
         lhs.lineID == rhs.lineID && lhs.spokenText == rhs.spokenText && lhs.tokenOffset == rhs.tokenOffset &&
         lhs.moments == rhs.moments && lhs.size == rhs.size && lhs.strength == rhs.strength &&
         lhs.maximumScale == rhs.maximumScale && lhs.wordIndex == rhs.wordIndex &&
