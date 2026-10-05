@@ -23,6 +23,12 @@ import QuartzCore
     }
     private func wait(_ seconds: Double) async throws { try await Task.sleep(for: .seconds(seconds)) }
 
+    private func waitForSettlement(_ surface: NotchSurface) async throws {
+        let deadline = Date().addingTimeInterval(2)
+        while surface.isTransitioning && Date() < deadline { try await wait(0.02) }
+        XCTAssertFalse(surface.isTransitioning, "The latest native transition must finish")
+    }
+
     func testReversalsUseVisiblePositionsAndOnlyLatestTransitionCompletes() async throws {
         let (panel, surface) = fixture(); defer { panel.close() }
         let buttons = surface.subviews.compactMap { $0 as? NSButton }
@@ -66,7 +72,7 @@ import QuartzCore
         surface.setExpanded(false, animated: true)
         XCTAssertFalse(buttons[2].isAccessibilityEnabled())
         XCTAssertFalse(buttons[2].isHidden, "Outgoing content can fade without accepting clicks")
-        try await wait(0.32)
+        try await waitForSettlement(surface)
         XCTAssertTrue(buttons[2].isHidden)
     }
 
