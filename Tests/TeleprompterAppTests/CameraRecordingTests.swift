@@ -163,6 +163,7 @@ import TeleprompterCore
         XCTAssertNotNil(video.savedURL); XCTAssertNil(video.recoveryURL)
     }
     func testSavingBlocksAnotherTakeAndPausedNotchKeepsStop() async throws {
+        _ = NSApplication.shared // SwiftPM CLI runners do not initialize AppKit.
         let (video, _, folder) = fixture(); defer { try? FileManager.default.removeItem(at: folder) }
         let model = model(video); await model.start(); model.pause()
         let surface = NotchSurface(model: model)

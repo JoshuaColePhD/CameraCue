@@ -52,6 +52,19 @@ jobs:
           ./build-app.sh release
           codesign --verify --deep --strict dist/CameraCue.app
           test -x dist/CameraCue.app/Contents/MacOS/CameraCue
+      - name: Collect crash diagnostics if a native test exits
+        if: failure()
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import shutil
+          folder = Path.home() / 'Library/Logs/DiagnosticReports'
+          output = Path('ci-results/crashes')
+          output.mkdir(parents=True, exist_ok=True)
+          for pattern in ['*Teleprompter*.ips', '*xctest*.ips']:
+              for path in folder.glob(pattern):
+                  shutil.copy2(path, output / path.name)
+          PY
       - name: Upload verification evidence
         if: always()
         uses: actions/upload-artifact@v4
