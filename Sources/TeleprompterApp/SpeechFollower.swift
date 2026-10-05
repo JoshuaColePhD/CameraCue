@@ -78,9 +78,10 @@ import Foundation
         self.permissions = permissions ?? SystemSpeechPermissions()
         self.captureOverride = captureOverride
         configurationObserver = NotificationCenter.default.addObserver(forName: .AVAudioEngineConfigurationChange, object: nil, queue: .main) { [weak self] notification in
-            let changedEngine = notification.object as? AVAudioEngine
+            // Only identity crosses to the main actor; the engine stays actor-owned.
+            let changedEngineID = (notification.object as? AVAudioEngine).map(ObjectIdentifier.init)
             Task { @MainActor in
-                guard let self, changedEngine === self.engine, self.state == .listening, !self.engine.isRunning else { return }
+                guard let self, changedEngineID == ObjectIdentifier(self.engine), self.state == .listening, !self.engine.isRunning else { return }
                 self.interrupt()
             }
         }
