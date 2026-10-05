@@ -52,6 +52,13 @@ jobs:
           ./build-app.sh release
           codesign --verify --deep --strict dist/CameraCue.app
           test -x dist/CameraCue.app/Contents/MacOS/CameraCue
+      - name: Backtrace native control test after a failed run
+        if: failure()
+        timeout-minutes: 2
+        continue-on-error: true
+        run: |
+          BIN=$(swift build --disable-sandbox --show-bin-path)
+          xcrun lldb --batch -o 'run' -o 'thread backtrace all' -- "$(xcrun --find xctest)" -XCTest TeleprompterAppTests.CameraRecordingTests/testSavingBlocksAnotherTakeAndPausedNotchKeepsStop "$BIN/TeleprompterPackageTests.xctest" > ci-results/native-backtrace.log 2>&1
       - name: Collect crash diagnostics if a native test exits
         if: failure()
         run: |
@@ -61,7 +68,7 @@ jobs:
           folder = Path.home() / 'Library/Logs/DiagnosticReports'
           output = Path('ci-results/crashes')
           output.mkdir(parents=True, exist_ok=True)
-          for pattern in ['*Teleprompter*.ips', '*xctest*.ips']:
+          for pattern in ['*Teleprompter*.ips', '*xctest*.ips', '*Teleprompter*.crash', '*xctest*.crash']:
               for path in folder.glob(pattern):
                   shutil.copy2(path, output / path.name)
           PY

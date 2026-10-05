@@ -11,6 +11,14 @@ mkdir -p .build-cache/clang .build-cache/swiftpm dist
 cp Assets/CameraCueIcon.png Sources/TeleprompterApp/Resources/CameraCueLogo.png
 export CLANG_MODULE_CACHE_PATH="$PWD/.build-cache/clang"
 export SWIFTPM_MODULECACHE_OVERRIDE="$PWD/.build-cache/swiftpm"
+binary_directory="$(swift build --disable-sandbox -c "$configuration" --show-bin-path)"
+# SwiftPM incremental resources can retain files removed from the source tree.
+# Recreate this generated bundle so local packages match a fresh checkout.
+python3 - "$binary_directory/Teleprompter_TeleprompterApp.bundle" <<'PY_CLEAN'
+import pathlib, shutil, sys
+path = pathlib.Path(sys.argv[1])
+if path.exists(): shutil.rmtree(path)
+PY_CLEAN
 if [[ "$configuration" == release ]]; then
   # This local app does not package dSYMs; avoid SwiftPM's sandboxed dSYM step.
   swift build --disable-sandbox --scratch-path "$PWD/.build" -c "$configuration" -debug-info-format none
@@ -18,8 +26,12 @@ else
   swift build --disable-sandbox --scratch-path "$PWD/.build" -c "$configuration"
 fi
 app="$PWD/dist/CameraCue.app"
+python3 - "$app" <<'PY_CLEAN'
+import pathlib, shutil, sys
+path = pathlib.Path(sys.argv[1])
+if path.exists(): shutil.rmtree(path)
+PY_CLEAN
 mkdir -p "$app/Contents/MacOS" "$app/Contents/Resources"
-binary_directory="$(swift build --disable-sandbox -c "$configuration" --show-bin-path)"
 cp "$binary_directory/Teleprompter" "$app/Contents/MacOS/CameraCue"
 ditto "$binary_directory/Teleprompter_TeleprompterApp.bundle" "$app/Contents/Resources/Teleprompter_TeleprompterApp.bundle"
 python3 scripts/package-app-icon.py Assets/CameraCueIcon.png Assets/CameraCue.icns
