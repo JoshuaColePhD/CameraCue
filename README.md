@@ -1,72 +1,134 @@
-# CameraCue
+<p align="center">
+  <img src="Assets/CameraCueIcon.png" alt="CameraCue app icon" width="96" />
+</p>
 
-A native macOS script studio, voice-following teleprompter, and camera recorder. Warm white Studio surfaces and pastel accents pair with a calm camera-centered notch reader.
+<h1 align="center">CameraCue</h1>
+<p align="center"><strong>Your words, closer to the camera.</strong></p>
+<p align="center">A native Mac studio for writing, rehearsing, and recording presentations.</p>
 
-## Features
+---
 
-- **Write, rehearse, present:** native editing, selection-based emphasis/pauses/delivery cues, undo/redo, autosave, and reviewable AI formatting and drafting.
-- **Voice Follow:** tracks spoken words, highlights the latest reliable match, holds through silence, and offers recovery when speech loses its place. Manual prompting is also available.
-- **Notch reader:** tapered shell, native Core Animation transitions, compact controls, adjustable reader height, and placement for notched and external displays.
-- **Presentation timer:** count up or down, negative overtime, pacing hints, optional count-in, pause/resume, and manual Finish.
-- **Camera recording:** mirrored self-view, unmirrored H.264/AAC MP4 output, device selection, audio meter, saved-take playback, and a recording library. Prompting can pause while video continues.
-- **Background effects:** Original, Blur, five pastel colors, three bundled image presets, and custom image upload. Processing uses Apple's Vision and Core Image on the Mac.
-- **Background edits after recording:** preview an effect and export a new MP4 while preserving the existing recording and its audio. Optional camera originals allow restoring the real background.
+CameraCue brings your script, teleprompter, timer, and camera into one workspace. Its compact notch reader sits near the camera, follows your spoken words, and helps you keep track of time—so you can focus on delivering the message.
 
-AI uses Apple's on-device model when available. Formatting falls back to clearly identified local styling when that model is unavailable. CameraCue does not upload scripts or videos and does not control QuickTime.
+Built for educators, creators, professionals, and anyone who wants a more comfortable way to speak on camera.
 
-## Requirements
+**Native macOS · Voice Follow · On-device AI where available · Local video storage**
+
+## From an idea to a finished take
+
+1. **Write.** Start a script, import text, or develop an idea with AI. Add emphasis, pauses, and delivery cues without changing your spoken wording during formatting.
+2. **Rehearse.** Adjust the reader, choose a time target, and practice. Voice Follow tracks your speech; manual controls remain available.
+3. **Present.** Check your camera and microphone, then record. Keep the script near the lens and use pacing hints to watch your timing.
+4. **Review.** Play back the saved MP4, find it in Finder, or try a different background and export a new version.
+
+Preparing a take opens the setup screen; it does not start recording. Pausing the prompter leaves video recording running, and Stop finishes and saves the take.
+
+## What you can do
+
+| Feature | What it gives you |
+| --- | --- |
+| **Voice-following teleprompter** | Reading position and word highlighting respond to speech. Silence holds your place, and uncertain matches trigger recovery feedback. |
+| **Camera-centered notch reader** | A compact, expandable overlay with adjustable height, native transitions, and support for MacBook and external displays. |
+| **AI script development** | Draft from an idea, improve a draft, or suggest delivery cues. Suggestions remain reviewable. |
+| **Performance formatting** | Use color, emphasis, pauses, and delivery cues to make scripts easier to perform. Formatting validates that spoken words are preserved. |
+| **Presentation timing** | Count up or down, continue into overtime, and get pacing hints. Optional count-in helps you start a take. |
+| **Built-in camera recording** | Record video and microphone audio to MP4, check framing, hide self-view, and review saved takes. |
+| **Background effects** | Choose blur, pastel colors, built-in studio/landscape images, or an uploaded image. |
+| **Background edits after recording** | Preview an effect and export a new MP4 without replacing the existing video. Keep a camera original to restore the real background later. |
+| **Script and recording libraries** | Find scripts with search, filters, and favorites; open saved recordings for review. |
+
+Prefer QuickTime? Turn off CameraCue's camera recording and use it as a separate teleprompter. CameraCue does not start or stop QuickTime.
+
+## Designed for the person presenting
+
+- **A quiet reader, a friendly studio.** Warm white surfaces, plum text, and pastel accents keep preparation approachable while the notch stays restrained.
+- **Clear controls during a take.** Recording, prompting, and timing have distinct states. The camera can keep rolling while you pause to recover your place.
+- **Your wording stays yours.** Formatting changes are checked against the spoken script; AI drafting and revision remain separate, reviewable actions.
+- **Existing recordings stay intact.** Background changes create new files. Optional original copies give you more flexibility later.
+- **Native editing and accessibility.** Standard text selection, undo/redo, keyboard navigation, descriptive controls, and Reduce Motion support.
+
+## Your files stay local
+
+CameraCue has no required cloud account or cloud video storage. Scripts and recordings are stored on your Mac; this repository does not include personal scripts, recordings, or settings.
+
+| Data | Default location |
+| --- | --- |
+| Script library | `~/Library/Application Support/CameraCue/scripts.json` |
+| Saved MP4 recordings | `~/Movies/CameraCue/` |
+| Optional camera originals | `.Originals/` inside the recording folder |
+| Background-edited videos | New MP4s beside the existing recording |
+| Uploaded background images | `~/Library/Application Support/CameraCue/Backgrounds/` |
+
+Change the recording folder in **Camera & recording**. Keep a video's optional `.cameracue.json` sidecar and original folder together when moving files if you want to retain the original-source link.
+
+Background processing uses Vision and Core Image locally. AI drafting and formatting use Apple's on-device language model when available; formatting has a clearly labeled local fallback. Voice Follow uses Apple's speech recognition services and requests on-device recognition when supported. Camera and microphone access are requested when you preview or record.
+
+## Engineering behind the experience
+
+CameraCue combines product design with native platform integration, asynchronous media processing, and defensive state management.
+
+| Area | Implementation |
+| --- | --- |
+| **App interface** | SwiftUI with AppKit for native editing, windows, controls, and video playback. |
+| **Reader motion** | Core Animation shell and mask transitions, reversible from visible positions, without publishing animation frames through SwiftUI. |
+| **Speech tracking** | Speech framework and AVAudioEngine, with token alignment, word highlighting, recovery states, and pacing logic. |
+| **On-device AI** | Foundation Models for script development and validated formatting suggestions, with availability checks and formatting fallback. |
+| **Video pipeline** | AVFoundation video/audio data outputs, H.264/AAC writers, and MP4 export. Session work and frame processing run off the UI thread. |
+| **Background processing** | Vision person segmentation and Core Image compositing. Preview and recording share processed frames; offline edits use accurate segmentation. |
+| **Data integrity** | Versioned optional recording sidecars, source-preserving exports, cancellation cleanup, and recoverable MOV files after export failures. |
+| **Testability** | A separate core module, injectable capture fixtures, generated video/audio tests, and regression coverage for lifecycle and navigation behavior. |
+
+### Engineering decisions worth exploring
+
+- **Separate reusable logic from platform UI:** `TeleprompterCore` contains alignment, timing, token anchors, formatting, and tracking/pacing logic; `TeleprompterApp` owns macOS integration.
+- **Bound the work that reaches the UI:** preview delivery coalesces pending frames instead of rebuilding SwiftUI for every camera frame.
+- **Treat cancellation as part of the workflow:** capture startup and finalization have explicit guards; cancelled file exports clean up their own partial outputs.
+- **Preserve user data across edits:** source recordings remain unchanged, older script metadata remains readable, and missing original-video links fall back to the available recording.
+
+See [DEVELOPMENT.md](DEVELOPMENT.md) for implementation details and [Assets/Backgrounds.md](Assets/Backgrounds.md) for bundled image provenance.
+
+## Try a local build
+
+**Status:** a working native app under active development. This repository provides source and local build instructions; it does not currently offer a notarized customer installer.
+
+### Requirements
 
 - macOS 15 or later.
-- Xcode with a Swift 6-capable toolchain and command-line tools selected.
-- Python 3 for app-icon packaging, using the standard library and macOS `sips`.
-- Camera, microphone, and speech permissions only when those features are requested.
-- Apple's on-device AI features additionally require compatible hardware, OS, and model availability.
+- Xcode with the macOS 26 SDK or later, a Swift 6-capable toolchain, and command-line tools selected.
+- Python 3 for icon packaging; the packaging script uses its standard library and macOS `sips`.
+- Compatible hardware, macOS 26 or later, and an available Apple on-device model for AI drafting. The editor, recorder, and manual prompting do not require that model.
 
-## Build
+### Build and install
 
 ```sh
+git clone https://github.com/JoshuaColePhD/CameraCue.git
+cd CameraCue
 ./build-app.sh release
 ```
 
-The app is written to `dist/CameraCue.app` and signed ad hoc for local use. A Developer ID certificate and notarization are required for normal distribution to other Macs. The source repository does not contain personal scripts, recordings, or built app bundles.
+The repository is currently private, so cloning requires access. The build produces `dist/CameraCue.app` with an ad hoc signature for local use.
 
-To install a local build, quit an idle CameraCue instance, then:
+Quit an idle CameraCue instance before installing:
 
 ```sh
 ditto dist/CameraCue.app /Applications/CameraCue.app
 codesign --verify --deep --strict /Applications/CameraCue.app
 ```
 
-## Test
+Distribution to other Macs requires Developer ID signing and notarization.
+
+### Verification
 
 ```sh
 swift test --disable-sandbox
 ```
 
-The suite covers alignment, timers, formatting, library persistence, capture lifecycle, background processing/export, display layout, native notch controls, and editor selection. Some graphics and encoder tests require access to macOS WindowServer/encoding services. Local camera-clip checks skip when their private fixture is unavailable. No test starts a live camera or microphone.
+The latest local verification ran **128 tests with one skipped and zero failures**. Coverage includes alignment, timers, word preservation, library persistence, capture lifecycle, background exports, rotation, cancellation, native controls, and editor selection.
 
-Real camera and microphone permissions, live dual-stream recording performance, lengthy recordings, and different monitor arrangements still need hardware acceptance checks.
+Graphics and encoding tests need access to macOS services. Private recorded-clip checks skip when their local fixture is unavailable; the repository intentionally excludes those videos. Automated tests do not start a live camera or microphone.
 
-## Local data
+Live dual-stream recording, lengthy takes, audio synchronization by listening, and varied monitor arrangements remain hardware acceptance checks. Background segmentation can soften fine edges, and offline processing may take longer than the clip's running time.
 
-| Data | Default location |
-| --- | --- |
-| Script library | `~/Library/Application Support/CameraCue/scripts.json` |
-| Saved MP4 videos | `~/Movies/CameraCue/` (changeable in Camera & recording) |
-| Original camera copies | `.Originals/` inside the recording folder |
-| Background-edited videos | New MP4 files beside the existing recording |
-| Recording source links | Optional `.mp4.cameracue.json` files beside videos |
-| Uploaded background images | `~/Library/Application Support/CameraCue/Backgrounds/` |
-| UI/device preferences | macOS UserDefaults |
+---
 
-Keep a recording's sidecar and original folder together if you move it. A video remains playable without those files, but background restoration can no longer use the original camera copy. GitHub stores development source only; it does not synchronize this local data.
-
-## Code layout
-
-- `Sources/TeleprompterCore/`: alignment, token anchors, formatting metadata, timing, and tracking/pacing logic.
-- `Sources/TeleprompterApp/`: native Studio, notch, speech capture, camera capture, recording library, and video background editor.
-- `Tests/`: generated-data regression fixtures and unit/integration tests.
-- `Assets/`: selected icon and background asset provenance.
-- `scripts/`: packaging and local benchmarking utilities.
-
-See [DEVELOPMENT.md](DEVELOPMENT.md) for implementation details and [Assets/Backgrounds.md](Assets/Backgrounds.md) for the bundled image prompts. Historical review reports and recordings remain local and are excluded from Git.
+Created by [Joshua Cole](https://github.com/JoshuaColePhD).
