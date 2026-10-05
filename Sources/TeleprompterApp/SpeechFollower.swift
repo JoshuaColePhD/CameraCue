@@ -71,13 +71,13 @@ import Foundation
     private var recognitionGeneration = 0
     private var startupGeneration = 0
     private var consecutiveRecognitionErrors = 0
-    private var configurationObserver: NSObjectProtocol?
-    private var sleepObserver: NSObjectProtocol?
+    private var configurationObserver: NotificationRegistration?
+    private var sleepObserver: NotificationRegistration?
 
     init(permissions: (any SpeechPermissionProviding)? = nil, captureOverride: (() throws -> Void)? = nil) {
         self.permissions = permissions ?? SystemSpeechPermissions()
         self.captureOverride = captureOverride
-        configurationObserver = NotificationCenter.default.addObserver(forName: .AVAudioEngineConfigurationChange, object: nil, queue: .main) { [weak self] notification in
+        configurationObserver = NotificationRegistration(name: .AVAudioEngineConfigurationChange) { [weak self] notification in
             // Only identity crosses to the main actor; the engine stays actor-owned.
             let changedEngineID = (notification.object as? AVAudioEngine).map(ObjectIdentifier.init)
             Task { @MainActor in
@@ -85,7 +85,7 @@ import Foundation
                 self.interrupt()
             }
         }
-        sleepObserver = NSWorkspace.shared.notificationCenter.addObserver(forName: NSWorkspace.willSleepNotification, object: nil, queue: .main) { [weak self] _ in
+        sleepObserver = NotificationRegistration(center: NSWorkspace.shared.notificationCenter, name: NSWorkspace.willSleepNotification) { [weak self] _ in
             Task { @MainActor in
                 guard let self, self.state == .listening || self.state == .requesting else { return }
                 self.interrupt()
@@ -93,10 +93,9 @@ import Foundation
         }
     }
 
-    isolated deinit {
-        if let configurationObserver { NotificationCenter.default.removeObserver(configurationObserver) }
-        if let sleepObserver { NSWorkspace.shared.notificationCenter.removeObserver(sleepObserver) }
-    }
+    // Explicit nonisolated teardown avoids the Swift 6.2 back-deployment bug
+    // (swiftlang/swift#88036). Registration objects remove their own tokens.
+    deinit {}
 
     var readiness: String {
         if isAuthorizing { return "Waiting for microphone and speech access…" }

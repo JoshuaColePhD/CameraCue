@@ -58,7 +58,7 @@ enum RecordingFailure: LocalizedError {
     private var takeBackground = CameraBackground()
     private var takeKeepOriginal = false
     private var saveTask: Task<Void, Never>?
-    private var sleepObserver: NSObjectProtocol?
+    private var sleepObserver: NotificationRegistration?
     var session: AVCaptureSession? { backend.session }
     var previewFrames: CameraPreviewFrames? { (backend as? NativeMovieCapture)?.previewFrames }
     func recordingAudioLevel() async -> Double {
@@ -82,7 +82,7 @@ enum RecordingFailure: LocalizedError {
         self.systemPermissions = authorize == nil
         self.authorize = authorize ?? { false }
         self.export = export ?? Self.exportMP4
-        sleepObserver = NSWorkspace.shared.notificationCenter.addObserver(forName: NSWorkspace.willSleepNotification, object: nil, queue: .main) { [weak self] _ in
+        sleepObserver = NotificationRegistration(center: NSWorkspace.shared.notificationCenter, name: NSWorkspace.willSleepNotification) { [weak self] _ in
             Task { @MainActor in
                 guard let self else { return }
                 if self.isRecording { self.onInterrupted?(); self.finish() }
@@ -100,7 +100,8 @@ enum RecordingFailure: LocalizedError {
             else { self.message = reason ?? "Recording stopped unexpectedly."; self.recoveryURL = self.destination?.deletingPathExtension().appendingPathExtension("mov") }
         }
     }
-    isolated deinit { if let sleepObserver { NSWorkspace.shared.notificationCenter.removeObserver(sleepObserver) } }
+    // Observer token cleanup is independent of the main-actor lifetime.
+    deinit {}
     func changeBackground(_ setting: CameraBackground) async {
         guard !isBusy, !changingBackground else { return }
         changingBackground = true; backgroundMessage = nil

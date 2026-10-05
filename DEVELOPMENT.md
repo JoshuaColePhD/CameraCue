@@ -32,6 +32,10 @@ Display selection is separate from geometry. While idle the notch follows the cl
 
 Do not duplicate coordinates or timing constants in documentation. Use `NotchLayout`, `NotchDisplay` and `NotchMotion` when changing behavior. Existing reader-height preferences remain local.
 
+## Older-runtime teardown
+
+The Mac runner exposed a teardown abort in `SpeechFollower` through the isolated-deinit back-deployment trampoline. Its stack matched [Swift issue #88036](https://github.com/swiftlang/swift/issues/88036). Observer tokens now live in immutable `NotificationRegistration` objects whose cleanup is independent of the actor. Shortcut registration similarly owns a locked lifetime object and retains a weak-owner callback context until Carbon removes the handler on the main queue. The actor owners use explicit ordinary deinitializers. Strict Swift 6 checks remain enabled; no module-wide concurrency suppression was added. A task-local teardown regression test exercises the speech-owner case without starting audio.
+
 ## Verification and CI
 
 [macOS CI](https://github.com/JoshuaColePhD/CameraCue/actions/workflows/macos-ci.yml) runs XCTest, Voice Follow per-case regression gates, and a release package/signature check. Logs and JSON results are uploaded as job artifacts. Test totals are extracted from all target-level suite results by `scripts/test-summary.py`; no manual README count is maintained.
