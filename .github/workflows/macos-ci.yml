@@ -58,7 +58,7 @@ jobs:
         continue-on-error: true
         run: |
           BIN=$(swift build --disable-sandbox --show-bin-path)
-          xcrun lldb --batch -o 'run' -o 'thread backtrace all' -- "$(xcrun --find xctest)" -XCTest TeleprompterAppTests.CameraRecordingTests/testSavingBlocksAnotherTakeAndPausedNotchKeepsStop "$BIN/TeleprompterPackageTests.xctest" > ci-results/native-backtrace.log 2>&1
+          xcrun lldb --batch -o 'run' -k 'thread backtrace all' -k 'image list -o -f' -- "$(xcrun --find xctest)" -XCTest TeleprompterAppTests.CameraRecordingTests/testSavingBlocksAnotherTakeAndPausedNotchKeepsStop "$BIN/TeleprompterPackageTests.xctest" > ci-results/native-backtrace.log 2>&1
       - name: Collect crash diagnostics if a native test exits
         if: failure()
         run: |
