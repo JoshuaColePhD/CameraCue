@@ -24,7 +24,12 @@ import AVFoundation
             while !input.isReadyForMoreMediaData && writer.status == .writing && Date() < deadline { try await Task.sleep(for: .milliseconds(5)) }
             XCTAssertTrue(adaptor.append(buffer, withPresentationTime: CMTime(value: Int64(frame), timescale: 30)))
         }
-        input.markAsFinished(); await writer.finishWriting()
+        input.markAsFinished()
+        // Use the callback boundary with a checked continuation. The SDK's
+        // imported async bridge aborts in the older Mac CI runtime.
+        await withCheckedContinuation { (continuation: CheckedContinuation<Void, Never>) in
+            writer.finishWriting { @Sendable in continuation.resume() }
+        }
         XCTAssertEqual(writer.status, .completed)
         let wav = directory.appendingPathComponent("audio.wav")
         var audio = Data()
