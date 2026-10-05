@@ -16,11 +16,13 @@ struct SampleMetrics: Codable {
     let holdViolations: Int
     let recoverySeconds: Double?
     let recoveryAttempted: Bool
+    let lagSamples: Int
+    let unavailableLagSamples: Int
     let lagP95Seconds: Double
     let alignmentP95Milliseconds: Double
 }
-struct Report: Encodable {
-    let schemaVersion = 1
+struct Report: Codable {
+    var schemaVersion = 1
     let corpusVersion: String
     let corpusSHA256: String
     let scope: String
@@ -79,18 +81,22 @@ func measure(_ replay: ReplayCase, algorithm: String) -> SampleMetrics {
     }
     return SampleMetrics(algorithm: algorithm, split: replay.split, speech: replay.speech, scenario: replay.scenario, seed: replay.seed, samples: count,
                          withinTwo: Double(correct) / Double(max(count, 1)), meanAbsoluteError: Double(errorSum) / Double(max(count, 1)), wrongMoves: wrongMoves, wrongJumps: wrongJumps, holdViolations: holds,
-                         recoverySeconds: recovery, recoveryAttempted: attempted, lagP95Seconds: percentile(lags, 0.95), alignmentP95Milliseconds: percentile(latencies, 0.95))
+                         recoverySeconds: recovery, recoveryAttempted: attempted, lagSamples: lags.count, unavailableLagSamples: count - lags.count, lagP95Seconds: percentile(lags, 0.95), alignmentP95Milliseconds: percentile(latencies, 0.95))
 }
 
 let args = Array(CommandLine.arguments.dropFirst())
 @MainActor func argument(_ key: String) -> String? { guard let index = args.firstIndex(of: key), index + 1 < args.count else { return nil }; return args[index + 1] }
 let split = argument("--split")
+if let split, !["development", "held-out"].contains(split) { print("Unknown split: " + split); exit(2) }
 let cases = try ReplayCorpus.cases(split: split)
 let algorithms = ["Exact suffix baseline", "Previous CameraCue", "CameraCue"]
 let metrics = cases.flatMap { replay in algorithms.map { measure(replay, algorithm: $0) } }
 let eventEncoder = JSONEncoder(); eventEncoder.outputFormatting = [.sortedKeys]
-let corpusText = try cases.map { "\($0.speech)|\($0.seed)|\($0.scenario)|\($0.document.source)|" + String(decoding: try eventEncoder.encode($0.events), as: UTF8.self) }.joined(separator: "\n")
-let digest = SHA256.hash(data: Data(corpusText.utf8)).map { String(format: "%02x", $0) }.joined()
+func corpusDigest(_ cases: [ReplayCase]) throws -> String {
+    let text = try cases.map { "\($0.speech)|\($0.seed)|\($0.scenario)|\($0.document.source)|" + String(decoding: try eventEncoder.encode($0.events), as: UTF8.self) }.joined(separator: "\n")
+    return SHA256.hash(data: Data(text.utf8)).map { String(format: "%02x", $0) }.joined()
+}
+let digest = try corpusDigest(cases)
 let report = Report(corpusVersion: ReplayCorpus.version, corpusSHA256: digest, scope: "Published transcripts with simulated ASR errors and timing; not measured microphone or recognizer accuracy.", cases: metrics)
 let encoder = JSONEncoder(); encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
 let output = argument("--output") ?? "docs/evaluation/results.json"
@@ -110,21 +116,35 @@ for group in ["development", "held-out"] {
     }
 }
 if args.contains("--check") {
-    let thresholdsPath = argument("--thresholds") ?? "docs/evaluation/thresholds.json"
-    let thresholds = try JSONSerialization.jsonObject(with: Data(contentsOf: URL(fileURLWithPath: thresholdsPath))) as! [String: Double]
     var failures: [String] = []
     for group in ["development", "held-out"] {
         let rows = metrics.filter { $0.split == group && $0.algorithm == "CameraCue" }
         guard !rows.isEmpty else { continue }
-        let n = Double(rows.reduce(0) { $0 + $1.samples })
-        let accuracy = rows.reduce(0.0) { $0 + $1.withinTwo * Double($1.samples) } / n
-        if accuracy < thresholds[group + "MinWithinTwo"]! { failures.append("\(group): tracking accuracy regressed") }
-        if Double(rows.reduce(0) { $0 + $1.wrongJumps }) > thresholds[group + "MaxWrongJumps"]! { failures.append("\(group): wrong jumps regressed") }
-        if Double(rows.reduce(0) { $0 + $1.holdViolations }) > thresholds[group + "MaxHoldViolations"]! { failures.append("\(group): hold behavior regressed") }
-        let attempts = rows.filter(\.recoveryAttempted)
-        if attempts.contains(where: { $0.recoverySeconds == nil }) { failures.append("\(group): failed to recover") }
-        if percentile(attempts.compactMap(\.recoverySeconds), 0.95) > thresholds[group + "MaxRecoveryP95"]! { failures.append("\(group): recovery time regressed") }
+        let url = URL(fileURLWithPath: "docs/evaluation/\(group).json")
+        let reference = try JSONDecoder().decode(Report.self, from: Data(contentsOf: url))
+        guard reference.corpusVersion == ReplayCorpus.version,
+              reference.corpusSHA256 == (try corpusDigest(cases.filter { $0.split == group })) else {
+            print("FAIL: corpus changed for \(group); review and version fixtures explicitly"); exit(1)
+        }
+        let expected = reference.cases.filter { $0.algorithm == "CameraCue" }
+        if rows.count != expected.count { failures.append("\(group): case count changed") }
+        for row in rows {
+            let key = "\(group)/\(row.speech)/\(row.scenario)/\(row.seed)"
+            guard let prior = expected.first(where: { $0.speech == row.speech && $0.scenario == row.scenario && $0.seed == row.seed }) else {
+                failures.append(key + ": missing reference"); continue
+            }
+            if row.samples != prior.samples || row.withinTwo + 0.000001 < prior.withinTwo || row.meanAbsoluteError > prior.meanAbsoluteError + 0.000001 {
+                failures.append(key + ": position accuracy regressed")
+            }
+            if row.wrongMoves > prior.wrongMoves || row.wrongJumps > prior.wrongJumps || row.holdViolations > prior.holdViolations {
+                failures.append(key + ": unsafe movement regressed")
+            }
+            if let seconds = prior.recoverySeconds, row.recoverySeconds == nil || row.recoverySeconds! > seconds + 0.001 {
+                failures.append(key + ": recovery regressed")
+            }
+            if row.unavailableLagSamples > prior.unavailableLagSamples || row.lagP95Seconds > prior.lagP95Seconds + 0.001 { failures.append(key + ": modeled highlight lag regressed") }
+        }
     }
     if !failures.isEmpty { for failure in failures { print("FAIL: " + failure) }; exit(1) }
-    print("Voice Follow regression gates passed.")
+    print("Voice Follow per-case regression gates passed.")
 }

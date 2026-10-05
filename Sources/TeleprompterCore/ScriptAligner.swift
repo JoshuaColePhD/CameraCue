@@ -13,7 +13,7 @@ public struct AlignmentUpdate: Sendable {
 
 /// Aligns the trailing words of a partial speech transcript to the script.
 /// The search expands only after repeated misses; silence never calls this API.
-public final class ScriptAligner: @unchecked Sendable {
+public final class ScriptAligner {
     public private(set) var position = 0
     public private(set) var misses = 0
     public var maximumAutomaticJump = 42
@@ -31,8 +31,11 @@ public final class ScriptAligner: @unchecked Sendable {
     public func align(_ transcript: String) -> AlignmentUpdate {
         let spoken = TranscriptNormalizer.tokens(transcript)
         guard !spoken.isEmpty, !script.tokens.isEmpty else { return hold(0..<script.tokens.count) }
+        let normalized = spoken.joined(separator: " ")
+        guard normalized != lastTranscript else { return hold(0..<script.tokens.count) }
+        lastTranscript = normalized
         let tail = Array(spoken.suffix(10))
-        let back = 20
+        let back = misses >= 2 ? 80 : 20
         let ahead = misses >= 4 ? 260 : (misses >= 2 ? 120 : 42)
         let range = max(0, position - back)..<min(script.tokens.count, position + ahead + 1)
         // Candidate windows overlap heavily. Compute fuzzy word comparisons once
@@ -40,7 +43,7 @@ public final class ScriptAligner: @unchecked Sendable {
         let contextStart = max(0, range.lowerBound - 15)
         let context = Array(script.tokens[contextStart..<range.upperBound])
         let similarities = tail.map { word in context.map { similarity(word, $0) } }
-        var best = (score: -Double.infinity, endpoint: position, matches: 0, phrase: "")
+        var best = (score: -Double.infinity, endpoint: position, matches: 0, phrase: "", quality: 0.0)
         for endpoint in range {
             let start = max(0, endpoint - 15)
             let candidate = Array(script.tokens[start...endpoint])
@@ -48,10 +51,10 @@ public final class ScriptAligner: @unchecked Sendable {
             guard result.matches >= 2 else { continue }
             // Ambiguous repeated phrases are resolved toward the current position.
             let distance = abs(endpoint - position)
-            let proximityPenalty = Double(distance) * (misses >= 4 ? 0.006 : 0.015)
+            let proximityPenalty = min(0.20, Double(distance) * 0.008)
             let backwardPenalty = endpoint < position - 4 ? 0.18 : 0
             let total = result.quality - proximityPenalty - backwardPenalty
-            if total > best.score { best = (total, endpoint, result.matches, result.phrase) }
+            if total > best.score { best = (total, endpoint, result.matches, result.phrase, result.quality) }
         }
         let required = misses >= 3 ? 0.47 : 0.42
         guard best.score >= required else {
@@ -59,11 +62,16 @@ public final class ScriptAligner: @unchecked Sendable {
             return hold(range, score: max(0, best.score))
         }
         let jump = best.endpoint - position
-        if jump > maximumAutomaticJump && (best.score < 0.77 || best.matches < 4 || misses < 2) {
+        // Short phrases recur often. Require more context before a sizeable move.
+        if abs(jump) > 8 && best.matches < 4 {
             misses += 1
             return hold(range, score: best.score)
         }
-        if jump < -6 && (best.score < 0.82 || best.matches < 4) {
+        if jump > maximumAutomaticJump && (best.quality < 0.85 || best.matches < 4 || misses < 2) {
+            misses += 1
+            return hold(range, score: best.score)
+        }
+        if jump < -6 && (best.quality < 0.90 || best.matches < 4) {
             misses += 1
             return hold(range, score: best.score)
         }
@@ -72,8 +80,8 @@ public final class ScriptAligner: @unchecked Sendable {
         // are allowed for restarts, while filler and ad-libs leave the position unchanged.
         position = best.endpoint
         misses = 0
-        lastTranscript = transcript
-        let confidence: AlignmentConfidence = best.score >= 0.72 ? .high : .medium
+        lastTranscript = normalized
+        let confidence: AlignmentConfidence = best.quality >= 0.85 ? .high : .medium
         return AlignmentUpdate(tokenIndex: position, confidence: confidence, score: best.score, matchedPhrase: best.phrase, searchRange: range, moved: prior != position)
     }
 

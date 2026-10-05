@@ -62,4 +62,36 @@ final class ScriptAlignerTests: XCTestCase {
         for _ in 0..<4 { _ = aligner.align("The wooden horse came through the gate") }
         XCTAssertGreaterThan(aligner.position, 18)
     }
+    func testDuplicateMissesCannotUnlockDistantRecovery() {
+        let source = "Alpha bravo charlie. " + Array(repeating: "interlude", count: 65).joined(separator: " ") + " The wooden horse entered through the gate."
+        let aligner = ScriptAligner(script: ScriptDocument(source))
+        _ = aligner.align("alpha bravo charlie")
+        _ = aligner.align("the wooden horse")
+        let misses = aligner.misses
+        for _ in 0..<20 { _ = aligner.align("the wooden horse") }
+        XCTAssertEqual(aligner.misses, misses)
+        XCTAssertEqual(aligner.position, 2)
+        _ = aligner.align("the wooden horse entered")
+        let recovered = aligner.align("the wooden horse entered through")
+        XCTAssertNotEqual(recovered.confidence, .low)
+        XCTAssertGreaterThan(recovered.tokenIndex, 65)
+    }
+
+    func testShortRepeatedPhraseCannotCauseLargeJump() {
+        let aligner = ScriptAligner(script: ScriptDocument("We begin here. A few words establish the opening. We choose the moon in this decade."))
+        aligner.reset(to: 2)
+        let update = aligner.align("the moon in")
+        XCTAssertEqual(update.tokenIndex, 2)
+        XCTAssertEqual(update.confidence, .low)
+    }
+
+    func testStrongBackwardRestartUsesRawMatchQuality() {
+        let source = "The wooden horse entered through the gate. " + Array(repeating: "interlude", count: 14).joined(separator: " ") + " We begin the closing remarks now."
+        let aligner = ScriptAligner(script: ScriptDocument(source))
+        aligner.reset(to: 20)
+        let update = aligner.align("the wooden horse entered through the gate")
+        XCTAssertEqual(update.tokenIndex, 6)
+        XCTAssertNotEqual(update.confidence, .low)
+    }
+
 }
