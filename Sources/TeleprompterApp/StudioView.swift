@@ -49,238 +49,9 @@ struct StudioView: View {
 
     var body: some View {
         NavigationSplitView(columnVisibility: $columnVisibility) {
-            VStack(spacing: 0) {
-                HStack {
-                    VStack(alignment: .leading, spacing: 2) {
-                        HStack(spacing: 7) {
-                            CameraCueLogo(size: 28)
-                            Text("CAMERACUE")
-                                .font(.system(size: 12, weight: .bold, design: .rounded))
-                                .tracking(2)
-                        }
-                        .foregroundStyle(StudioPalette.ink)
-                        Text("Your scripts")
-                            .font(.system(size: 12))
-                            .foregroundStyle(StudioPalette.mutedInk)
-                    }
-                    Spacer()
-                    Button { createScript() } label: { CueIcon(.plus, size: 16) }
-                        .buttonStyle(StudioButtonStyle())
-                        .foregroundStyle(StudioPalette.violet)
-                        .accessibilityLabel("New script")
-                        .help("New script")
-                }
-                .padding(18)
-                VStack(spacing: 4) {
-                    sidebarDestination("Home", systemImage: "house", selected: !showingRecordings && showingLibrary && dashboardHome && libraryFilter == .all) {
-                        showDashboard(home: true)
-                    }
-                    sidebarDestination("All scripts", systemImage: "square.grid.2x2", selected: !showingRecordings && showingLibrary && !dashboardHome && libraryFilter != .favorites) {
-                        showDashboard(home: false)
-                    }
-                    sidebarDestination("Favorites", systemImage: "star", selected: !showingRecordings && showingLibrary && libraryFilter == .favorites) {
-                        showDashboard(home: false, filter: .favorites)
-                    }
-                    sidebarDestination("Recordings", systemImage: "video", selected: showingRecordings) {
-                        showingRecordings = true
-                    }.disabled(model.displayIsLocked).help(model.displayIsLocked ? "Finish the current take before reviewing recordings" : "Browse saved MP4 recordings")
-                }.padding(.horizontal, 14)
-                if !showingLibrary {
-                TextField("Search scripts", text: $search)
-                    .textFieldStyle(.plain)
-                    .padding(.horizontal, 11)
-                    .padding(.vertical, 8)
-                    .background(StudioPalette.surface.opacity(0.8), in: RoundedRectangle(cornerRadius: 10))
-                    .overlay(RoundedRectangle(cornerRadius: 10).stroke(StudioPalette.outline.opacity(0.7)))
-                    .padding(.horizontal, 14).padding(.top, 10)
-                }
-                Text("RECENT SCRIPTS").font(.system(size: 10, weight: .semibold)).tracking(1)
-                    .foregroundStyle(StudioPalette.mutedInk).frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.horizontal, 22).padding(.top, 20).padding(.bottom, 4)
-                List {
-                    ForEach(Array(ScriptDashboardQuery.sidebarResults(library.dashboardEntries(), search: showingLibrary || showingRecordings ? "" : search).prefix(4))) { entry in
-                        Button { openScript(entry.script, at: .write) } label: {
-                        HStack(spacing: 11) {
-                            CueIcon(entry.isReady ? .reader : .write, size: 16, badge: false)
-                                .foregroundStyle(StudioPalette.violet)
-                            VStack(alignment: .leading, spacing: 3) {
-                                Text(entry.title)
-                                    .lineLimit(1)
-                                    .fontWeight(.semibold)
-                                    .foregroundStyle(StudioPalette.ink)
-                                Text(entry.isReady ? "\(entry.text.wordCount) words · \(entry.text.durationLabel)" : "Blank draft")
-                                    .font(.system(size: 10))
-                                    .lineLimit(1)
-                                    .foregroundStyle(StudioPalette.mutedInk)
-                            }
-                        }
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(.vertical, 4)
-                        .contentShape(Rectangle())
-                        }
-                        .buttonStyle(CueSidebarButtonStyle())
-                        .accessibilityLabel("Open \(entry.title)")
-                        .accessibilityValue(entry.id == library.selectedID && !showingLibrary ? "Selected" : "")
-                        .listRowBackground(entry.id == library.selectedID && !showingLibrary
-                                           ? StudioPalette.lavender.opacity(0.35) : Color.clear)
-                    }
-                }
-                .listStyle(.sidebar)
-                .scrollContentBackground(.hidden)
-                HStack {
-                    Button { showsImporter = true } label: {
-                        StudioLabel("Import", systemImage: "square.and.arrow.down")
-                            .lineLimit(1)
-                    }
-                    .buttonStyle(.borderless)
-                    Spacer()
-                    Menu {
-                        Button("Detached Reading Window") { openWindow(id: "prompter") }
-                        if library.selected?.performance != nil {
-                            Button("Remove Performance Style") { library.clearPerformanceStyle() }
-                        }
-                        Divider()
-                        Button("Duplicate Script") { library.duplicate() }
-                        Button("Delete Script", role: .destructive) { deleteTarget = library.selected; showsDeleteConfirmation = true }
-                            .disabled(library.scripts.count < 2)
-                    } label: { CueIcon(systemName: "ellipsis.circle") }
-                        .menuStyle(.borderlessButton).accessibilityLabel("Script actions").help("Script actions")
-                }
-                .foregroundStyle(StudioPalette.violet)
-                .padding(16)
-            }
-            .navigationSplitViewColumnWidth(min: 218, ideal: 234, max: 280)
-            .toolbar(removing: .sidebarToggle)
-            .background(StudioPalette.sidebar)
+            studioSidebar
         } detail: {
-            if showingRecordings {
-                RecordingsLibrary(video: model.video)
-            } else if showingLibrary {
-                ScriptLibraryHome(entries: library.dashboardEntries(), selectedID: UUID(uuidString: lastWorkingScript),
-                                  search: $search, filter: $libraryFilter, sort: $librarySort,
-                                  canRehearse: !model.displayIsLocked,
-                                  storageNotice: library.storageError ?? library.recoveryNotice,
-                                  isHome: dashboardHome,
-                                  importProgress: dashboardFormatting.progress,
-                                  latestImportID: dashboardFormatting.latestID,
-                                  importingTitle: dashboardFormatting.importingTitle,
-                                  onRetryFormatting: { dashboardFormatting.start($0, library: library) },
-                                  canDelete: library.scripts.count > 1,
-                                  onViewAll: { showDashboard(home: false) }, onNew: createScript, onImport: { showsImporter = true }, onDevelop: {
-                    openDevelopment(fromCurrentScript: false)
-                }, onOpen: { script, destination in
-                    openScript(script, at: destination)
-                }, onRename: { script in
-                    renameTitle = script.title; renameTarget = script
-                }, onDuplicate: { script in
-                    if let copy = library.duplicate(id: script.id) { openScript(copy, at: .write) }
-                }, onFavorite: { library.toggleFavorite(id: $0.id) }, onDelete: { script in
-                    deleteTarget = script; showsDeleteConfirmation = true
-                }, onDrop: handleDrop)
-            } else {
-            GeometryReader { detailGeometry in
-            VStack(spacing: 0) {
-                HStack {
-                    Button { showingLibrary = true } label: { StudioLabel("Scripts", .back) }.buttonStyle(StudioButtonStyle())
-                    Spacer()
-                    Picker("Workflow", selection: $step) {
-                        ForEach(StudioStep.allCases, id: \.self) { Text($0.rawValue).tag($0) }
-                    }.pickerStyle(.segmented).labelsHidden().frame(width: 240)
-                    Spacer()
-                    if step != .write {
-                    Button { showsRecordingSettings.toggle() } label: {
-                        StudioLabel("Camera & recording", systemImage: "video")
-                    }.buttonStyle(StudioButtonStyle())
-                        .help("Choose a camera, preview yourself, and set up MP4 recording")
-
-                    }
-                }.padding(.horizontal, 24).padding(.vertical, 12).background(StudioPalette.surface)
-                if step != .write {
-                    PresentationWorkspace(model: model, notch: notch, library: library, step: $step)
-                } else {
-            VStack(spacing: 0) {
-                VStack(alignment: .leading, spacing: 12) {
-                    TextField("Script title", text: title)
-                        .font(.system(size: 28, weight: .semibold, design: .rounded))
-                        .textFieldStyle(.plain).foregroundStyle(StudioPalette.ink).lineLimit(1)
-                        .accessibilityLabel("Script title")
-                    Text("\(library.storageError == nil ? "Saved" : "Not saved") · \(editableWordCount) words · \(selectedTextSummary.durationLabel)")
-                        .font(.system(size: 12)).foregroundStyle(StudioPalette.mutedInk)
-                    ViewThatFits(in: .horizontal) {
-                        HStack(spacing: 8) { writingTools; Spacer(minLength: 8); prepareAction }
-                        VStack(alignment: .leading, spacing: 8) { HStack(spacing: 8) { writingTools }; prepareAction }
-                    }
-                }.padding(.horizontal, 24).padding(.vertical, 16)
-                    .frame(maxWidth: .infinity, alignment: .leading).background(StudioPalette.surface)
-                Divider()
-                HStack(spacing: 0) {
-                    VStack(alignment: .leading, spacing: 14) {
-                        if library.selected?.body.isEmpty == true {
-                            HStack(spacing: 8) {
-                                Button("Import text") { showsImporter = true }.buttonStyle(StudioButtonStyle())
-                                Button("Draft with AI") { openDevelopment(fromCurrentScript: false) }.buttonStyle(StudioButtonStyle())
-                            }
-                        }
-                        ScriptEditingWorkspace(library: library).id(library.selectedID)
-                        if model.hasPendingScriptChanges {
-                            Text("Changes saved for your next take. Restart from Beginning to use them.")
-                                .font(.caption).foregroundStyle(StudioPalette.violet)
-                        }
-                        if let storageError = library.storageError {
-                            StudioLabel(storageError, systemImage: "exclamationmark.triangle")
-                                .font(.caption).foregroundStyle(.orange)
-                        } else if let recoveryNotice = library.recoveryNotice {
-                            StudioLabel(recoveryNotice, systemImage: "externaldrive.badge.exclamationmark")
-                                .font(.caption).foregroundStyle(.orange)
-                        } else if autoStylingScriptID == library.selectedID {
-                            HStack(spacing: 7) {
-                                ProgressView().controlSize(.small)
-                                Text("Formatting the imported script with on-device AI…")
-                            }
-                            .font(.caption).foregroundStyle(StudioPalette.violet)
-                        } else if styleNoticeScriptID == library.selectedID, let styleNotice {
-                            StudioLabel((formattingSucceeded ? "Formatting complete · " : "Formatting needs attention · ") + styleNotice,
-                                     formattingSucceeded ? .check : .warning)
-                                .font(.caption).foregroundStyle(StudioPalette.ink)
-                        } else {
-                            Text(isStyling ? "Finding dramatic beats and readable spacing…" : "")
-                                .font(.caption).foregroundStyle(.secondary)
-                        }
-                    }
-                    .padding(24)
-                    .frame(maxWidth: .infinity)
-                    .background(StudioPalette.canvas)
-                    if previewChoice {
-                    Divider()
-                    VStack(alignment: .leading, spacing: 15) {
-                        HStack {
-                            Text("READING PREVIEW")
-                                .font(.system(size: 11, weight: .bold)).tracking(1.5)
-                                .foregroundStyle(StudioPalette.violet)
-                            Spacer()
-                            if library.selected?.performance != nil {
-                                Text(library.selected?.performance?.usedAI == true ? "AI STYLED" : "LOCAL STYLE")
-                                    .font(.system(size: 9, weight: .bold))
-                                    .foregroundStyle(StudioPalette.violet)
-                            }
-                        }
-                        ScriptReadingPreview(script: library.selected)
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        Text("Next: rehearse at actual notch size, then check your setup before presenting.")
-                            .font(.caption).foregroundStyle(StudioPalette.mutedInk)
-                    }
-                    .padding(24)
-                    .frame(width: 280)
-                    .background(StudioPalette.surface)
-                    }
-                }
-            }
-            .background(StudioPalette.canvas)
-                }
-            }
-
-            }
-            }
+            studioDetail
         }
         .font(.system(size: 14))
         .toolbar(removing: .sidebarToggle)
@@ -412,6 +183,243 @@ struct StudioView: View {
         }
         .onChange(of: library.selected?.performance?.id) { _, _ in if let script = library.selected { model.load(script) } }
         .tint(StudioPalette.violet)
+    }
+
+    private var studioSidebar: some View {
+            VStack(spacing: 0) {
+                HStack {
+                    VStack(alignment: .leading, spacing: 2) {
+                        HStack(spacing: 7) {
+                            CameraCueLogo(size: 28)
+                            Text("CAMERACUE")
+                                .font(.system(size: 12, weight: .bold, design: .rounded))
+                                .tracking(2)
+                        }
+                        .foregroundStyle(StudioPalette.ink)
+                        Text("Your scripts")
+                            .font(.system(size: 12))
+                            .foregroundStyle(StudioPalette.mutedInk)
+                    }
+                    Spacer()
+                    Button { createScript() } label: { CueIcon(.plus, size: 16) }
+                        .buttonStyle(StudioButtonStyle())
+                        .foregroundStyle(StudioPalette.violet)
+                        .accessibilityLabel("New script")
+                        .help("New script")
+                }
+                .padding(18)
+                VStack(spacing: 4) {
+                    sidebarDestination("Home", systemImage: "house", selected: !showingRecordings && showingLibrary && dashboardHome && libraryFilter == .all) {
+                        showDashboard(home: true)
+                    }
+                    sidebarDestination("All scripts", systemImage: "square.grid.2x2", selected: !showingRecordings && showingLibrary && !dashboardHome && libraryFilter != .favorites) {
+                        showDashboard(home: false)
+                    }
+                    sidebarDestination("Favorites", systemImage: "star", selected: !showingRecordings && showingLibrary && libraryFilter == .favorites) {
+                        showDashboard(home: false, filter: .favorites)
+                    }
+                    sidebarDestination("Recordings", systemImage: "video", selected: showingRecordings) {
+                        showingRecordings = true
+                    }.disabled(model.displayIsLocked).help(model.displayIsLocked ? "Finish the current take before reviewing recordings" : "Browse saved MP4 recordings")
+                }.padding(.horizontal, 14)
+                if !showingLibrary {
+                TextField("Search scripts", text: $search)
+                    .textFieldStyle(.plain)
+                    .padding(.horizontal, 11)
+                    .padding(.vertical, 8)
+                    .background(StudioPalette.surface.opacity(0.8), in: RoundedRectangle(cornerRadius: 10))
+                    .overlay(RoundedRectangle(cornerRadius: 10).stroke(StudioPalette.outline.opacity(0.7)))
+                    .padding(.horizontal, 14).padding(.top, 10)
+                }
+                Text("RECENT SCRIPTS").font(.system(size: 10, weight: .semibold)).tracking(1)
+                    .foregroundStyle(StudioPalette.mutedInk).frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.horizontal, 22).padding(.top, 20).padding(.bottom, 4)
+                List {
+                    ForEach(Array(ScriptDashboardQuery.sidebarResults(library.dashboardEntries(), search: showingLibrary || showingRecordings ? "" : search).prefix(4))) { entry in
+                        Button { openScript(entry.script, at: .write) } label: {
+                        HStack(spacing: 11) {
+                            CueIcon(entry.isReady ? .reader : .write, size: 16, badge: false)
+                                .foregroundStyle(StudioPalette.violet)
+                            VStack(alignment: .leading, spacing: 3) {
+                                Text(entry.title)
+                                    .lineLimit(1)
+                                    .fontWeight(.semibold)
+                                    .foregroundStyle(StudioPalette.ink)
+                                Text(entry.isReady ? "\(entry.text.wordCount) words · \(entry.text.durationLabel)" : "Blank draft")
+                                    .font(.system(size: 10))
+                                    .lineLimit(1)
+                                    .foregroundStyle(StudioPalette.mutedInk)
+                            }
+                        }
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.vertical, 4)
+                        .contentShape(Rectangle())
+                        }
+                        .buttonStyle(CueSidebarButtonStyle())
+                        .accessibilityLabel("Open \(entry.title)")
+                        .accessibilityValue(entry.id == library.selectedID && !showingLibrary ? "Selected" : "")
+                        .listRowBackground(entry.id == library.selectedID && !showingLibrary
+                                           ? StudioPalette.lavender.opacity(0.35) : Color.clear)
+                    }
+                }
+                .listStyle(.sidebar)
+                .scrollContentBackground(.hidden)
+                HStack {
+                    Button { showsImporter = true } label: {
+                        StudioLabel("Import", systemImage: "square.and.arrow.down")
+                            .lineLimit(1)
+                    }
+                    .buttonStyle(.borderless)
+                    Spacer()
+                    Menu {
+                        Button("Detached Reading Window") { openWindow(id: "prompter") }
+                        if library.selected?.performance != nil {
+                            Button("Remove Performance Style") { library.clearPerformanceStyle() }
+                        }
+                        Divider()
+                        Button("Duplicate Script") { library.duplicate() }
+                        Button("Delete Script", role: .destructive) { deleteTarget = library.selected; showsDeleteConfirmation = true }
+                            .disabled(library.scripts.count < 2)
+                    } label: { CueIcon(systemName: "ellipsis.circle") }
+                        .menuStyle(.borderlessButton).accessibilityLabel("Script actions").help("Script actions")
+                }
+                .foregroundStyle(StudioPalette.violet)
+                .padding(16)
+            }
+            .navigationSplitViewColumnWidth(min: 218, ideal: 234, max: 280)
+            .toolbar(removing: .sidebarToggle)
+            .background(StudioPalette.sidebar)
+    }
+
+    @ViewBuilder private var studioDetail: some View {
+            if showingRecordings {
+                RecordingsLibrary(video: model.video)
+            } else if showingLibrary {
+                ScriptLibraryHome(entries: library.dashboardEntries(), selectedID: UUID(uuidString: lastWorkingScript),
+                                  search: $search, filter: $libraryFilter, sort: $librarySort,
+                                  canRehearse: !model.displayIsLocked,
+                                  storageNotice: library.storageError ?? library.recoveryNotice,
+                                  isHome: dashboardHome,
+                                  importProgress: dashboardFormatting.progress,
+                                  latestImportID: dashboardFormatting.latestID,
+                                  importingTitle: dashboardFormatting.importingTitle,
+                                  onRetryFormatting: { dashboardFormatting.start($0, library: library) },
+                                  canDelete: library.scripts.count > 1,
+                                  onViewAll: { showDashboard(home: false) }, onNew: createScript, onImport: { showsImporter = true }, onDevelop: {
+                    openDevelopment(fromCurrentScript: false)
+                }, onOpen: { script, destination in
+                    openScript(script, at: destination)
+                }, onRename: { script in
+                    renameTitle = script.title; renameTarget = script
+                }, onDuplicate: { script in
+                    if let copy = library.duplicate(id: script.id) { openScript(copy, at: .write) }
+                }, onFavorite: { library.toggleFavorite(id: $0.id) }, onDelete: { script in
+                    deleteTarget = script; showsDeleteConfirmation = true
+                }, onDrop: handleDrop)
+            } else {
+            GeometryReader { detailGeometry in
+            VStack(spacing: 0) {
+                HStack {
+                    Button { showingLibrary = true } label: { StudioLabel("Scripts", .back) }.buttonStyle(StudioButtonStyle())
+                    Spacer()
+                    Picker("Workflow", selection: $step) {
+                        ForEach(StudioStep.allCases, id: \.self) { Text($0.rawValue).tag($0) }
+                    }.pickerStyle(.segmented).labelsHidden().frame(width: 240)
+                    Spacer()
+                    if step != .write {
+                    Button { showsRecordingSettings.toggle() } label: {
+                        StudioLabel("Camera & recording", systemImage: "video")
+                    }.buttonStyle(StudioButtonStyle())
+                        .help("Choose a camera, preview yourself, and set up MP4 recording")
+
+                    }
+                }.padding(.horizontal, 24).padding(.vertical, 12).background(StudioPalette.surface)
+                if step != .write {
+                    PresentationWorkspace(model: model, notch: notch, library: library, step: $step)
+                } else {
+            VStack(spacing: 0) {
+                VStack(alignment: .leading, spacing: 12) {
+                    TextField("Script title", text: title)
+                        .font(.system(size: 28, weight: .semibold, design: .rounded))
+                        .textFieldStyle(.plain).foregroundStyle(StudioPalette.ink).lineLimit(1)
+                        .accessibilityLabel("Script title")
+                    Text("\(library.storageError == nil ? "Saved" : "Not saved") · \(editableWordCount) words · \(selectedTextSummary.durationLabel)")
+                        .font(.system(size: 12)).foregroundStyle(StudioPalette.mutedInk)
+                    ViewThatFits(in: .horizontal) {
+                        HStack(spacing: 8) { writingTools; Spacer(minLength: 8); prepareAction }
+                        VStack(alignment: .leading, spacing: 8) { HStack(spacing: 8) { writingTools }; prepareAction }
+                    }
+                }.padding(.horizontal, 24).padding(.vertical, 16)
+                    .frame(maxWidth: .infinity, alignment: .leading).background(StudioPalette.surface)
+                Divider()
+                HStack(spacing: 0) {
+                    VStack(alignment: .leading, spacing: 14) {
+                        if library.selected?.body.isEmpty == true {
+                            HStack(spacing: 8) {
+                                Button("Import text") { showsImporter = true }.buttonStyle(StudioButtonStyle())
+                                Button("Draft with AI") { openDevelopment(fromCurrentScript: false) }.buttonStyle(StudioButtonStyle())
+                            }
+                        }
+                        ScriptEditingWorkspace(library: library).id(library.selectedID)
+                        if model.hasPendingScriptChanges {
+                            Text("Changes saved for your next take. Restart from Beginning to use them.")
+                                .font(.caption).foregroundStyle(StudioPalette.violet)
+                        }
+                        if let storageError = library.storageError {
+                            StudioLabel(storageError, systemImage: "exclamationmark.triangle")
+                                .font(.caption).foregroundStyle(.orange)
+                        } else if let recoveryNotice = library.recoveryNotice {
+                            StudioLabel(recoveryNotice, systemImage: "externaldrive.badge.exclamationmark")
+                                .font(.caption).foregroundStyle(.orange)
+                        } else if autoStylingScriptID == library.selectedID {
+                            HStack(spacing: 7) {
+                                ProgressView().controlSize(.small)
+                                Text("Formatting the imported script with on-device AI…")
+                            }
+                            .font(.caption).foregroundStyle(StudioPalette.violet)
+                        } else if styleNoticeScriptID == library.selectedID, let styleNotice {
+                            StudioLabel((formattingSucceeded ? "Formatting complete · " : "Formatting needs attention · ") + styleNotice,
+                                     formattingSucceeded ? .check : .warning)
+                                .font(.caption).foregroundStyle(StudioPalette.ink)
+                        } else {
+                            Text(isStyling ? "Finding dramatic beats and readable spacing…" : "")
+                                .font(.caption).foregroundStyle(.secondary)
+                        }
+                    }
+                    .padding(24)
+                    .frame(maxWidth: .infinity)
+                    .background(StudioPalette.canvas)
+                    if previewChoice {
+                    Divider()
+                    VStack(alignment: .leading, spacing: 15) {
+                        HStack {
+                            Text("READING PREVIEW")
+                                .font(.system(size: 11, weight: .bold)).tracking(1.5)
+                                .foregroundStyle(StudioPalette.violet)
+                            Spacer()
+                            if library.selected?.performance != nil {
+                                Text(library.selected?.performance?.usedAI == true ? "AI STYLED" : "LOCAL STYLE")
+                                    .font(.system(size: 9, weight: .bold))
+                                    .foregroundStyle(StudioPalette.violet)
+                            }
+                        }
+                        ScriptReadingPreview(script: library.selected)
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        Text("Next: rehearse at actual notch size, then check your setup before presenting.")
+                            .font(.caption).foregroundStyle(StudioPalette.mutedInk)
+                    }
+                    .padding(24)
+                    .frame(width: 280)
+                    .background(StudioPalette.surface)
+                    }
+                }
+            }
+            .background(StudioPalette.canvas)
+                }
+            }
+
+            }
+            }
     }
 
     private var writingTools: some View {

@@ -77,7 +77,7 @@ final class ProcessedMovieWriter: @unchecked Sendable {
     private func checkError() throws {
         if writer.status == .failed { throw writer.error ?? RecordingFailure.message("Video recording failed.") }
     }
-    func finish(_ completion: @escaping (Result<URL, Error>) -> Void) {
+    func finish(_ completion: @escaping @Sendable (Result<URL, Error>) -> Void) {
         encoderLock.lock(); defer { encoderLock.unlock() }
         guard writtenFrames > 0 else { writer.cancelWriting(); completion(.failure(RecordingFailure.message("No camera frames arrived. Check the camera and try again."))); return }
         guard writer.status == .writing else { completion(.failure(writer.error ?? RecordingFailure.message("Video recording failed."))); return }

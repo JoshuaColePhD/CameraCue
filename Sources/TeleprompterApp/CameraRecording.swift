@@ -264,12 +264,20 @@ enum CameraSessionWork {
     static let queue = DispatchQueue(label: "CameraCue.movie-capture")
 }
 
+// Immutable transport reference. Session work and preview connection updates
+// are confined to CameraSessionWork.queue; no session operation runs here.
+private final class QueuedCameraSession: @unchecked Sendable {
+    let value: AVCaptureSession?
+    init(_ value: AVCaptureSession?) { self.value = value }
+}
+
 final class CameraPreviewLayerReference: @unchecked Sendable {
     let layer: AVCaptureVideoPreviewLayer
     init(_ layer: AVCaptureVideoPreviewLayer) { self.layer = layer }
     func connect(_ session: AVCaptureSession?) {
+        let reference = QueuedCameraSession(session)
         CameraSessionWork.queue.async { [self] in
-            layer.session = session
+            layer.session = reference.value
             if let connection = layer.connection {
                 CameraMirroring.apply(to: connection, mirrored: true)
             }
