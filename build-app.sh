@@ -19,8 +19,9 @@ else
 fi
 app="$PWD/dist/CameraCue.app"
 mkdir -p "$app/Contents/MacOS" "$app/Contents/Resources"
-cp ".build/out/Products/$product_directory/Teleprompter" "$app/Contents/MacOS/CameraCue"
-ditto ".build/out/Products/$product_directory/Teleprompter_TeleprompterApp.bundle" "$app/Contents/Resources/Teleprompter_TeleprompterApp.bundle"
+binary_directory="$(swift build --disable-sandbox -c "$configuration" --show-bin-path)"
+cp "$binary_directory/Teleprompter" "$app/Contents/MacOS/CameraCue"
+ditto "$binary_directory/Teleprompter_TeleprompterApp.bundle" "$app/Contents/Resources/Teleprompter_TeleprompterApp.bundle"
 python3 scripts/package-app-icon.py Assets/CameraCueIcon.png Assets/CameraCue.icns
 cp Assets/CameraCue.icns "$app/Contents/Resources/CameraCue.icns"
 cat > "$app/Contents/Info.plist" <<'PLIST'

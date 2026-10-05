@@ -1,0 +1,61 @@
+name: macOS CI
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: macos-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  verify:
+    runs-on: macos-15
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Select stable Xcode 26 or later
+        shell: bash
+        run: |
+          XCODE=$(python3 - <<'PY'
+          import glob, plistlib, re
+          candidates = []
+          for path in glob.glob('/Applications/Xcode*.app'):
+              if re.search(r'beta|rc|preview', path, re.I): continue
+              with open(path + '/Contents/Info.plist', 'rb') as f:
+                  version = plistlib.load(f)['CFBundleShortVersionString']
+              parts = tuple(int(x) for x in re.findall(r'\d+', version))
+              if parts[0] >= 26: candidates.append((parts, path))
+          if not candidates: raise SystemExit('Xcode 26+ is required for Swift 6.2 isolation')
+          print(max(candidates)[1] + '/Contents/Developer')
+          PY
+          )
+          sudo xcode-select -s "$XCODE"
+          xcodebuild -version
+          swift --version
+      - name: Test native app and core (Swift 6)
+        shell: bash
+        run: |
+          set -o pipefail
+          mkdir -p ci-results
+          swift test --disable-sandbox 2>&1 | tee ci-results/tests.log
+          python3 scripts/test-summary.py ci-results/tests.log >> "$GITHUB_STEP_SUMMARY"
+      - name: Gate Voice Follow against frozen per-case results
+        shell: bash
+        run: |
+          set -o pipefail
+          ./scripts/evaluate-voice-follow.sh --check --output ci-results/voice-follow.json 2>&1 | tee ci-results/voice-follow.log
+          cat ci-results/voice-follow.log | tail -7 >> "$GITHUB_STEP_SUMMARY"
+      - name: Build and verify local app package
+        run: |
+          ./build-app.sh release
+          codesign --verify --deep --strict dist/CameraCue.app
+          test -x dist/CameraCue.app/Contents/MacOS/CameraCue
+      - name: Upload verification evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: verification-${{ github.sha }}
+          path: ci-results/
+          retention-days: 14
