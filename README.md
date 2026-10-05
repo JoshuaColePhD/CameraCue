@@ -6,6 +6,15 @@
 <p align="center"><strong>Your words, closer to the camera.</strong></p>
 <p align="center">A native Mac studio for writing, rehearsing, and recording presentations.</p>
 
+[![macOS CI](https://github.com/JoshuaColePhD/CameraCue/actions/workflows/macos-ci.yml/badge.svg)](https://github.com/JoshuaColePhD/CameraCue/actions/workflows/macos-ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
+![CameraCue Studio with sample scripts](docs/media/studio.png)
+
+<p align="center"><img src="docs/media/voice-follow.gif" width="548" alt="CameraCue highlights words and scrolls through a sample script" /></p>
+
+*Demo: production reader driven by simulated transcript callbacks. No live camera/microphone recording. [Reader screenshot](docs/media/reader.png).*
+
 ---
 
 CameraCue brings your script, teleprompter, timer, and camera into one workspace. Its compact notch reader sits near the camera, follows your spoken words, and helps you keep track of time—so you can focus on delivering the message.
@@ -85,7 +94,11 @@ CameraCue combines product design with native platform integration, asynchronous
 - **Treat cancellation as part of the workflow:** capture startup and finalization have explicit guards; cancelled file exports clean up their own partial outputs.
 - **Preserve user data across edits:** source recordings remain unchanged, older script metadata remains readable, and missing original-video links fall back to the available recording.
 
-See [DEVELOPMENT.md](DEVELOPMENT.md) for implementation details and [Assets/Backgrounds.md](Assets/Backgrounds.md) for bundled image provenance.
+See [ARCHITECTURE.md](ARCHITECTURE.md) for design decisions and AI-assisted development, [Voice Follow evaluation](docs/VOICE_FOLLOW_EVALUATION.md) for measured results, and [DEVELOPMENT.md](DEVELOPMENT.md) for build details and [Assets/Backgrounds.md](Assets/Backgrounds.md) for bundled image provenance.
+
+### Voice Follow evidence
+
+On the held-out transcript replay, the revised tracker stayed within two tokens on **99.44%** of callbacks, versus **92.63%** for the previous tracker and **89.25%** for an exact-match baseline. It recovered from all 12 scripted skips/restarts with no erroneous jumps. These are synthetic recognizer-error tests on published transcripts, **not measured live ASR performance**. [Read the methodology, results table, and remaining limitations](docs/VOICE_FOLLOW_EVALUATION.md).
 
 ## Try a local build
 
@@ -94,7 +107,7 @@ See [DEVELOPMENT.md](DEVELOPMENT.md) for implementation details and [Assets/Back
 ### Requirements
 
 - macOS 15 or later.
-- Xcode with the macOS 26 SDK or later, a Swift 6-capable toolchain, and command-line tools selected.
+- Xcode with the macOS 26 SDK or later, Swift 6.2 or later, and command-line tools selected.
 - Python 3 for icon packaging; the packaging script uses its standard library and macOS `sips`.
 - Compatible hardware, macOS 26 or later, and an available Apple on-device model for AI drafting. The editor, recorder, and manual prompting do not require that model.
 
@@ -106,7 +119,7 @@ cd CameraCue
 ./build-app.sh release
 ```
 
-The repository is currently private, so cloning requires access. The build produces `dist/CameraCue.app` with an ad hoc signature for local use.
+The build produces `dist/CameraCue.app` with an ad hoc signature for local use.
 
 Quit an idle CameraCue instance before installing:
 
@@ -121,14 +134,15 @@ Distribution to other Macs requires Developer ID signing and notarization.
 
 ```sh
 swift test --disable-sandbox
+./scripts/evaluate-voice-follow.sh --check --output /tmp/voice-follow-results.json
 ```
 
-The latest local verification ran **128 tests with one skipped and zero failures**. Coverage includes alignment, timers, word preservation, library persistence, capture lifecycle, background exports, rotation, cancellation, native controls, and editor selection.
+The [Mac CI workflow](https://github.com/JoshuaColePhD/CameraCue/actions/workflows/macos-ci.yml) reports test totals and uploads verification evidence on every run. Coverage includes alignment, timers, word preservation, library persistence, capture lifecycle, background exports, rotation, cancellation, native controls, and editor selection.
 
 Graphics and encoding tests need access to macOS services. Private recorded-clip checks skip when their local fixture is unavailable; the repository intentionally excludes those videos. Automated tests do not start a live camera or microphone.
 
-Live dual-stream recording, lengthy takes, audio synchronization by listening, and varied monitor arrangements remain hardware acceptance checks. Background segmentation can soften fine edges, and offline processing may take longer than the clip's running time.
+Live speech recognition, dual-stream recording, lengthy takes, audio synchronization by listening, and varied monitor arrangements remain [hardware acceptance checks](docs/ACCEPTANCE.md). Background segmentation can soften fine edges, and offline processing may take longer than the clip's running time.
 
 ---
 
-Created by [Joshua Cole](https://github.com/JoshuaColePhD).
+Created by [Joshua Cole](https://github.com/JoshuaColePhD). Licensed under [MIT](LICENSE).
