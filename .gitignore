@@ -1,0 +1,38 @@
+# Build products and caches
+.build/
+.build-*/
+.swiftpm/
+dist/
+.DS_Store
+*.xcuserstate
+xcuserdata/
+
+# Private local reviews, recordings, and scripts
+ReviewArtifacts/
+QUALITY_REVIEW.md
+IMPLEMENTATION_PLAN.md
+Assets/IconOptions/
+**/scripts.json
+**/scripts-recovery-*.json
+**/*.cameracue.json
+.Originals/
+recordings/
+*.mp4
+*.mov
+*.m4v
+*.wav
+*.caf
+*.mp3
+*.m4a
+
+# Credentials and local configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.mobileprovision
+.codex/
+.agents/
+.aws/
