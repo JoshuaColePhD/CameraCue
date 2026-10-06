@@ -69,3 +69,15 @@ CI evaluates the scoped confidence model against versioned public transcript-err
 `CAMERACUE_ML_MEDIA="$PWD/ReviewArtifacts/MLCorpus/media" swift test --disable-sandbox --filter CoachingMediaTests` renders the feedback panel using synthetic local transcript values. It does not play or capture user media.
 
 Set `CAMERACUE_SIGNING_IDENTITY` to an explicitly authorized existing signing identity for local app/helper builds; the default remains ad hoc for CI. No signing keys are stored in the repository. Public distribution still requires an appropriate Apple signing/notarization workflow. Private file-evaluation fixtures require `--allow-private`; their raw traces remain omitted unless `--write-private-traces` is also explicit.
+
+## Customer distribution
+
+`scripts/package-distribution.sh --prepare` builds the app, signs it with Hardened Runtime and only camera/audio-input entitlements, validates the Developer ID signature, and creates a submission ZIP. Set `CAMERACUE_DEVELOPER_ID` to an explicitly authorized **Developer ID Application** identity. Local personal signing certificates do not qualify.
+
+With an existing notarytool Keychain profile in `CAMERACUE_NOTARY_PROFILE`, invoke `--notarize` explicitly to upload the application to Apple, wait for acceptance, staple and validate its ticket, assess Gatekeeper acceptance, and package `dist/CameraCue-Studio.zip`. The submitted app contains bundled assets and source-built code; user scripts, settings and recordings are not packaged. No passwords or signing keys are stored in the repository.
+
+The workflow has syntax/plist validation only until a Developer ID identity and notarization profile are provided. No customer-notarized build has been produced. A clean-Mac installation check remains required before public release. Apple requirements: [notarization](https://developer.apple.com/documentation/security/notarizing-macos-software-before-distribution), [Hardened Runtime](https://developer.apple.com/documentation/security/hardened-runtime).
+
+## Permission setup reliability
+
+OS camera, microphone and speech permission requests now return after 30 seconds if macOS never completes the callback. Cancellation and late/duplicate callbacks are handled once, so an old grant cannot restart capture. Voice Follow offers Settings after an unsuccessful request and refreshes its ready state when the app becomes active. This prevents indefinite disabled setup controls; it does not bypass macOS permissions or repair a stale privacy/signing attribution automatically.

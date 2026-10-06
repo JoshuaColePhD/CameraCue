@@ -19,3 +19,11 @@ Updated October 5, 2026. This file is tracked so verification references remain 
 - Developer ID signing/notarization and a customer installer. The current build is for local testing.
 
 The code and replay results provide specific evidence, not a claim that every UI flow or hardware configuration is flawless.
+
+## Current recording-readiness check
+
+The installed CameraCue Studio release was inspected natively in Ready. Preparing a take does not start capture. With explicit permission for a short local camera/microphone test, microphone setup remained pending without a visible dialog even though System Settings showed its grant enabled. It eventually completed; camera preview then remained in preparation and was cancelled by leaving Record. No MP4 was saved in this attempt.
+
+Permission requests now have a bounded 30-second wait, ignore late/duplicate callbacks, and release on cancellation. Camera setup has an explicit Cancel action; failed Voice Follow setup offers System Settings. Relevant permission/capture regressions pass. The final application was built, installed and its executable hash and signature verified. These changes make failure recoverable; they do not prove successful live recording or diagnose the OS attribution issue conclusively.
+
+A Developer ID/hardened-runtime/notarization packaging workflow is now provided, with syntax and entitlements validation. Apple identity/profile access and actual notarization, Gatekeeper and clean-Mac acceptance remain pending. The existing personal/local certificate is not a Developer ID distribution certificate.

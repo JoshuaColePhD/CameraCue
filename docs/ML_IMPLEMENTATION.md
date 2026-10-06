@@ -45,7 +45,7 @@ Audio, user recordings and raw traces stay outside the Git repository. Offline m
 
 - [x] Relevant unit/integration tests and existing replay gates pass.
 - [x] Mac CI is green and published evaluation docs match measured evidence.
-- [ ] Inspect native UI with isolated data, build/install and verify the final app.
+- [x] Inspect native UI with isolated data, build/install and verify the final app.
 - [ ] Audit every requirement above before marking the goal complete.
 
 ## Current checkpoint
@@ -53,7 +53,7 @@ Audio, user recordings and raw traces stay outside the Git repository. Offline m
 - Live modern engine and fallback are implemented; automatic selection retains legacy when available and authorized while comparison is pending. Explicit modern mode uses the measured faster reporting option.
 - Local pace learning/reset and recording transcript sidecars are implemented. Delivery review can seek to findings, analyze an existing recording on device, and move feedback to Trash.
 - A licensed sixteen-clip pilot, separate timestamp provenance, 1x evaluation, transcript-error model training, sequential comparison, pacing evaluation, and local boundary-review workflow are implemented.
-- Final native suite and CI pass. Final installation, hardware acceptance, and the full completion audit remain pending.
+- Final native suite and CI pass. Final installation is verified. Hardware acceptance and the full completion audit remain pending.
 - The approved helper permission flow exposed an actor-isolation callback trap. Callbacks are now explicitly Sendable. The corrected legacy run returns an authorization failure; that failed comparison is published rather than omitted.
 
 Measured pilot results and limitations: [AMI pilot](evaluation/ami-pilot/README.md).
@@ -67,7 +67,7 @@ Pacing forecast verification currently uses reliable reference positions; live A
 - The full short-script simulation retains no-candidate observations. Held-out within-two accuracy is 2061/2196 versus 2030/2196 for rules, with zero versus 24 wrong jumps. The optional check is off by default and capped at 88 normalized tokens.
 - The optional check leaves the sixteen real-ASR traces unchanged. No general recognition benefit is claimed for the classifier.
 - Generated MP4 audio extraction and decoding, sidecar timeline/validation, and native lifecycle fixtures pass. The feedback panel was rendered with synthetic data and visually corrected. Installed reading controls and Prepare-to-Present navigation were inspected without capture.
-- Final suite counts are generated from logs rather than maintained here. CI and the built release/signature checks pass; the final installed executable remains to be updated and verified.
+- Final suite counts are generated from logs rather than maintained here. CI and the built release/signature checks pass; the installed CameraCue Studio executable has been updated and verified.
 - Legacy file comparison is unavailable on the current development helper despite an enabled macOS grant. A stable local signing workflow is pending; failed rows remain in the evidence rather than being silently dropped.
 - Actual live-microphone coaching, manually reviewed word boundaries, display-render latency, and physical checks on both displays remain unverified. Raw recordings and ASR traces stay local and are ignored by Git.
 
