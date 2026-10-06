@@ -34,6 +34,7 @@ import TeleprompterCore
     @Published var backgroundOpacity: Double = 0.98
     @Published private(set) var isRunning = false
     @Published private(set) var isStarting = false
+    @Published private(set) var isRestartingTake = false
     @Published private(set) var hasPendingScriptChanges = false
     @Published var sessionStart: Date?
     @Published var timerMode: TimerMode = .countUp {
@@ -181,7 +182,7 @@ import TeleprompterCore
         if summary != nil && !takeInProgress { return .finished }
         return takeInProgress ? .paused : .ready
     }
-    var displayIsLocked: Bool { takeInProgress }
+    var displayIsLocked: Bool { takeInProgress || isRestartingTake }
     func snapshot(at date: Date) -> PresentationSnapshot {
         let status: String
         switch phase {
@@ -348,6 +349,7 @@ import TeleprompterCore
     /// The notch's Record/light control finishes a take; Studio and shortcuts
     /// retain Pause/Resume for temporary interruptions. Video continues through prompting pauses.
     func performNotchRecordAction() async {
+        guard !isRestartingTake else { return }
         switch phase {
         case .running: finish()
         case .starting, .countIn: pause()
@@ -411,7 +413,23 @@ import TeleprompterCore
         sessionStart = nil; presentationClock.reset()
         if let latestScript { load(latestScript) }
     }
-    /// A restart is explicit: apply pending edits, return to the start, and stay paused.
+    /// Save the interrupted recording before starting a distinct new file.
+    func restartTake() async {
+        guard !isRestartingTake, !isStarting, !document.tokens.isEmpty else { return }
+        isRestartingTake = true
+        defer { isRestartingTake = false }
+        if takeInProgress { finish() }
+        if video.state == .saving { await video.waitUntilSaved() }
+        guard !Task.isCancelled else { return }
+        if video.enabled && video.state == .failed {
+            presentationNotice = "Previous take could not be saved. Retry saving before restarting."
+            return
+        }
+        reset()
+        await start()
+    }
+
+    /// Return to Ready without starting capture.
     func reset() {
         stop()
         aligner.reset(); tokenIndex = 0

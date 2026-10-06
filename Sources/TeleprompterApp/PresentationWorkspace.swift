@@ -135,8 +135,8 @@ struct PresentationWorkspace: View {
                     .font(.caption).foregroundStyle(StudioPalette.mutedInk)
             } else if model.phase == .finished {
                 Text("Finished").font(.title3.bold())
-                Button { model.reset() } label: { StudioLabel(model.video.enabled ? "Record another take" : "Practice again", .restart) }.buttonStyle(StudioButtonStyle(primary: true)).disabled(model.video.isBusy)
-                Button { step = .write } label: { StudioLabel("Return to script", .back) }.buttonStyle(StudioButtonStyle())
+                Button { model.reset() } label: { StudioLabel(model.isRestartingTake ? "Restarting…" : model.video.enabled ? "Record another take" : "Practice again", .restart) }.buttonStyle(StudioButtonStyle(primary: true)).disabled(model.video.isBusy || model.isRestartingTake)
+                Button { step = .write } label: { StudioLabel("Return to script", .back) }.buttonStyle(StudioButtonStyle()).disabled(model.isRestartingTake)
                 Text("Practice again returns to Ready. Your microphone stays off until you start.").font(.caption).foregroundStyle(StudioPalette.mutedInk)
             } else {
                 TimelineView(.periodic(from: .now, by: 1)) { context in
@@ -159,6 +159,11 @@ struct PresentationWorkspace: View {
                 }.buttonStyle(StudioButtonStyle()).disabled(model.phase == .starting)
                 if model.snapshot(at: .now).canFinish {
                     Button { model.finish() } label: { StudioLabel(model.video.isRecording ? "Stop and save video" : "Finish prompting", systemImage: "stop.fill") }.buttonStyle(StudioButtonStyle(primary: model.video.isRecording, accent: StudioPalette.coral))
+                    Button { audio.stop(); Task { await model.restartTake() } } label: {
+                        StudioLabel(model.isRestartingTake ? "Restarting…" : "Restart take", .restart)
+                    }.buttonStyle(StudioButtonStyle())
+                        .disabled(model.isRestartingTake || model.isStarting)
+                        .help("Save this take and start a fresh recording from the beginning")
                 }
                 Text(model.video.isRecording ? "Camera is recording, including while prompting is paused. Stop and save when you are done." : model.phase == .paused ? "Choose a phrase to recover your place, then resume when ready." : "Stay with your words. Finish prompting when your closing remarks are done.")
                     .font(.caption).foregroundStyle(StudioPalette.mutedInk)

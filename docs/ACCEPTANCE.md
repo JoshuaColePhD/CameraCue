@@ -47,6 +47,8 @@ On the same local 60-frame camera clip, frame-processing median/p95 changed from
 The patched app launches and reaches Record setup, but still reports microphone setup needed after the ad hoc rebuild. A fresh live recording and perceptual preview check remain required; the existing stable-local-signing decision is still pending. No successful recording is claimed from these tests.
 # Save confirmation and pacing feedback — October 6, 2026
 
+- Restart take: refresh control in the expanded notch footer and Studio during a take. It saves the previous MP4, resets script/timing, then starts a distinct recording with the existing count-in preference. Navigation stays locked during restart; duplicate requests are ignored. Save failure prevents another capture and preserves recovery. Verified with isolated capture/export fixtures (25 focused recording/presentation tests passed); no new live recording was made for this change.
+
 - The notch observes MP4 export separately from prompting completion: Saving video, Video saved with View recording, or an error with Retry save when the original is recoverable.
 - Successful export schedules a smooth collapse after three seconds. Failed export stays expanded. Manual toggling and review navigation cancel pending collapse; a new take invalidates it.
 - Studio retains the saved player, actual destination folder, Play video, and Show in Finder. Reduced Motion disables the success fade and uses the existing immediate shell transition.

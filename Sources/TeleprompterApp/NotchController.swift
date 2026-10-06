@@ -137,7 +137,7 @@ import QuartzCore
             guard let self else { return }
             self.saveCollapseTask?.cancel()
             self.scheduleControlRefresh()
-            guard state == .saved, model?.phase == .finished, self.expanded else { return }
+            guard state == .saved, model?.phase == .finished, model?.isRestartingTake != true, self.expanded else { return }
             self.saveCollapseTask = Task { @MainActor [weak self, weak model] in
                 do { try await Task.sleep(for: delay) } catch { return }
                 guard let self, model?.video.state == .saved, model?.phase == .finished else { return }

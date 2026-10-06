@@ -49,6 +49,36 @@ import TeleprompterCore
         try? await Task.sleep(for: .milliseconds(100))
         XCTAssertTrue(notch.expanded)
     }
+    func testRestartSavesPreviousTakeAndStartsDistinctRecording() async throws {
+        let (video, backend, folder) = fixture()
+        defer { try? FileManager.default.removeItem(at: folder) }
+        let model = model(video)
+        await model.start()
+        model.move(lines: 1)
+        let firstMovie = try XCTUnwrap(backend.url)
+        await model.restartTake()
+        XCTAssertEqual(model.phase, .running)
+        XCTAssertEqual(model.tokenIndex, 0)
+        XCTAssertNil(model.followedWordIndex)
+        XCTAssertEqual(backend.starts, 2)
+        XCTAssertEqual(backend.finishes, 1)
+        XCTAssertNotEqual(backend.url, firstMovie)
+        XCTAssertTrue(FileManager.default.fileExists(atPath: firstMovie.deletingPathExtension().appendingPathExtension("mp4").path))
+        XCTAssertFalse(model.isRestartingTake)
+        model.finish(); await video.waitUntilSaved()
+        XCTAssertEqual(try RecordingDiscovery.scan(folders: [folder]).count, 2)
+    }
+    func testRestartStopsOnSaveFailureAndKeepsOriginal() async throws {
+        let (video, backend, folder) = fixture(exportFailure: true)
+        defer { try? FileManager.default.removeItem(at: folder) }
+        let model = model(video)
+        await model.start(); await model.restartTake()
+        XCTAssertEqual(video.state, .failed)
+        XCTAssertEqual(backend.starts, 1)
+        XCTAssertEqual(model.phase, .finished)
+        XCTAssertNotNil(model.presentationNotice)
+        XCTAssertTrue(FileManager.default.fileExists(atPath: try XCTUnwrap(video.recoveryURL).path))
+    }
     func testBackgroundChangesAreLockedThroughoutRecordingAndSaving() async {
         let (video, _, folder) = fixture(); defer { try? FileManager.default.removeItem(at: folder) }
         var setting = CameraBackground(); setting.mode = .color; setting.color = "peach"

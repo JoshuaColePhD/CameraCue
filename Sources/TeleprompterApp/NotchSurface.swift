@@ -339,7 +339,7 @@ import TeleprompterCore
         playbackButton.configure(phase: model.video.isRecording ? .running : snapshot.phase, reduceMotion: reduceMotion, recordsVideo: model.video.enabled)
         playbackPhase = model.video.isRecording ? .running : snapshot.phase
         updatePlaybackVisibility(expanded: self.expanded)
-        playbackButton.isEnabled = model.wordCount > 0 && model.video.state != .saving && (model.isStarting || model.video.state != .preparing)
+        playbackButton.isEnabled = model.wordCount > 0 && !model.isRestartingTake && model.video.state != .saving && (model.isStarting || model.video.state != .preparing)
         CATransaction.begin(); CATransaction.setDisableActions(true)
         microphoneActive = model.speech.state == .listening
         microphone.isHidden = !expanded || !microphoneActive

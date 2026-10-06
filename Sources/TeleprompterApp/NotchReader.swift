@@ -50,6 +50,17 @@ struct NotchReader: View {
                 Text(snapshot.problem ?? snapshot.status).lineLimit(1)
                     .foregroundStyle(snapshot.problem == nil ? .white.opacity(0.55) : CuePalette.butter)
                 Spacer(minLength: 10)
+                if !isPreview && (snapshot.canFinish || snapshot.phase == .finished) {
+                    Button {
+                        Task { await model.restartTake() }
+                    } label: {
+                        Image(systemName: "arrow.clockwise")
+                            .frame(width: 28, height: 24).contentShape(Rectangle())
+                    }.buttonStyle(.plain).foregroundStyle(CuePalette.lavender)
+                        .disabled(model.isRestartingTake || model.isStarting || model.video.state == .saving)
+                        .accessibilityLabel("Restart take")
+                        .help("Save this take and restart recording from the beginning")
+                }
                 if snapshot.canFinish {
                     if isPreview { Text("Finish").foregroundStyle(CuePalette.lavender) }
                     else {
@@ -62,6 +73,7 @@ struct NotchReader: View {
                     else {
                         Button("Return to script", action: onReturnToScript).buttonStyle(.plain)
                             .foregroundStyle(CuePalette.lavender)
+                            .disabled(model.isRestartingTake)
                     }
                 } else {
                     Text(model.scriptTitle).lineLimit(1).foregroundStyle(.white.opacity(0.35))
