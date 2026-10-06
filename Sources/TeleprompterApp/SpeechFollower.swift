@@ -21,26 +21,28 @@ import TeleprompterCore
 }
 
 @MainActor struct SystemSpeechPermissions: SpeechPermissionProviding {
+    var requiresLegacySpeechAuthorization = true
     var needsPrompt: Bool {
-        SFSpeechRecognizer.authorizationStatus() == .notDetermined ||
+        (requiresLegacySpeechAuthorization && SFSpeechRecognizer.authorizationStatus() == .notDetermined) ||
         AVCaptureDevice.authorizationStatus(for: .audio) == .notDetermined
     }
     var summary: String {
         let speech = SFSpeechRecognizer.authorizationStatus()
         let mic = AVCaptureDevice.authorizationStatus(for: .audio)
-        if speech == .denied || speech == .restricted || mic == .denied || mic == .restricted {
-            return "Allow Microphone and Speech Recognition in System Settings."
+        if mic == .denied || mic == .restricted || (requiresLegacySpeechAuthorization && (speech == .denied || speech == .restricted)) {
+            return requiresLegacySpeechAuthorization ? "Allow Microphone and Speech Recognition in System Settings." : "Allow Microphone in System Settings for live Voice Follow."
         }
+        if !requiresLegacySpeechAuthorization { return needsPrompt ? "Set up microphone access for on-device Voice Follow." : "Microphone access ready · on-device Voice Follow" }
         return needsPrompt ? "Set up microphone and speech access before your take." : "Microphone and speech access ready"
     }
     func authorize(whileCurrent: () -> Bool) async -> Bool {
         var speech = SFSpeechRecognizer.authorizationStatus()
-        if speech == .notDetermined {
+        if requiresLegacySpeechAuthorization && speech == .notDetermined {
             speech = await withCheckedContinuation { continuation in
                 SFSpeechRecognizer.requestAuthorization { @Sendable in continuation.resume(returning: $0) }
             }
         }
-        guard whileCurrent(), speech == .authorized else { return false }
+        guard whileCurrent(), !requiresLegacySpeechAuthorization || speech == .authorized else { return false }
         var microphone = AVCaptureDevice.authorizationStatus(for: .audio) == .authorized
         if AVCaptureDevice.authorizationStatus(for: .audio) == .notDetermined {
             microphone = await AVCaptureDevice.requestAccess(for: .audio)
@@ -75,7 +77,20 @@ import TeleprompterCore
     private var task: SFSpeechRecognitionTask?
     private let recognizer = SFSpeechRecognizer(locale: Locale(identifier: "en-US"))
     private let audioSink = AudioRequestSink()
-    private let permissions: any SpeechPermissionProviding
+    private let permissionOverride: (any SpeechPermissionProviding)?
+    @Published private(set) var modernAvailable = false
+    private var startWithModern = false
+    private var prefersModern: Bool {
+        Self.usesModern(choice: engineChoice, modernAvailable: modernAvailable, legacyAvailable: recognizer?.isAvailable == true,
+                        legacyAuthorized: SFSpeechRecognizer.authorizationStatus() == .authorized)
+    }
+    static func usesModern(choice: EngineChoice, modernAvailable: Bool, legacyAvailable: Bool, legacyAuthorized: Bool) -> Bool {
+        guard modernAvailable, choice != .legacy else { return false }
+        return choice == .analyzer || !legacyAvailable || !legacyAuthorized
+    }
+    private var permissions: any SpeechPermissionProviding {
+        permissionOverride ?? SystemSpeechPermissions(requiresLegacySpeechAuthorization: !prefersModern)
+    }
     private let captureOverride: (() throws -> Void)?
     private var tapInstalled = false
     private var recognitionGeneration = 0
@@ -87,8 +102,13 @@ import TeleprompterCore
     init(permissions: (any SpeechPermissionProviding)? = nil, captureOverride: (() throws -> Void)? = nil, defaults: UserDefaults? = .standard) {
         self.defaults = defaults
         engineChoice = defaults?.string(forKey: "speechEngineChoice").flatMap(EngineChoice.init(rawValue:)) ?? .automatic
-        self.permissions = permissions ?? SystemSpeechPermissions()
+        self.permissionOverride = permissions
         self.captureOverride = captureOverride
+        Task { @MainActor [weak self] in
+            guard #available(macOS 26, *) else { return }
+            let supported = await AnalyzerSpeechSession.supported()
+            self?.modernAvailable = supported
+        }
         configurationObserver = NotificationRegistration(name: .AVAudioEngineConfigurationChange) { [weak self] notification in
             // Only identity crosses to the main actor; the engine stays actor-owned.
             let changedEngineID = (notification.object as? AVAudioEngine).map(ObjectIdentifier.init)
@@ -114,7 +134,8 @@ import TeleprompterCore
         if isAuthorizing { return "Waiting for microphone and speech access…" }
         if state == .interrupted { return "Audio input changed. Check your microphone, then resume prompting." }
         if state == .error { return "Audio stopped. Check your microphone, then resume prompting." }
-        if engineChoice == .legacy, recognizer?.isAvailable != true { return "Speech recognition is unavailable. You can use Manual mode." }
+        if permissionOverride == nil, engineChoice == .analyzer, !modernAvailable { return "Modern on-device speech is unavailable on this Mac or for this language." }
+        if permissionOverride == nil, !prefersModern, recognizer?.isAvailable != true { return "Speech recognition is unavailable. You can use Manual mode." }
         return permissions.summary
     }
     var needsPermissionSetup: Bool { permissions.needsPrompt }
@@ -133,13 +154,20 @@ import TeleprompterCore
         let generation = startupGeneration
         isAuthorizing = true
         state = .requesting
-        let prompts = permissions.needsPrompt
+        if captureOverride == nil, #available(macOS 26, *) { modernAvailable = await AnalyzerSpeechSession.supported() }
+        guard startupGeneration == generation else { isAuthorizing = false; return }
+        if captureOverride == nil, engineChoice == .analyzer, !modernAvailable {
+            isAuthorizing = false; state = .unavailable; return
+        }
+        startWithModern = prefersModern
+        let selectedPermissions = permissionOverride ?? SystemSpeechPermissions(requiresLegacySpeechAuthorization: !startWithModern)
+        let prompts = selectedPermissions.needsPrompt
         if prompts { onPermissionPromptChanged?(true); NSApp.activate(ignoringOtherApps: true) }
         defer {
             isAuthorizing = false
             if prompts { onPermissionPromptChanged?(false) }
         }
-        let authorized = await permissions.authorize { [weak self] in self?.startupGeneration == generation }
+        let authorized = await selectedPermissions.authorize { [weak self] in self?.startupGeneration == generation }
         guard startupGeneration == generation else { return }
         if Task.isCancelled { stop(); return }
         guard authorized else { state = .denied; return }
@@ -194,7 +222,7 @@ import TeleprompterCore
         let node = engine.inputNode
         let format = node.outputFormat(forBus: 0)
         guard format.sampleRate > 0, format.channelCount > 0 else { throw NSError(domain: "CameraCue", code: 1) }
-        if engineChoice == .analyzer || (engineChoice == .automatic && recognizer?.isAvailable != true), #available(macOS 26, *), await AnalyzerSpeechSession.supported() {
+        if startWithModern, #available(macOS 26, *) {
             setupMessage = "Preparing the on-device speech model…"
             let session = AnalyzerSpeechSession(fastResults: true, onObservation: { [weak self] observation in
                 guard let self, generation == self.startupGeneration, self.state == .listening else { return }
@@ -225,7 +253,7 @@ import TeleprompterCore
                 }
             } catch {
                 session.stop()
-                guard engineChoice == .automatic, generation == startupGeneration else { throw error }
+                guard engineChoice == .automatic, generation == startupGeneration, SFSpeechRecognizer.authorizationStatus() == .authorized else { throw error }
                 setupMessage = "Using the available legacy speech engine"
                 try installLegacyTap(node: node, format: format)
             }

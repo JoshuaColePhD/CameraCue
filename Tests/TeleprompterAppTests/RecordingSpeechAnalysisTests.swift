@@ -3,6 +3,13 @@ import TeleprompterCore
 @testable import TeleprompterApp
 
 final class RecordingSpeechAnalysisTests: XCTestCase {
+    @MainActor func testEnginePolicyRetainsAuthorizedLegacyAndRequiresOnlyModernPermissionsOtherwise() {
+        XCTAssertFalse(SpeechFollower.usesModern(choice: .automatic, modernAvailable: true, legacyAvailable: true, legacyAuthorized: true))
+        XCTAssertTrue(SpeechFollower.usesModern(choice: .automatic, modernAvailable: true, legacyAvailable: true, legacyAuthorized: false))
+        XCTAssertTrue(SpeechFollower.usesModern(choice: .analyzer, modernAvailable: true, legacyAvailable: true, legacyAuthorized: true))
+        XCTAssertFalse(SpeechFollower.usesModern(choice: .legacy, modernAvailable: true, legacyAvailable: true, legacyAuthorized: false))
+        XCTAssertFalse(SpeechFollower.usesModern(choice: .automatic, modernAvailable: false, legacyAvailable: true, legacyAuthorized: false))
+    }
     @MainActor func testPilotResourceIsValidAndDisabledByDefault() throws {
         let model = try XCTUnwrap(LearnedTrackingModel.available)
         XCTAssertTrue(model.isValid); XCTAssertNotNil(model.maximumScriptTokens)
