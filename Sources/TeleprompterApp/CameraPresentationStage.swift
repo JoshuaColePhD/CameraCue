@@ -128,6 +128,7 @@ struct CameraPresentationStage: View {
 
 struct SavedTakePlayer: View {
     let url: URL
+    var seekRequest: PlaybackSeekRequest? = nil
     @State private var player: AVPlayer?
     @State private var duration: String?
     @State private var playbackError: String?
@@ -152,6 +153,10 @@ struct SavedTakePlayer: View {
             if let time = try? await AVURLAsset(url: url).load(.duration), time.seconds.isFinite {
                 duration = TakeSummary.time(time.seconds)
             }
+        }.onChange(of: seekRequest) { _, request in
+            guard let request, request.seconds.isFinite else { return }
+            player?.seek(to: CMTime(seconds: max(0, request.seconds), preferredTimescale: 600), toleranceBefore: .zero, toleranceAfter: .zero)
+            player?.play()
         }.onDisappear { player?.pause(); player = nil }
     }
 }

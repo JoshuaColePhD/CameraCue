@@ -145,7 +145,7 @@ struct RecordingBackgroundEditor: View {
                         Text(url.lastPathComponent).font(.system(size: 12)).textSelection(.enabled)
                         HStack {
                             Button("Play new video") { onExport(url) }.buttonStyle(StudioButtonStyle(primary: true))
-                            Button("Show in Finder") { NSWorkspace.shared.activateFileViewerSelecting([url]) }.buttonStyle(StudioButtonStyle())
+                        Button("Show in Finder") { NSWorkspace.shared.activateFileViewerSelecting([url]) }.buttonStyle(StudioButtonStyle())
                         }
                     }
                 }.padding(.trailing, 2)
@@ -165,6 +165,8 @@ struct RecordingReview: View {
     var onChanged: () -> Void = {}
     @State private var editsBackground = false
     @State private var currentURL: URL?
+    @State private var showsCoaching = false
+    @State private var seekRequest: PlaybackSeekRequest?
     init(url: URL, initiallyEditing: Bool = false, onDone: @escaping () -> Void, onChanged: @escaping () -> Void = {}) {
         self.url = url; self.onDone = onDone; self.onChanged = onChanged
         _editsBackground = State(initialValue: initiallyEditing)
@@ -180,11 +182,17 @@ struct RecordingReview: View {
                         Spacer()
                         Button("Done", action: onDone).buttonStyle(StudioButtonStyle()).keyboardShortcut(.cancelAction)
                     }
-                    SavedTakePlayer(url: currentURL ?? url)
+                    ScrollView {
+                    VStack(alignment: .leading, spacing: 16) {
+                    SavedTakePlayer(url: currentURL ?? url, seekRequest: seekRequest)
+                    if showsCoaching { RecordingCoachingView(url: currentURL ?? url) { seekRequest = PlaybackSeekRequest(seconds: $0) }.id(currentURL ?? url) }
                     HStack {
                         Button("Change background") { editsBackground = true }.buttonStyle(StudioButtonStyle(primary: true))
+                        Button(showsCoaching ? "Hide feedback" : "Review delivery") { showsCoaching.toggle() }.buttonStyle(StudioButtonStyle())
                         Button("Show in Finder") { NSWorkspace.shared.activateFileViewerSelecting([currentURL ?? url]) }.buttonStyle(StudioButtonStyle())
                     }
+                    }
+                    }.frame(maxHeight: 520)
                 }.padding(24).frame(width: 700).background(StudioPalette.canvas).foregroundStyle(StudioPalette.ink)
             }
         }

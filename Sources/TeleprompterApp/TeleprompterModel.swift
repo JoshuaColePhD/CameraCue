@@ -56,9 +56,36 @@ import TeleprompterCore
     @Published private(set) var trackingState: VoiceTrackingState = .listening
     @Published private(set) var presentationNotice: String?
 
+    @Published var learnedTrackingEnabled = false { didSet {
+        defaults?.set(learnedTrackingEnabled, forKey: "learnedTrackingEnabled.v1")
+        if !takeInProgress {
+            aligner = ScriptAligner(script: document, decisionModel: learnedTrackingEnabled ? LearnedTrackingModel.available : nil)
+            aligner.reset(to: tokenIndex)
+        }
+    } }
+    @Published var personalPacingEnabled = true { didSet { defaults?.set(personalPacingEnabled, forKey: "personalPacingEnabled") } }
+    @Published var saveSpeechFeedback = true { didSet {
+        defaults?.set(saveSpeechFeedback, forKey: "saveSpeechFeedback")
+        if !saveSpeechFeedback { speechCollector = RecordingSpeechCollector(); pendingSpeechAnalysis = nil }
+    } }
+    @Published private(set) var paceProfile = PersonalPaceProfile()
+    private var personalPaceTracker = PersonalPaceTracker()
+    private var speechCollector = RecordingSpeechCollector()
+    private var pendingSpeechAnalysis: RecordingSpeechAnalysis?
+    private var latestSpeechConfidence: Double?
+    var personalPaceEstimate: PersonalPaceEstimate? {
+        guard personalPacingEnabled, trackingState != .recovering else { return nil }
+        return personalPaceTracker.estimate(remainingWords: max(0, wordCount - trackedWordCount), profile: paceProfile)
+    }
+    func resetPersonalPace() {
+        paceProfile = PersonalPaceProfile(); personalPaceTracker = PersonalPaceTracker()
+        defaults?.removeObject(forKey: "personalPaceProfile.v1")
+    }
+
     let speech: SpeechFollower
     let video: CameraRecording
     private var videoChanges: AnyCancellable?
+    private var speechChanges: AnyCancellable?
     private let capture: any SpeechCapturing
     private let defaults: UserDefaults?
     private var latestScript: ScriptRecord?
@@ -79,10 +106,28 @@ import TeleprompterCore
     init(capture: (any SpeechCapturing)? = nil, video: CameraRecording? = nil, defaults: UserDefaults? = .standard, now: @escaping () -> Date = Date.init) {
         self.now = now
         self.video = video ?? CameraRecording(defaults: defaults)
-        let speech = SpeechFollower()
+        let speech = SpeechFollower(defaults: defaults)
         self.speech = speech
         self.capture = capture ?? speech
         self.defaults = defaults
+        if let data = defaults?.data(forKey: "personalPaceProfile.v1"), let profile = try? JSONDecoder().decode(PersonalPaceProfile.self, from: data) { paceProfile = profile }
+        if let value = defaults?.object(forKey: "personalPacingEnabled") as? Bool { personalPacingEnabled = value }
+        if let value = defaults?.object(forKey: "learnedTrackingEnabled.v1") as? Bool { learnedTrackingEnabled = value }
+        if let value = defaults?.object(forKey: "saveSpeechFeedback") as? Bool { saveSpeechFeedback = value }
+        self.speech.onObservation = { [weak self] event in
+            guard let self, self.isRunning else { return }
+            let confidences = event.words.compactMap(\.confidence)
+            self.latestSpeechConfidence = confidences.isEmpty ? nil : confidences.reduce(0, +) / Double(confidences.count)
+            if self.saveSpeechFeedback { self.speechCollector.consume(event) }
+        }
+        self.video.onSaved = { [weak self] url in
+            guard let self, self.saveSpeechFeedback, let analysis = self.pendingSpeechAnalysis else { return }
+            self.pendingSpeechAnalysis = nil
+            Task { @MainActor in
+                do { try await Task.detached(priority: .utility) { try RecordingSpeechAnalysisStore.write(analysis, video: url) }.value }
+                catch { self.presentationNotice = "Video saved. Speech feedback could not be saved." }
+            }
+        }
         if let value = defaults?.object(forKey: "focusedReading") as? Bool { focusedReading = value }
         if let value = defaults?.object(forKey: "useCountIn") as? Bool { useCountIn = value }
         if let value = defaults?.object(forKey: "readingFontSize") as? Double { fontSize = min(32, max(20, value)) }
@@ -95,8 +140,10 @@ import TeleprompterCore
         if let savedHints = defaults?.object(forKey: "presentationPaceHints") as? Bool {
             showPaceHints = savedHints
         }
+        speechChanges = self.speech.objectWillChange.sink { [weak self] _ in self?.objectWillChange.send() }
         videoChanges = self.video.objectWillChange.sink { [weak self] _ in self?.objectWillChange.send() }
         self.video.onInterrupted = { [weak self] in
+            if let self, self.saveSpeechFeedback { self.pendingSpeechAnalysis = self.speechCollector.snapshot(script: self.document.source) }
             self?.pause()
             self?.presentationNotice = "Camera recording stopped · Your place is kept. Check the saved video in Studio."
         }
@@ -179,6 +226,9 @@ import TeleprompterCore
     func paceHint(at date: Date) -> PaceHint? {
         guard timerMode == .countdown, showPaceHints, mode != .manual,
               isRunning, wordCount > 0, trackingState != .recovering else { return nil }
+        if let forecast = personalPaceEstimate, presentationClock.elapsed(at: date) >= 15 {
+            return forecast.hint(remainingTarget: timerDuration - presentationClock.elapsed(at: date), threshold: max(15, timerDuration * 0.08))
+        }
         let remaining = wordCount - paceStartWord
         let timerProgress = remaining > 0 ? Double(max(0, trackedWordCount - paceStartWord)) / Double(remaining) : 1
         return PaceGuidance.hint(elapsed: presentationClock.elapsed(at: date),
@@ -218,7 +268,7 @@ import TeleprompterCore
         selectedScriptID = script.id
         performance = validPlan
         document = ScriptDocument(readingBody)
-        aligner = ScriptAligner(script: document)
+        aligner = ScriptAligner(script: document, decisionModel: learnedTrackingEnabled ? LearnedTrackingModel.available : nil)
         tokenIndex = 0; confidence = .low; matchedPhrase = ""; searchRange = 0..<0
         followedWordIndex = nil
         trackedWordCount = 0; paceStartWord = 0
@@ -271,6 +321,12 @@ import TeleprompterCore
         isStarting = false
         isRunning = ready
         if isRunning {
+            if sessionStart == nil {
+                personalPaceTracker = PersonalPaceTracker()
+                latestSpeechConfidence = nil
+                speechCollector.begin(at: ProcessInfo.processInfo.systemUptime)
+                pendingSpeechAnalysis = nil
+            }
             presentationClock.start(at: now())
             takeClock.start(at: now())
             if sessionStart == nil { sessionStart = now() }
@@ -299,6 +355,7 @@ import TeleprompterCore
         }
     }
     func pause() {
+        personalPaceTracker.resetAnchor()
         startGeneration += 1
         capture.pause()
         isStarting = false; isRunning = false
@@ -323,6 +380,11 @@ import TeleprompterCore
         presentationClock.pause(at: date); takeClock.pause(at: date)
         let result = TakeSummary(activeDuration: takeClock.elapsed(at: date), timerDuration: presentationClock.elapsed(at: date),
                                  targetDuration: timerMode == .countdown ? timerDuration : nil, timerWasReset: timerWasReset)
+        if saveSpeechFeedback { pendingSpeechAnalysis = speechCollector.snapshot(script: document.source) }
+        if personalPacingEnabled, let sample = personalPaceTracker.sample(activeSeconds: takeClock.elapsed(at: date), at: date) {
+            paceProfile.record(sample)
+            if let data = try? JSONEncoder().encode(paceProfile) { defaults?.set(data, forKey: "personalPaceProfile.v1") }
+        }
         stopCapture()
         video.finish()
         displayedScrollTarget = scrollAnchor(forToken: tokenIndex)
@@ -366,6 +428,7 @@ import TeleprompterCore
     private func seek(toLine target: Int) {
         guard document.lines.indices.contains(target), !document.lines[target].spokenText.isEmpty else { return }
         let index = document.tokenIndex(forLine: target)
+        personalPaceTracker.resetAnchor()
         aligner.reset(to: index)
         tokenIndex = index; displayedScrollTarget = scrollAnchor(forToken: index); confidence = .low
         followedWordIndex = nil
@@ -404,7 +467,8 @@ import TeleprompterCore
 
     private func consume(_ text: String) {
         guard isRunning, mode != .manual else { return }
-        let result = aligner.align(text)
+        let result = aligner.align(text, recognizerConfidence: latestSpeechConfidence)
+        personalPaceTracker.observe(position: result.tokenIndex, activeElapsed: takeClock.elapsed(at: now()), reliable: result.confidence != .low)
         tracking.consume(text, confidence: result.confidence, at: now())
         if trackingState != tracking.state { trackingState = tracking.state }
         if trackingState == .recovering { clearPaceFeedback() }

@@ -557,6 +557,7 @@ private struct DevelopmentRequest: Identifiable {
 private struct SettingsPopover: View {
     @EnvironmentObject var model: TeleprompterModel
     var body: some View {
+        ScrollView {
         VStack(alignment: .leading, spacing: 14) {
             StudioLabel("Reading comfort", .settings).font(.headline)
             Toggle("Focused phrases", isOn: $model.focusedReading)
@@ -565,7 +566,22 @@ private struct SettingsPopover: View {
             Text("Phrase width · \(Int(model.textWidth)) pt")
             Slider(value: $model.textWidth, in: 230...350).accessibilityLabel("Phrase width")
             Toggle("Delivery cues", isOn: $model.showAnnotations)
+            Picker("Voice Follow engine", selection: Binding(get: { model.speech.engineChoice }, set: { model.speech.selectEngine($0) })) {
+                ForEach(SpeechFollower.EngineChoice.allCases, id: \.self) { Text($0.rawValue).tag($0) }
+            }.disabled(model.isRunning || model.isStarting)
+            if let trained = LearnedTrackingModel.available {
+                Toggle("Experimental learned jump check", isOn: $model.learnedTrackingEnabled).disabled(model.takeInProgress)
+                Text("Local pilot for scripts up to \(trained.maximumScriptTokens ?? 0) tokens. Longer scripts use the established tracker.")
+                    .font(.caption).foregroundStyle(StudioPalette.mutedInk).fixedSize(horizontal: false, vertical: true)
+            }
+            Toggle("Personalized pacing", isOn: $model.personalPacingEnabled)
+            if let rate = model.paceProfile.usualWordsPerMinute {
+                Text("Your usual pace: \(Int(rate)) words/min · \(model.paceProfile.samples.count) takes").font(.caption).foregroundStyle(StudioPalette.mutedInk)
+                Button("Reset pace calibration") { model.resetPersonalPace() }.buttonStyle(StudioButtonStyle())
+            } else { Text("Practice a few longer passages to learn your pace on this Mac.").font(.caption).foregroundStyle(StudioPalette.mutedInk) }
+            Toggle("Save speech feedback with new takes", isOn: $model.saveSpeechFeedback)
             Text("Use Rehearse to preview these settings at actual notch size.").font(.caption).foregroundStyle(StudioPalette.mutedInk)
-        }.padding(20).frame(width: 330).background(StudioPalette.canvas).tint(StudioPalette.violet)
+        }.padding(20)
+        }.frame(width: 330).frame(maxHeight: 560).background(StudioPalette.canvas).tint(StudioPalette.violet)
     }
 }

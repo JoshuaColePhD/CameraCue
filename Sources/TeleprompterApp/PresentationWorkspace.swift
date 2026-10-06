@@ -121,6 +121,10 @@ struct PresentationWorkspace: View {
                         .buttonStyle(StudioButtonStyle()).disabled(audio.isPreparing)
                     Text(audio.message).font(.caption).foregroundStyle(StudioPalette.mutedInk)
                 }
+                if model.personalPacingEnabled {
+                    Text(model.paceProfile.usualWordsPerMinute.map { "Personal pace calibrated · \(Int($0)) words/min" } ?? "Personal pace learns from reliable rehearsal passages on this Mac.")
+                        .font(.caption).foregroundStyle(StudioPalette.mutedInk).fixedSize(horizontal: false, vertical: true)
+                }
                 Toggle("3-second count-in", isOn: $model.useCountIn)
                 PresentationReadiness(model: model, speech: model.speech, showsSetupAction: false, showsShortcutHints: step != .present)
                 PresentationStartAction(model: model, speech: model.speech) {
@@ -139,6 +143,10 @@ struct PresentationWorkspace: View {
                     let snapshot = model.snapshot(at: context.date)
                     VStack(alignment: .leading, spacing: 12) {
                         Text(snapshot.status).font(.title3.bold())
+                        if let forecast = model.personalPaceEstimate {
+                            Text("Estimated script remaining · " + TakeSummary.time(forecast.remainingSeconds))
+                                .font(.caption).foregroundStyle(StudioPalette.mutedInk)
+                        }
                         Text(snapshot.timerText).font(.system(size: 36, weight: .medium, design: .rounded)).monospacedDigit()
                             .foregroundStyle(snapshot.overtime ? StudioPalette.violet : StudioPalette.ink)
                         if let message = snapshot.problem ?? snapshot.banner {

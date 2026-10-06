@@ -1,0 +1,8 @@
+Experimental short-script confidence model: AMI ES2002b transcript-derived error simulations.
+Source: AMI Meeting Corpus, AMI Consortium, manual annotations v1.6.2.
+https://groups.inf.ed.ac.uk/ami/download/
+Data and these corpus-derived weights: Creative Commons Attribution 4.0 International.
+https://creativecommons.org/licenses/by/4.0/
+Changes: punctuation normalization, simulated recognition errors, logistic regression training.
+The corpus creators do not endorse CameraCue. No corpus audio is bundled.
+Apple speech models are managed by macOS and are not redistributed.

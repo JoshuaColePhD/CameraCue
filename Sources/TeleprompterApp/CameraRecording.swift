@@ -48,6 +48,7 @@ enum RecordingFailure: LocalizedError {
     @Published private(set) var folder: URL
     var onPermissionPromptChanged: ((Bool) -> Void)?
     var onInterrupted: (() -> Void)?
+    var onSaved: ((URL) -> Void)?
     private let backend: any MovieCapturing
     private let defaults: UserDefaults?
     private let authorize: () async -> Bool
@@ -213,7 +214,7 @@ enum RecordingFailure: LocalizedError {
             let metadata = RecordingBackgroundMetadata(background: takeBackground, originalRelativePath: relative, originalIsCameraSource: originalSavedURL != nil || takeBackground.mode == .original)
             do { try metadata.write(for: destination) } catch { warning = "Video saved, but original-link metadata could not be saved." }
             saveNotice = warning
-            rememberFolder(destination.deletingLastPathComponent()); savedURL = destination; recoveryURL = nil; state = .saved; message = "Recording saved · \(destination.lastPathComponent)" + (warning.map { " · " + $0 } ?? "")
+            rememberFolder(destination.deletingLastPathComponent()); savedURL = destination; recoveryURL = nil; state = .saved; onSaved?(destination); message = "Recording saved · \(destination.lastPathComponent)" + (warning.map { " · " + $0 } ?? "")
             try? FileManager.default.removeItem(at: source)
         } catch {
             try? FileManager.default.removeItem(at: destination)

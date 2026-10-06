@@ -2,6 +2,8 @@ import AVFoundation
 import AppKit
 import Speech
 import Foundation
+import CameraCueSpeech
+import TeleprompterCore
 
 @MainActor protocol SpeechCapturing: AnyObject {
     var state: SpeechFollower.State { get }
@@ -35,7 +37,7 @@ import Foundation
         var speech = SFSpeechRecognizer.authorizationStatus()
         if speech == .notDetermined {
             speech = await withCheckedContinuation { continuation in
-                SFSpeechRecognizer.requestAuthorization { continuation.resume(returning: $0) }
+                SFSpeechRecognizer.requestAuthorization { @Sendable in continuation.resume(returning: $0) }
             }
         }
         guard whileCurrent(), speech == .authorized else { return false }
@@ -53,6 +55,14 @@ import Foundation
         case denied = "Permission needed", unavailable = "Speech unavailable", error = "Audio error"
         case interrupted = "Audio input changed"
     }
+    enum EngineChoice: String, CaseIterable { case automatic = "Automatic", analyzer = "Modern on-device", legacy = "Legacy" }
+    @Published private(set) var engineChoice: EngineChoice { didSet { defaults?.set(engineChoice.rawValue, forKey: "speechEngineChoice") } }
+    @Published private(set) var activeEngine: SpeechEngineID = .legacy
+    @Published private(set) var setupMessage: String?
+    var onObservation: ((SpeechObservation) -> Void)?
+    private let defaults: UserDefaults?
+    private var modernSession: (any StreamingSpeechSession)?
+    private var transcriptLedger = SpeechTranscriptLedger()
     @Published private(set) var state: State = .idle
     @Published private(set) var isAuthorizing = false
     private(set) var transcript = ""
@@ -74,7 +84,9 @@ import Foundation
     private var configurationObserver: NotificationRegistration?
     private var sleepObserver: NotificationRegistration?
 
-    init(permissions: (any SpeechPermissionProviding)? = nil, captureOverride: (() throws -> Void)? = nil) {
+    init(permissions: (any SpeechPermissionProviding)? = nil, captureOverride: (() throws -> Void)? = nil, defaults: UserDefaults? = .standard) {
+        self.defaults = defaults
+        engineChoice = defaults?.string(forKey: "speechEngineChoice").flatMap(EngineChoice.init(rawValue:)) ?? .automatic
         self.permissions = permissions ?? SystemSpeechPermissions()
         self.captureOverride = captureOverride
         configurationObserver = NotificationRegistration(name: .AVAudioEngineConfigurationChange) { [weak self] notification in
@@ -98,13 +110,18 @@ import Foundation
     deinit {}
 
     var readiness: String {
+        if let setupMessage { return setupMessage }
         if isAuthorizing { return "Waiting for microphone and speech access…" }
         if state == .interrupted { return "Audio input changed. Check your microphone, then resume prompting." }
         if state == .error { return "Audio stopped. Check your microphone, then resume prompting." }
-        if recognizer?.isAvailable != true { return "Speech recognition is unavailable. You can use Manual mode." }
+        if engineChoice == .legacy, recognizer?.isAvailable != true { return "Speech recognition is unavailable. You can use Manual mode." }
         return permissions.summary
     }
     var needsPermissionSetup: Bool { permissions.needsPrompt }
+    func selectEngine(_ choice: EngineChoice) {
+        guard state != .listening, !isAuthorizing else { return }
+        engineChoice = choice
+    }
     func refreshReadiness() { objectWillChange.send() }
 
     func prepare() async { await begin(capture: false) }
@@ -130,11 +147,14 @@ import Foundation
         do {
             if let captureOverride { try captureOverride() }
             else {
-                guard let recognizer, recognizer.isAvailable else { state = .unavailable; return }
-                try startAudio(recognizer: recognizer)
+                try await startAudio(generation: generation)
             }
+            guard startupGeneration == generation else { return }
+            setupMessage = nil
             state = .listening
         } catch {
+            guard startupGeneration == generation else { return }
+            setupMessage = nil
             stopAudio()
             state = .error
         }
@@ -157,6 +177,9 @@ import Foundation
     }
     private func stopAudio() {
         recognitionGeneration += 1
+        modernSession?.stop(); modernSession = nil
+        transcriptLedger = SpeechTranscriptLedger()
+        setupMessage = nil
         audioSink.set(nil)
         if tapInstalled { engine.inputNode.removeTap(onBus: 0); tapInstalled = false }
         engine.stop()
@@ -164,19 +187,63 @@ import Foundation
         task?.cancel()
         request = nil; task = nil
     }
-    private func startAudio(recognizer: SFSpeechRecognizer) throws {
+    private func startAudio(generation: Int) async throws {
         consecutiveRecognitionErrors = 0
         // A fresh engine picks up device or sample-rate changes after an interruption.
         engine = AVAudioEngine()
         let node = engine.inputNode
         let format = node.outputFormat(forBus: 0)
         guard format.sampleRate > 0, format.channelCount > 0 else { throw NSError(domain: "CameraCue", code: 1) }
-        startRecognitionTask(recognizer: recognizer)
-        let sink = audioSink
-        node.installTap(onBus: 0, bufferSize: 1024, format: format) { buffer, _ in sink.append(buffer) }
+        if engineChoice == .analyzer || (engineChoice == .automatic && recognizer?.isAvailable != true), #available(macOS 26, *), await AnalyzerSpeechSession.supported() {
+            setupMessage = "Preparing the on-device speech model…"
+            let session = AnalyzerSpeechSession(fastResults: true, onObservation: { [weak self] observation in
+                guard let self, generation == self.startupGeneration, self.state == .listening else { return }
+                self.transcriptLedger.consume(observation)
+                let text = self.transcriptLedger.recentText
+                self.onObservation?(observation)
+                if text != self.transcript { self.transcript = text; self.onTranscript?(text) }
+            }, onFailure: { [weak self] _ in
+                guard let self, generation == self.startupGeneration else { return }
+                self.stopAudio(); self.state = .error; self.onUnexpectedStop?()
+            })
+            do {
+                try await session.prepare(format: format, allowModelDownload: true)
+                guard generation == startupGeneration else { session.stop(); throw CancellationError() }
+                modernSession = session; activeEngine = .analyzer
+                let receiver = session.receiver()
+                let bufferFailure: @Sendable () -> Void = { [weak self] in
+                    Task { @MainActor in
+                        guard let self, generation == self.startupGeneration else { return }
+                        self.stopAudio(); self.state = .error; self.onUnexpectedStop?()
+                    }
+                }
+                node.installTap(onBus: 0, bufferSize: 1024, format: format) { buffer, time in
+                    do {
+                        let origin = time.isHostTimeValid ? AVAudioTime.seconds(forHostTime: time.hostTime) : ProcessInfo.processInfo.systemUptime
+                        receiver(try OwnedSpeechBuffer(copying: buffer), origin)
+                    } catch { bufferFailure() }
+                }
+            } catch {
+                session.stop()
+                guard engineChoice == .automatic, generation == startupGeneration else { throw error }
+                setupMessage = "Using the available legacy speech engine"
+                try installLegacyTap(node: node, format: format)
+            }
+        } else {
+            if engineChoice == .analyzer { throw SpeechSessionError.unsupported }
+            try installLegacyTap(node: node, format: format)
+        }
         tapInstalled = true
         engine.prepare()
         try engine.start()
+    }
+    private func installLegacyTap(node: AVAudioInputNode, format: AVAudioFormat) throws {
+        guard let recognizer, recognizer.isAvailable else { throw SpeechSessionError.unsupported }
+        activeEngine = .legacy
+        audioSink.resetCaptureClock()
+        startRecognitionTask(recognizer: recognizer)
+        let sink = audioSink
+        node.installTap(onBus: 0, bufferSize: 1024, format: format) { buffer, time in sink.append(buffer, time: time) }
     }
     private func startRecognitionTask(recognizer: SFSpeechRecognizer) {
         recognitionGeneration += 1
@@ -187,16 +254,27 @@ import Foundation
         next.requiresOnDeviceRecognition = recognizer.supportsOnDeviceRecognition
         request = next
         audioSink.set(next)
-        task = recognizer.recognitionTask(with: next) { [weak self] result, error in
+        let origin = audioSink.currentSeconds
+        task = recognizer.recognitionTask(with: next) { @Sendable [weak self] result, error in
             let text = result?.bestTranscription.formattedString
             let final = result?.isFinal ?? false
+            let words = result?.bestTranscription.segments.map {
+                TimedSpeechWord(text: $0.substring, start: origin + $0.timestamp, end: origin + $0.timestamp + $0.duration,
+                                confidence: $0.confidence > 0 ? Double($0.confidence) : nil)
+            } ?? []
             Task { @MainActor in
                 guard let self, generation == self.recognitionGeneration,
                       self.state == .listening || self.state == .requesting else { return }
                 if let text, !text.isEmpty {
                     self.transcript = text
                     self.consecutiveRecognitionErrors = 0
-                    if self.state == .listening { self.onTranscript?(text) }
+                    if self.state == .listening {
+                        let sourceOrigin = self.audioSink.sourceOrigin
+                        self.onObservation?(SpeechObservation(engine: .legacy, text: text, audioStart: origin, audioEnd: words.last?.end ?? origin,
+                                                              deliveredAt: max(0, ProcessInfo.processInfo.systemUptime - (sourceOrigin ?? ProcessInfo.processInfo.systemUptime)),
+                                                              isFinal: final, words: words, sourceUptimeOrigin: sourceOrigin))
+                        self.onTranscript?(text)
+                    }
                 }
                 if error != nil && self.state == .listening {
                     self.consecutiveRecognitionErrors += 1
@@ -210,10 +288,10 @@ import Foundation
                         Task { @MainActor in
                             try? await Task.sleep(for: .milliseconds(400 * self.consecutiveRecognitionErrors))
                             guard self.state == .listening, self.recognitionGeneration == retryGeneration else { return }
-                            self.startRecognitionTask(recognizer: recognizer)
+                            if let currentRecognizer = self.recognizer { self.startRecognitionTask(recognizer: currentRecognizer) }
                         }
                     }
-                } else if final && self.state == .listening { self.startRecognitionTask(recognizer: recognizer) }
+                } else if final && self.state == .listening { if let currentRecognizer = self.recognizer { self.startRecognitionTask(recognizer: currentRecognizer) } }
             }
         }
     }
@@ -223,10 +301,18 @@ import Foundation
 private final class AudioRequestSink: @unchecked Sendable {
     private let lock = NSLock()
     private var request: SFSpeechAudioBufferRecognitionRequest?
+    private var seconds = 0.0
+    private var origin: Double?
+    var currentSeconds: Double { lock.lock(); defer { lock.unlock() }; return seconds }
+    var sourceOrigin: Double? { lock.lock(); defer { lock.unlock() }; return origin }
+    func resetCaptureClock() { lock.lock(); seconds = 0; origin = nil; lock.unlock() }
     func set(_ next: SFSpeechAudioBufferRecognitionRequest?) {
         lock.lock(); defer { lock.unlock() }; request = next
     }
-    func append(_ buffer: AVAudioPCMBuffer) {
-        lock.lock(); defer { lock.unlock() }; request?.append(buffer)
+    func append(_ buffer: AVAudioPCMBuffer, time: AVAudioTime) {
+        lock.lock(); defer { lock.unlock() }
+        if origin == nil { origin = time.isHostTimeValid ? AVAudioTime.seconds(forHostTime: time.hostTime) : ProcessInfo.processInfo.systemUptime }
+        seconds += Double(buffer.frameLength) / buffer.format.sampleRate
+        request?.append(buffer)
     }
 }
