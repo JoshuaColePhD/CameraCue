@@ -9,6 +9,7 @@ struct SampleMetrics: Codable {
     let scenario: String
     let seed: UInt64
     let samples: Int
+    let learnedCheckEligible: Bool?
     let withinTwo: Double
     let meanAbsoluteError: Double
     let wrongMoves: Int
@@ -46,7 +47,7 @@ final class ExactSuffixBaseline {
     }
 }
 func measure(_ replay: ReplayCase, algorithm: String) -> SampleMetrics {
-    let tuned = ScriptAligner(script: replay.document)
+    let tuned = ScriptAligner(script: replay.document, decisionModel: evaluationDecisionModel)
     let legacy = LegacyScriptAligner(script: replay.document)
     let exact = ExactSuffixBaseline(replay.document.tokens)
     var position = 0, count = 0, correct = 0, errorSum = 0
@@ -79,11 +80,18 @@ func measure(_ replay: ReplayCase, algorithm: String) -> SampleMetrics {
             if consecutive >= 2 { recovery = event.deliveredAt - begin }
         }
     }
-    return SampleMetrics(algorithm: algorithm, split: replay.split, speech: replay.speech, scenario: replay.scenario, seed: replay.seed, samples: count,
+    return SampleMetrics(algorithm: algorithm, split: replay.split, speech: replay.speech, scenario: replay.scenario, seed: replay.seed, samples: count, learnedCheckEligible: algorithm == "CameraCue" && evaluationDecisionModel?.applies(to: replay.document.tokens.count) == true,
                          withinTwo: Double(correct) / Double(max(count, 1)), meanAbsoluteError: Double(errorSum) / Double(max(count, 1)), wrongMoves: wrongMoves, wrongJumps: wrongJumps, holdViolations: holds,
                          recoverySeconds: recovery, recoveryAttempted: attempted, lagSamples: lags.count, unavailableLagSamples: count - lags.count, lagP95Seconds: percentile(lags, 0.95), alignmentP95Milliseconds: percentile(latencies, 0.95))
 }
 
+let evaluationDecisionModel: AlignmentDecisionModel? = {
+    let values = CommandLine.arguments
+    guard let index = values.firstIndex(of: "--decision-model"), index + 1 < values.count,
+          let data = try? Data(contentsOf: URL(fileURLWithPath: values[index + 1])),
+          let model = try? JSONDecoder().decode(AlignmentDecisionModel.self, from: data), model.isValid else { return nil }
+    return model
+}()
 let args = Array(CommandLine.arguments.dropFirst())
 @MainActor func argument(_ key: String) -> String? { guard let index = args.firstIndex(of: key), index + 1 < args.count else { return nil }; return args[index + 1] }
 let split = argument("--split")

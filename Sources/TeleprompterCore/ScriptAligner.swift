@@ -17,10 +17,13 @@ public final class ScriptAligner {
     public private(set) var position = 0
     public private(set) var misses = 0
     public var maximumAutomaticJump = 42
+    public private(set) var lastCandidate: AlignmentCandidate?
+    public private(set) var lastPrediction: AlignmentDecisionPrediction?
+    private let decisionModel: AlignmentDecisionModel?
     private var lastTranscript = ""
     private let script: ScriptDocument
 
-    public init(script: ScriptDocument) { self.script = script }
+    public init(script: ScriptDocument, decisionModel: AlignmentDecisionModel? = nil) { self.script = script; self.decisionModel = decisionModel?.applies(to: script.tokens.count) == true ? decisionModel : nil }
 
     public func reset(to position: Int = 0) {
         self.position = min(max(position, 0), max(script.tokens.count - 1, 0))
@@ -28,7 +31,8 @@ public final class ScriptAligner {
         lastTranscript = ""
     }
 
-    public func align(_ transcript: String) -> AlignmentUpdate {
+    public func align(_ transcript: String, recognizerConfidence: Double? = nil) -> AlignmentUpdate {
+        lastCandidate = nil; lastPrediction = nil
         let spoken = TranscriptNormalizer.tokens(transcript)
         guard !spoken.isEmpty, !script.tokens.isEmpty else { return hold(0..<script.tokens.count) }
         let normalized = spoken.joined(separator: " ")
@@ -44,6 +48,7 @@ public final class ScriptAligner {
         let context = Array(script.tokens[contextStart..<range.upperBound])
         let similarities = tail.map { word in context.map { similarity(word, $0) } }
         var best = (score: -Double.infinity, endpoint: position, matches: 0, phrase: "", quality: 0.0)
+        var secondScore = -Double.infinity
         for endpoint in range {
             let start = max(0, endpoint - 15)
             let candidate = Array(script.tokens[start...endpoint])
@@ -54,7 +59,23 @@ public final class ScriptAligner {
             let proximityPenalty = min(0.20, Double(distance) * 0.008)
             let backwardPenalty = endpoint < position - 4 ? 0.18 : 0
             let total = result.quality - proximityPenalty - backwardPenalty
-            if total > best.score { best = (total, endpoint, result.matches, result.phrase, result.quality) }
+            if total > best.score { secondScore = best.score; best = (total, endpoint, result.matches, result.phrase, result.quality) }
+            else if total > secondScore { secondScore = total }
+        }
+        if best.matches > 0 {
+            let candidate = AlignmentCandidate(positionBefore: position, tokenIndex: best.endpoint, quality: best.quality,
+                                               margin: secondScore.isFinite ? best.score - secondScore : 1,
+                                               matches: best.matches, tailCount: tail.count, misses: misses, recognizerConfidence: recognizerConfidence)
+            lastCandidate = candidate
+            lastPrediction = decisionModel?.predict(candidate)
+            // The pilot classifier is a conservative veto for an ambiguous
+            // short-phrase jump only. Longer-context recovery retains the
+            // existing rule gates until broader real-ASR validation exists.
+            if candidate.tailCount <= 6, abs(candidate.tokenIndex - position) > 8,
+               let model = decisionModel, let prediction = lastPrediction, prediction.probabilityCorrect < model.holdThreshold {
+                misses += 1
+                return hold(range, score: best.score)
+            }
         }
         let required = misses >= 3 ? 0.47 : 0.42
         guard best.score >= required else {
