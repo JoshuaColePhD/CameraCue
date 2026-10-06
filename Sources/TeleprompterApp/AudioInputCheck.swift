@@ -36,7 +36,7 @@ import CoreAudio
             let format = node.outputFormat(forBus: 0)
             guard format.sampleRate > 0, format.channelCount > 0 else { throw NSError(domain: "AudioInput", code: 1) }
             let meter = meter
-            node.installTap(onBus: 0, bufferSize: 1024, format: format) { buffer, _ in meter.measure(buffer) }
+            node.installTap(onBus: 0, bufferSize: 1024, format: format) { @Sendable buffer, _ in meter.measure(buffer) }
             self.engine = engine
             try engine.start()
             isChecking = true; message = "Speak a few words. This check does not save audio."

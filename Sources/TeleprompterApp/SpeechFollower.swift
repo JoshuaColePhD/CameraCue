@@ -258,12 +258,8 @@ import TeleprompterCore
                         self.stopAudio(); self.state = .error; self.onUnexpectedStop?()
                     }
                 }
-                node.installTap(onBus: 0, bufferSize: 1024, format: format) { buffer, time in
-                    do {
-                        let origin = time.isHostTimeValid ? AVAudioTime.seconds(forHostTime: time.hostTime) : ProcessInfo.processInfo.systemUptime
-                        receiver(try OwnedSpeechBuffer(copying: buffer), origin)
-                    } catch { bufferFailure() }
-                }
+                node.installTap(onBus: 0, bufferSize: 1024, format: format,
+                    block: Self.makeModernAudioTap(receiver: receiver, failure: bufferFailure))
             } catch {
                 session.stop()
                 guard engineChoice == .automatic, generation == startupGeneration, SFSpeechRecognizer.authorizationStatus() == .authorized else { throw error }
@@ -278,13 +274,25 @@ import TeleprompterCore
         engine.prepare()
         try engine.start()
     }
+    nonisolated static func makeModernAudioTap(
+        receiver: @escaping @Sendable (OwnedSpeechBuffer, Double?) -> Void,
+        failure: @escaping @Sendable () -> Void
+    ) -> @Sendable (AVAudioPCMBuffer, AVAudioTime) -> Void {
+        { @Sendable buffer, time in
+            do {
+                let origin = time.isHostTimeValid ? AVAudioTime.seconds(forHostTime: time.hostTime) : ProcessInfo.processInfo.systemUptime
+                receiver(try OwnedSpeechBuffer(copying: buffer), origin)
+            } catch { failure() }
+        }
+    }
+
     private func installLegacyTap(node: AVAudioInputNode, format: AVAudioFormat) throws {
         guard let recognizer, recognizer.isAvailable else { throw SpeechSessionError.unsupported }
         activeEngine = .legacy
         audioSink.resetCaptureClock()
         startRecognitionTask(recognizer: recognizer)
         let sink = audioSink
-        node.installTap(onBus: 0, bufferSize: 1024, format: format) { buffer, time in sink.append(buffer, time: time) }
+        node.installTap(onBus: 0, bufferSize: 1024, format: format) { @Sendable buffer, time in sink.append(buffer, time: time) }
     }
     private func startRecognitionTask(recognizer: SFSpeechRecognizer) {
         recognitionGeneration += 1
