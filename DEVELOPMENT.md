@@ -10,7 +10,7 @@ xcodebuild -version
 swift test --disable-sandbox
 ./scripts/evaluate-voice-follow.sh --check --output /tmp/voice-follow-results.json
 ./build-app.sh release
-codesign --verify --deep --strict dist/CameraCue.app
+codesign --verify --deep --strict "dist/CameraCue Studio.app"
 ```
 
 The build script obtains SwiftPM's binary path instead of assuming one Xcode version's output layout. It creates an ad hoc signed app for local use. Developer ID signing and notarization are separate distribution work.

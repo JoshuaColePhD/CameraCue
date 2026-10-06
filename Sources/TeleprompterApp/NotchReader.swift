@@ -31,7 +31,7 @@ struct NotchReader: View {
                         .contentShape(Rectangle())
                 }
                 .buttonStyle(.plain)
-                .help("Open the CameraCue dashboard to choose or create a script")
+                .help("Open the CameraCue Studio dashboard to choose or create a script")
                 .accessibilityLabel("Choose a script in Studio — open dashboard")
             } else {
                 ReadingStage(document: model.document, performance: model.performance,

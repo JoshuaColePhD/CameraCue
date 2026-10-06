@@ -50,8 +50,8 @@ jobs:
       - name: Build and verify local app package
         run: |
           ./build-app.sh release
-          codesign --verify --deep --strict dist/CameraCue.app
-          test -x dist/CameraCue.app/Contents/MacOS/CameraCue
+          codesign --verify --deep --strict "dist/CameraCue Studio.app"
+          test -x "dist/CameraCue Studio.app/Contents/MacOS/CameraCue"
       - name: Check learned short-script tracking
         run: |
           swift run --disable-sandbox -c release SpeechEvaluation --manifest docs/evaluation/ami-pilot/fixture-manifest.json --export-training-rows ci-results/confidence-rows.json

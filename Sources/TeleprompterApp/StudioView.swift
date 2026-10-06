@@ -144,7 +144,7 @@ struct StudioView: View {
             }
             Button("Cancel", role: .cancel) { deleteTarget = nil }
         } message: {
-            Text("This removes the script from CameraCue and cannot be undone.")
+            Text("This removes the script from CameraCue Studio and cannot be undone.")
         }
         .sheet(item: $suggestedPlan) { plan in
             PerformanceStylePreview(plan: plan, model: model, notch: notch) { edited in
@@ -191,9 +191,9 @@ struct StudioView: View {
                     VStack(alignment: .leading, spacing: 2) {
                         HStack(spacing: 7) {
                             CameraCueLogo(size: 28)
-                            Text("CAMERACUE")
-                                .font(.system(size: 12, weight: .bold, design: .rounded))
-                                .tracking(2)
+                            Text("CameraCue Studio")
+                                .font(.system(size: 13, weight: .semibold, design: .rounded))
+                                .lineLimit(1)
                         }
                         .foregroundStyle(StudioPalette.ink)
                         Text("Your studio")

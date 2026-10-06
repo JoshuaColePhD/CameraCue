@@ -27,7 +27,7 @@ import CoreAudio
         }
         guard generation == current, !Task.isCancelled else { return }
         guard AVCaptureDevice.authorizationStatus(for: .audio) == .authorized else {
-            message = "Allow CameraCue in System Settings → Privacy & Security → Microphone to check the input."
+            message = "Allow CameraCue Studio in System Settings → Privacy & Security → Microphone to check the input."
             return
         }
         do {

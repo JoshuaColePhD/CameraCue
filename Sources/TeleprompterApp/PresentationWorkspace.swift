@@ -131,7 +131,7 @@ struct PresentationWorkspace: View {
                     audio.stop(); notch.show(model: model, library: library)
                     Task { await model.toggle() }
                 } beforeSetup: { audio.stop() }
-                Text(model.video.enabled ? "Record starts your camera, microphone, prompting, and timer. Stop saves an MP4." : "Start recording in QuickTime first. CameraCue starts prompting and its own timer.")
+                Text(model.video.enabled ? "Record starts your camera, microphone, prompting, and timer. Stop saves an MP4." : "Start recording in QuickTime first. CameraCue Studio starts prompting and its own timer.")
                     .font(.caption).foregroundStyle(StudioPalette.mutedInk)
             } else if model.phase == .finished {
                 Text("Finished").font(.title3.bold())

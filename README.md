@@ -1,8 +1,8 @@
 <p align="center">
-  <img src="Assets/CameraCueIcon.png" alt="CameraCue app icon" width="96" />
+  <img src="Assets/CameraCueIcon.png" alt="CameraCue Studio app icon" width="96" />
 </p>
 
-<h1 align="center">CameraCue</h1>
+<h1 align="center">CameraCue Studio</h1>
 <p align="center"><strong>Your words, closer to the camera.</strong></p>
 <p align="center">A native Mac studio for writing, rehearsing, and recording presentations.</p>
 
@@ -17,7 +17,7 @@
 
 ---
 
-CameraCue brings your script, teleprompter, timer, and camera into one workspace. Its compact notch reader sits near the camera, follows your spoken words, and helps you keep track of time—so you can focus on delivering the message.
+CameraCue Studio brings your script, teleprompter, timer, and camera into one workspace. Its compact notch reader sits near the camera, follows your spoken words, and helps you keep track of time—so you can focus on delivering the message.
 
 Built for educators, creators, professionals, and anyone who wants a more comfortable way to speak on camera.
 
@@ -125,13 +125,13 @@ cd CameraCue
 ./build-app.sh release
 ```
 
-The build produces `dist/CameraCue.app` with an ad hoc signature for local use.
+The build produces `dist/CameraCue Studio.app` with an ad hoc signature for local use.
 
-Quit an idle CameraCue instance before installing:
+Quit an idle CameraCue Studio instance before installing:
 
 ```sh
-ditto dist/CameraCue.app /Applications/CameraCue.app
-codesign --verify --deep --strict /Applications/CameraCue.app
+ditto "dist/CameraCue Studio.app" "/Applications/CameraCue Studio.app"
+codesign --verify --deep --strict "/Applications/CameraCue Studio.app"
 ```
 
 Distribution to other Macs requires Developer ID signing and notarization.

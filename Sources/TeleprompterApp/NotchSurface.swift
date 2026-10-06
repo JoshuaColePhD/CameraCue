@@ -327,8 +327,8 @@ import TeleprompterCore
                                label: expanded ? "Collapse reader" : "Open reader",
                                help: "Open or collapse reader · Your place is kept", style: .plainCentered)
         brandButton.configure(title: "", symbol: "cameraCueMark",
-                              label: expanded ? "CameraCue — collapse reader" : "CameraCue — open reader",
-                              help: "CameraCue · Open or collapse reader · Your place is kept", style: .plainCentered)
+                              label: expanded ? "CameraCue Studio — collapse reader" : "CameraCue Studio — open reader",
+                              help: "CameraCue Studio · Open or collapse reader · Your place is kept", style: .plainCentered)
         timerButton.configure(title: time, symbol: "", label: "Adjust presentation timer",
                               help: "Adjust timer · Count up or down · " + time, style: .plain)
         timerButton.tint = model.presentationIsOvertime(at: now)

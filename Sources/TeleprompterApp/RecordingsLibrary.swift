@@ -52,7 +52,7 @@ struct RecordingsLibrary: View {
                         VStack(spacing: 16) {
                             Image(systemName: "video").font(.system(size: 28)).foregroundStyle(StudioPalette.violet)
                             Text("Your next take belongs here.").font(.system(size: 18, weight: .semibold))
-                            Text("Record in Present, then press Stop to save an MP4. Recordings from your CameraCue save folders appear here.")
+                            Text("Use Record, then press Stop to save an MP4. Recordings from your CameraCue Studio save folders appear here.")
                                 .font(.system(size: 14)).foregroundStyle(StudioPalette.mutedInk).multilineTextAlignment(.center)
                         }.padding(32).frame(maxWidth: .infinity).background(StudioPalette.surface, in: RoundedRectangle(cornerRadius: 16))
                     } else {

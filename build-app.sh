@@ -25,7 +25,7 @@ if [[ "$configuration" == release ]]; then
 else
   swift build --disable-sandbox --scratch-path "$PWD/.build" -c "$configuration"
 fi
-app="$PWD/dist/CameraCue.app"
+app="$PWD/dist/CameraCue Studio.app"
 python3 - "$app" <<'PY_CLEAN'
 import pathlib, shutil, sys
 path = pathlib.Path(sys.argv[1])
@@ -40,8 +40,8 @@ cat > "$app/Contents/Info.plist" <<'PLIST'
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0"><dict>
-<key>CFBundleName</key><string>CameraCue</string>
-<key>CFBundleDisplayName</key><string>CameraCue</string>
+<key>CFBundleName</key><string>CameraCue Studio</string>
+<key>CFBundleDisplayName</key><string>CameraCue Studio</string>
 <key>CFBundleIdentifier</key><string>com.joshuacole.cameracue</string>
 <key>CFBundleExecutable</key><string>CameraCue</string>
 <key>CFBundleIconFile</key><string>CameraCue.icns</string>
@@ -51,9 +51,9 @@ cat > "$app/Contents/Info.plist" <<'PLIST'
 <key>LSMinimumSystemVersion</key><string>15.0</string>
 <key>NSHighResolutionCapable</key><true/>
 <key>NSPrefersDisplaySafeAreaCompatibilityMode</key><false/>
-<key>NSCameraUsageDescription</key><string>CameraCue records your camera video when you start a take or shows a preview when you request one.</string>
-<key>NSMicrophoneUsageDescription</key><string>CameraCue records audio with your camera video and listens to keep the script following your voice.</string>
-<key>NSSpeechRecognitionUsageDescription</key><string>CameraCue recognizes your spoken words locally when supported to keep your place in the script.</string>
+<key>NSCameraUsageDescription</key><string>CameraCue Studio records your camera video when you start a take or shows a preview when you request one.</string>
+<key>NSMicrophoneUsageDescription</key><string>CameraCue Studio records audio with your camera video and listens to keep the script following your voice.</string>
+<key>NSSpeechRecognitionUsageDescription</key><string>CameraCue Studio recognizes your spoken words locally when supported to keep your place in the script.</string>
 </dict></plist>
 PLIST
 codesign --force --sign "${CAMERACUE_SIGNING_IDENTITY:--}" "$app" >/dev/null

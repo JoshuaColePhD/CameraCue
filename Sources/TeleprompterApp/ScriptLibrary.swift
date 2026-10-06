@@ -53,13 +53,13 @@ struct ScriptRecord: Codable, Identifiable, Equatable {
                     recoveryNotice = "Your saved scripts could not be opened. A recovery copy was kept in Application Support/CameraCue."
                 } catch {
                     saveBlocked = true
-                    storageError = "Saved scripts could not be opened or backed up. CameraCue will not overwrite them."
+                    storageError = "Saved scripts could not be opened or backed up. CameraCue Studio will not overwrite them."
                 }
             }
         }
         if scripts.isEmpty {
             let sample = Bundle.module.url(forResource: "StarterScript", withExtension: "txt").flatMap { try? String(contentsOf: $0, encoding: .utf8) } ?? ""
-            scripts = [ScriptRecord(id: UUID(), title: "Welcome to CameraCue", body: sample, modifiedAt: .now)]
+            scripts = [ScriptRecord(id: UUID(), title: "Welcome to CameraCue Studio", body: sample, modifiedAt: .now)]
             if !saveBlocked { save() }
         }
         selectedID = scripts.first?.id

@@ -59,7 +59,7 @@ final class NotchRecordControl: NSButton {
                 toolTip = recordsVideo ? "Resume prompting from your place." : "Resume prompting from your place. QuickTime records separately."
             case .ready, .finished:
                 setAccessibilityLabel(recordsVideo ? "Record camera video and start prompting" : "Record — start prompting")
-                toolTip = recordsVideo ? "Record your camera and microphone, and start prompting. Stop saves an MP4." : "Start CameraCue prompting and its timer. Record video separately in QuickTime."
+                toolTip = recordsVideo ? "Record your camera and microphone, and start prompting. Stop saves an MP4." : "Start CameraCue Studio prompting and its timer. Record video separately in QuickTime."
             }
             updateAppearance()
             if phase == .running && showsRecordingLabel && !reduceMotion {

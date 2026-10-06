@@ -15,7 +15,7 @@ struct WindowAccessor: NSViewRepresentable {
 
 @MainActor enum CameraWindow {
     static func configure(_ window: NSWindow) {
-        window.title = "CameraCue"
+        window.title = "CameraCue Studio"
         window.level = .floating
         window.isMovableByWindowBackground = true
         window.minSize = NSSize(width: 300, height: 210)
