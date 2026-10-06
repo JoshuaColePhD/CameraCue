@@ -55,3 +55,17 @@ This opt-in renderer mounts production views with an isolated temporary script l
 ## Contribution hygiene
 
 Keep commits focused: implementation, relevant tests, and an explanation of measured behavior. Never commit recordings, personal scripts, credentials or machine-specific traces. Fixtures used for public evaluation must have documented provenance. Keep the evaluation references frozen unless a reviewed algorithm/corpus change justifies replacing them. The repository's MIT license covers project code; transcript and asset provenance remain documented separately.
+
+## Real speech and ML evaluation
+
+The [AMI pilot](docs/evaluation/ami-pilot/README.md) records corpus licensing, split IDs, timing provenance, measured reporting configurations, and limitations. Published text-only fixtures and model weights are corpus-derived CC BY 4.0 data; source code is MIT. Raw audio and user feedback sidecars are ignored by Git.
+
+Prepare licensed signals/annotations locally with `python3 scripts/prepare-ami-corpus.py`. The file-only `SpeechEvaluation` executable supports real-time feeding, offline throughput, and saved-trace replay. It never opens a microphone. Standard/fast comparisons must use separately labeled output folders. Recognition model installation is explicit through `--download-model`.
+
+Legacy Speech Recognition permission should be requested through the identified helper app, built by `zsh scripts/package-speech-evaluator.sh`, then opened with absolute manifest/output arguments and `--authorize`. Do not bypass TCC or request microphone access for file evaluation. Modern file analysis needs macOS 26 or later and a supported installed locale/model. CI does not request speech permission, install speech assets, or recognize live audio.
+
+CI evaluates the scoped confidence model against versioned public transcript-error simulations and checks saved regression totals. It also runs the established voice-follow gate. Passing the long-script gate validates fallback behavior because those scripts are outside the pilot's 88-token domain. Retraining uses speaker-separated train/validation/held-out inputs; publish failed promotion attempts and limitations rather than quietly replacing results.
+
+`CAMERACUE_ML_MEDIA="$PWD/ReviewArtifacts/MLCorpus/media" swift test --disable-sandbox --filter CoachingMediaTests` renders the feedback panel using synthetic local transcript values. It does not play or capture user media.
+
+Set `CAMERACUE_SIGNING_IDENTITY` to an explicitly authorized existing signing identity for local app/helper builds; the default remains ad hoc for CI. No signing keys are stored in the repository. Public distribution still requires an appropriate Apple signing/notarization workflow. Private file-evaluation fixtures require `--allow-private`; their raw traces remain omitted unless `--write-private-traces` is also explicit.

@@ -52,6 +52,10 @@ jobs:
           ./build-app.sh release
           codesign --verify --deep --strict dist/CameraCue.app
           test -x dist/CameraCue.app/Contents/MacOS/CameraCue
+      - name: Check learned short-script tracking
+        run: |
+          swift run --disable-sandbox -c release SpeechEvaluation --manifest docs/evaluation/ami-pilot/fixture-manifest.json --export-training-rows ci-results/confidence-rows.json
+          swift run --disable-sandbox --skip-build -c release SpeechEvaluation --manifest docs/evaluation/ami-pilot/fixture-manifest.json --replay-training-rows ci-results/confidence-rows.json --decision-model Sources/TeleprompterApp/Resources/ML/AlignmentConfidence.json --check-model docs/evaluation/ami-pilot/confidence-replay.json --output ci-results/confidence-replay.json
       - name: Backtrace native suite after a failed run
         if: failure()
         timeout-minutes: 3

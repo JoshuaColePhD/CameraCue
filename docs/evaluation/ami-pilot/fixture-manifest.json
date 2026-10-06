@@ -1,0 +1,7756 @@
+{
+  "version": "ami-mini-v1",
+  "annotationsSHA256": "b56e5babb2496b8795deeeda7e71178d7fbc9963f94276cf2a3f4b56ebbc9f9d",
+  "clips": [
+    {
+      "id": "ami-ES2002b-A-0",
+      "speakerID": "MEE006",
+      "split": "train",
+      "audioPath": "ami-ES2002b-A-0.wav",
+      "sourceOffsetSeconds": 1429.63,
+      "sourceSHA256": "bee16c2b0a598e0f9e569bf1a8c978acc94fc690bf4144437ded44b8636c7c5d",
+      "audioSHA256": "7cb206fb224cdea8a4d1faec5e9f88b017197e5ee0764f4262a75c0097c2abd0",
+      "script": "I guess I try to define like what we're doing now try to define what we're trying to get done Um I think in a practical way we kind of know what it is We've used it we're familiar with it but we're we can't n we haven't narrowed down um exactly what the things we're trying to fulfil like Besides the basics I think back in the back of our minds we know what the basics are Has to change",
+      "referenceWords": [
+        {
+          "text": "I",
+          "start": 0.15,
+          "end": 0.26,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "guess",
+          "start": 0.26,
+          "end": 0.46,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "I",
+          "start": 0.46,
+          "end": 0.54,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "try",
+          "start": 0.54,
+          "end": 0.73,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "to",
+          "start": 0.73,
+          "end": 0.84,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "define",
+          "start": 0.84,
+          "end": 1.51,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "like",
+          "start": 1.51,
+          "end": 1.68,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "what",
+          "start": 1.68,
+          "end": 1.82,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "we're",
+          "start": 1.82,
+          "end": 1.92,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "doing",
+          "start": 1.92,
+          "end": 2.12,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "now",
+          "start": 2.12,
+          "end": 2.77,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "try",
+          "start": 2.77,
+          "end": 2.91,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "to",
+          "start": 2.91,
+          "end": 2.97,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "define",
+          "start": 2.97,
+          "end": 3.32,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "what",
+          "start": 3.32,
+          "end": 3.43,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "we're",
+          "start": 3.43,
+          "end": 3.55,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "trying",
+          "start": 3.55,
+          "end": 3.75,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "to",
+          "start": 3.75,
+          "end": 3.85,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "get",
+          "start": 3.85,
+          "end": 4.05,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "done",
+          "start": 4.05,
+          "end": 4.53,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "Um",
+          "start": 4.53,
+          "end": 4.88,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "I",
+          "start": 4.88,
+          "end": 4.96,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "think",
+          "start": 4.96,
+          "end": 5.13,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "in",
+          "start": 5.13,
+          "end": 5.22,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "a",
+          "start": 5.22,
+          "end": 5.3,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "practical",
+          "start": 5.3,
+          "end": 5.8,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "way",
+          "start": 5.8,
+          "end": 6.37,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "we",
+          "start": 6.37,
+          "end": 6.45,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "kind",
+          "start": 6.45,
+          "end": 6.63,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "of",
+          "start": 6.63,
+          "end": 6.72,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "know",
+          "start": 6.72,
+          "end": 6.88,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "what",
+          "start": 6.88,
+          "end": 7.05,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "it",
+          "start": 7.05,
+          "end": 7.19,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "is",
+          "start": 7.19,
+          "end": 7.55,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "We've",
+          "start": 7.55,
+          "end": 7.75,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "used",
+          "start": 7.75,
+          "end": 8.04,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "it",
+          "start": 8.04,
+          "end": 8.18,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "we're",
+          "start": 8.18,
+          "end": 8.32,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "familiar",
+          "start": 8.32,
+          "end": 8.71,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "with",
+          "start": 8.71,
+          "end": 8.86,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "it",
+          "start": 8.86,
+          "end": 9.03,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "but",
+          "start": 9.03,
+          "end": 9.74,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "we're",
+          "start": 9.74,
+          "end": 9.97,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "we",
+          "start": 9.97,
+          "end": 10.09,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "can't",
+          "start": 10.09,
+          "end": 10.44,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "n",
+          "start": 10.44,
+          "end": 10.58,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "we",
+          "start": 10.58,
+          "end": 10.71,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "haven't",
+          "start": 10.71,
+          "end": 10.93,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "narrowed",
+          "start": 10.93,
+          "end": 11.25,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "down",
+          "start": 11.25,
+          "end": 11.8,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "um",
+          "start": 11.8,
+          "end": 12.28,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "exactly",
+          "start": 12.28,
+          "end": 12.66,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "what",
+          "start": 12.66,
+          "end": 12.79,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "the",
+          "start": 12.79,
+          "end": 12.88,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "things",
+          "start": 12.88,
+          "end": 13.14,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "we're",
+          "start": 13.14,
+          "end": 13.24,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "trying",
+          "start": 13.24,
+          "end": 13.42,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "to",
+          "start": 13.42,
+          "end": 13.49,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "fulfil",
+          "start": 13.49,
+          "end": 14.42,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "like",
+          "start": 14.42,
+          "end": 15.35,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "Besides",
+          "start": 15.35,
+          "end": 15.73,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "the",
+          "start": 15.73,
+          "end": 15.82,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "basics",
+          "start": 15.82,
+          "end": 16.24,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "I",
+          "start": 16.24,
+          "end": 16.35,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "think",
+          "start": 16.35,
+          "end": 17.01,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "back",
+          "start": 17.01,
+          "end": 17.3,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "in",
+          "start": 17.3,
+          "end": 17.41,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "the",
+          "start": 17.41,
+          "end": 17.49,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "back",
+          "start": 17.49,
+          "end": 17.65,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "of",
+          "start": 17.65,
+          "end": 17.75,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "our",
+          "start": 17.75,
+          "end": 17.85,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "minds",
+          "start": 17.85,
+          "end": 18.16,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "we",
+          "start": 18.16,
+          "end": 18.27,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "know",
+          "start": 18.27,
+          "end": 18.4,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "what",
+          "start": 18.4,
+          "end": 18.54,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "the",
+          "start": 18.54,
+          "end": 18.61,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "basics",
+          "start": 18.61,
+          "end": 18.94,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "are",
+          "start": 18.94,
+          "end": 19.53,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "Has",
+          "start": 19.53,
+          "end": 19.68,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "to",
+          "start": 19.68,
+          "end": 19.74,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "change",
+          "start": 19.74,
+          "end": 19.96,
+          "timingSource": "forcedAlignment"
+        }
+      ],
+      "duration": 20.31,
+      "license": "CC BY 4.0 \u2014 AMI Meeting Corpus",
+      "sourceURL": "https://groups.inf.ed.ac.uk/ami/AMICorpusMirror/amicorpus/ES2002b/audio/ES2002b.Headset-0.wav",
+      "isPublic": true
+    },
+    {
+      "id": "ami-ES2002b-A-0-noise15db",
+      "speakerID": "MEE006",
+      "split": "train",
+      "audioPath": "ami-ES2002b-A-0-noise15db.wav",
+      "sourceOffsetSeconds": 1429.63,
+      "sourceSHA256": "bee16c2b0a598e0f9e569bf1a8c978acc94fc690bf4144437ded44b8636c7c5d",
+      "audioSHA256": "a47ea4e1672854730799f9c69ca5235a17c041aa6f5a2538c233d968b7aa012b",
+      "script": "I guess I try to define like what we're doing now try to define what we're trying to get done Um I think in a practical way we kind of know what it is We've used it we're familiar with it but we're we can't n we haven't narrowed down um exactly what the things we're trying to fulfil like Besides the basics I think back in the back of our minds we know what the basics are Has to change",
+      "referenceWords": [
+        {
+          "text": "I",
+          "start": 0.15,
+          "end": 0.26,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "guess",
+          "start": 0.26,
+          "end": 0.46,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "I",
+          "start": 0.46,
+          "end": 0.54,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "try",
+          "start": 0.54,
+          "end": 0.73,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "to",
+          "start": 0.73,
+          "end": 0.84,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "define",
+          "start": 0.84,
+          "end": 1.51,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "like",
+          "start": 1.51,
+          "end": 1.68,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "what",
+          "start": 1.68,
+          "end": 1.82,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "we're",
+          "start": 1.82,
+          "end": 1.92,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "doing",
+          "start": 1.92,
+          "end": 2.12,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "now",
+          "start": 2.12,
+          "end": 2.77,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "try",
+          "start": 2.77,
+          "end": 2.91,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "to",
+          "start": 2.91,
+          "end": 2.97,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "define",
+          "start": 2.97,
+          "end": 3.32,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "what",
+          "start": 3.32,
+          "end": 3.43,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "we're",
+          "start": 3.43,
+          "end": 3.55,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "trying",
+          "start": 3.55,
+          "end": 3.75,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "to",
+          "start": 3.75,
+          "end": 3.85,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "get",
+          "start": 3.85,
+          "end": 4.05,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "done",
+          "start": 4.05,
+          "end": 4.53,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "Um",
+          "start": 4.53,
+          "end": 4.88,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "I",
+          "start": 4.88,
+          "end": 4.96,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "think",
+          "start": 4.96,
+          "end": 5.13,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "in",
+          "start": 5.13,
+          "end": 5.22,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "a",
+          "start": 5.22,
+          "end": 5.3,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "practical",
+          "start": 5.3,
+          "end": 5.8,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "way",
+          "start": 5.8,
+          "end": 6.37,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "we",
+          "start": 6.37,
+          "end": 6.45,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "kind",
+          "start": 6.45,
+          "end": 6.63,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "of",
+          "start": 6.63,
+          "end": 6.72,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "know",
+          "start": 6.72,
+          "end": 6.88,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "what",
+          "start": 6.88,
+          "end": 7.05,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "it",
+          "start": 7.05,
+          "end": 7.19,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "is",
+          "start": 7.19,
+          "end": 7.55,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "We've",
+          "start": 7.55,
+          "end": 7.75,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "used",
+          "start": 7.75,
+          "end": 8.04,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "it",
+          "start": 8.04,
+          "end": 8.18,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "we're",
+          "start": 8.18,
+          "end": 8.32,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "familiar",
+          "start": 8.32,
+          "end": 8.71,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "with",
+          "start": 8.71,
+          "end": 8.86,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "it",
+          "start": 8.86,
+          "end": 9.03,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "but",
+          "start": 9.03,
+          "end": 9.74,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "we're",
+          "start": 9.74,
+          "end": 9.97,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "we",
+          "start": 9.97,
+          "end": 10.09,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "can't",
+          "start": 10.09,
+          "end": 10.44,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "n",
+          "start": 10.44,
+          "end": 10.58,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "we",
+          "start": 10.58,
+          "end": 10.71,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "haven't",
+          "start": 10.71,
+          "end": 10.93,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "narrowed",
+          "start": 10.93,
+          "end": 11.25,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "down",
+          "start": 11.25,
+          "end": 11.8,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "um",
+          "start": 11.8,
+          "end": 12.28,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "exactly",
+          "start": 12.28,
+          "end": 12.66,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "what",
+          "start": 12.66,
+          "end": 12.79,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "the",
+          "start": 12.79,
+          "end": 12.88,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "things",
+          "start": 12.88,
+          "end": 13.14,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "we're",
+          "start": 13.14,
+          "end": 13.24,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "trying",
+          "start": 13.24,
+          "end": 13.42,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "to",
+          "start": 13.42,
+          "end": 13.49,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "fulfil",
+          "start": 13.49,
+          "end": 14.42,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "like",
+          "start": 14.42,
+          "end": 15.35,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "Besides",
+          "start": 15.35,
+          "end": 15.73,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "the",
+          "start": 15.73,
+          "end": 15.82,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "basics",
+          "start": 15.82,
+          "end": 16.24,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "I",
+          "start": 16.24,
+          "end": 16.35,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "think",
+          "start": 16.35,
+          "end": 17.01,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "back",
+          "start": 17.01,
+          "end": 17.3,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "in",
+          "start": 17.3,
+          "end": 17.41,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "the",
+          "start": 17.41,
+          "end": 17.49,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "back",
+          "start": 17.49,
+          "end": 17.65,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "of",
+          "start": 17.65,
+          "end": 17.75,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "our",
+          "start": 17.75,
+          "end": 17.85,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "minds",
+          "start": 17.85,
+          "end": 18.16,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "we",
+          "start": 18.16,
+          "end": 18.27,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "know",
+          "start": 18.27,
+          "end": 18.4,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "what",
+          "start": 18.4,
+          "end": 18.54,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "the",
+          "start": 18.54,
+          "end": 18.61,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "basics",
+          "start": 18.61,
+          "end": 18.94,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "are",
+          "start": 18.94,
+          "end": 19.53,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "Has",
+          "start": 19.53,
+          "end": 19.68,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "to",
+          "start": 19.68,
+          "end": 19.74,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "change",
+          "start": 19.74,
+          "end": 19.96,
+          "timingSource": "forcedAlignment"
+        }
+      ],
+      "duration": 20.31,
+      "license": "CC BY 4.0 \u2014 AMI Meeting Corpus",
+      "sourceURL": "https://groups.inf.ed.ac.uk/ami/AMICorpusMirror/amicorpus/ES2002b/audio/ES2002b.Headset-0.wav",
+      "isPublic": true
+    },
+    {
+      "id": "ami-ES2002b-A-1",
+      "speakerID": "MEE006",
+      "split": "train",
+      "audioPath": "ami-ES2002b-A-1.wav",
+      "sourceOffsetSeconds": 1540.26,
+      "sourceSHA256": "bee16c2b0a598e0f9e569bf1a8c978acc94fc690bf4144437ded44b8636c7c5d",
+      "audioSHA256": "29124955f1f1aaeea87e8647c261a171f71253f432e17e86263ffe7acb554043",
+      "script": "uh a logic a series of logic has to decide what the user is telling the device and the device has to r you know based on you push button A_ so I will do something with button A_ So maybe button A_ is the power button okay Um and then it needs to be able to send the signal out to the device itself which is the receiver here Um and I think that's about it in terms of my",
+      "referenceWords": [
+        {
+          "text": "uh",
+          "start": 0.15,
+          "end": 0.5,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "a",
+          "start": 0.5,
+          "end": 0.58,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "logic",
+          "start": 0.58,
+          "end": 1.05,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "a",
+          "start": 1.05,
+          "end": 1.14,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "series",
+          "start": 1.14,
+          "end": 1.43,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "of",
+          "start": 1.43,
+          "end": 1.52,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "logic",
+          "start": 1.52,
+          "end": 1.79,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "has",
+          "start": 1.79,
+          "end": 1.92,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "to",
+          "start": 1.92,
+          "end": 2.03,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "decide",
+          "start": 2.03,
+          "end": 2.6,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "what",
+          "start": 2.6,
+          "end": 2.82,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "the",
+          "start": 2.82,
+          "end": 2.94,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "user",
+          "start": 2.94,
+          "end": 3.28,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "is",
+          "start": 3.28,
+          "end": 3.41,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "telling",
+          "start": 3.41,
+          "end": 4.09,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "the",
+          "start": 4.09,
+          "end": 4.2,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "device",
+          "start": 4.2,
+          "end": 4.61,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "and",
+          "start": 4.61,
+          "end": 4.77,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "the",
+          "start": 4.77,
+          "end": 4.86,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "device",
+          "start": 4.86,
+          "end": 5.33,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "has",
+          "start": 5.33,
+          "end": 5.51,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "to",
+          "start": 5.51,
+          "end": 5.64,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "r",
+          "start": 5.64,
+          "end": 6.0,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "you",
+          "start": 6.0,
+          "end": 6.14,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "know",
+          "start": 6.14,
+          "end": 6.26,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "based",
+          "start": 6.26,
+          "end": 6.54,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "on",
+          "start": 6.54,
+          "end": 7.03,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "you",
+          "start": 7.03,
+          "end": 7.44,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "push",
+          "start": 7.44,
+          "end": 7.67,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "button",
+          "start": 7.67,
+          "end": 7.96,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "A_",
+          "start": 7.96,
+          "end": 8.31,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "so",
+          "start": 8.31,
+          "end": 8.52,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "I",
+          "start": 8.52,
+          "end": 8.61,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "will",
+          "start": 8.61,
+          "end": 8.74,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "do",
+          "start": 8.74,
+          "end": 8.91,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "something",
+          "start": 8.91,
+          "end": 9.22,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "with",
+          "start": 9.22,
+          "end": 9.38,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "button",
+          "start": 9.38,
+          "end": 9.6,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "A_",
+          "start": 9.6,
+          "end": 9.75,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "So",
+          "start": 9.75,
+          "end": 9.9,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "maybe",
+          "start": 9.9,
+          "end": 10.19,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "button",
+          "start": 10.19,
+          "end": 10.44,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "A_",
+          "start": 10.44,
+          "end": 10.51,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "is",
+          "start": 10.51,
+          "end": 10.63,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "the",
+          "start": 10.63,
+          "end": 10.7,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "power",
+          "start": 10.7,
+          "end": 10.91,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "button",
+          "start": 10.91,
+          "end": 11.67,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "okay",
+          "start": 11.67,
+          "end": 12.38,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "Um",
+          "start": 12.38,
+          "end": 12.67,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "and",
+          "start": 12.67,
+          "end": 12.8,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "then",
+          "start": 12.8,
+          "end": 12.95,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "it",
+          "start": 12.95,
+          "end": 13.05,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "needs",
+          "start": 13.05,
+          "end": 13.29,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "to",
+          "start": 13.29,
+          "end": 13.42,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "be",
+          "start": 13.42,
+          "end": 13.48,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "able",
+          "start": 13.48,
+          "end": 13.66,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "to",
+          "start": 13.66,
+          "end": 13.8,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "send",
+          "start": 13.8,
+          "end": 14.06,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "the",
+          "start": 14.06,
+          "end": 14.13,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "signal",
+          "start": 14.13,
+          "end": 14.49,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "out",
+          "start": 14.49,
+          "end": 14.73,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "to",
+          "start": 14.73,
+          "end": 15.09,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "the",
+          "start": 15.09,
+          "end": 15.25,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "device",
+          "start": 15.25,
+          "end": 15.6,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "itself",
+          "start": 15.6,
+          "end": 15.96,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "which",
+          "start": 15.96,
+          "end": 16.1,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "is",
+          "start": 16.1,
+          "end": 16.22,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "the",
+          "start": 16.22,
+          "end": 16.35,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "receiver",
+          "start": 16.35,
+          "end": 16.7,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "here",
+          "start": 16.7,
+          "end": 17.6,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "Um",
+          "start": 17.6,
+          "end": 18.01,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "and",
+          "start": 18.01,
+          "end": 18.1,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "I",
+          "start": 18.1,
+          "end": 18.15,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "think",
+          "start": 18.15,
+          "end": 18.37,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "that's",
+          "start": 18.37,
+          "end": 18.9,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "about",
+          "start": 18.9,
+          "end": 19.24,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "it",
+          "start": 19.24,
+          "end": 19.46,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "in",
+          "start": 19.46,
+          "end": 19.59,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "terms",
+          "start": 19.59,
+          "end": 19.79,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "of",
+          "start": 19.79,
+          "end": 19.9,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "my",
+          "start": 19.9,
+          "end": 20.07,
+          "timingSource": "forcedAlignment"
+        }
+      ],
+      "duration": 20.42,
+      "license": "CC BY 4.0 \u2014 AMI Meeting Corpus",
+      "sourceURL": "https://groups.inf.ed.ac.uk/ami/AMICorpusMirror/amicorpus/ES2002b/audio/ES2002b.Headset-0.wav",
+      "isPublic": true
+    },
+    {
+      "id": "ami-ES2002b-A-2",
+      "speakerID": "MEE006",
+      "split": "train",
+      "audioPath": "ami-ES2002b-A-2.wav",
+      "sourceOffsetSeconds": 1937.1,
+      "sourceSHA256": "bee16c2b0a598e0f9e569bf1a8c978acc94fc690bf4144437ded44b8636c7c5d",
+      "audioSHA256": "29dfec6d5391bfc7aa7cb4c2c83716c86dba5182257928de08a6f6ec0c9d8281",
+      "script": "point of view from a person designing the device but I think from a point of view of a person using the device you know a T_V_ is something they see and something they hear um it's something they do other things to like turn it on and turn it off I mean like so what we could have is like three buckets right where we could throw things into like if we want this feature let's throw it into there and then from there decide",
+      "referenceWords": [
+        {
+          "text": "point",
+          "start": 0.15,
+          "end": 0.3,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "of",
+          "start": 0.3,
+          "end": 0.36,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "view",
+          "start": 0.36,
+          "end": 0.52,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "from",
+          "start": 0.52,
+          "end": 0.7,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "a",
+          "start": 0.7,
+          "end": 0.8,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "person",
+          "start": 0.8,
+          "end": 1.7,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "designing",
+          "start": 1.7,
+          "end": 2.15,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "the",
+          "start": 2.15,
+          "end": 2.24,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "device",
+          "start": 2.24,
+          "end": 2.59,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "but",
+          "start": 2.59,
+          "end": 2.84,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "I",
+          "start": 2.84,
+          "end": 2.95,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "think",
+          "start": 2.95,
+          "end": 3.43,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "from",
+          "start": 3.43,
+          "end": 3.8,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "a",
+          "start": 3.8,
+          "end": 3.83,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "point",
+          "start": 3.83,
+          "end": 4.04,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "of",
+          "start": 4.04,
+          "end": 4.12,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "view",
+          "start": 4.12,
+          "end": 4.29,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "of",
+          "start": 4.29,
+          "end": 4.39,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "a",
+          "start": 4.39,
+          "end": 4.47,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "person",
+          "start": 4.47,
+          "end": 4.77,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "using",
+          "start": 4.77,
+          "end": 5.05,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "the",
+          "start": 5.05,
+          "end": 5.11,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "device",
+          "start": 5.11,
+          "end": 6.13,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "you",
+          "start": 6.13,
+          "end": 6.19,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "know",
+          "start": 6.19,
+          "end": 6.31,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "a",
+          "start": 6.31,
+          "end": 6.37,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "T_V_",
+          "start": 6.37,
+          "end": 6.68,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "is",
+          "start": 6.68,
+          "end": 6.74,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "something",
+          "start": 6.74,
+          "end": 7.04,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "they",
+          "start": 7.04,
+          "end": 7.14,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "see",
+          "start": 7.14,
+          "end": 7.4,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "and",
+          "start": 7.4,
+          "end": 7.51,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "something",
+          "start": 7.51,
+          "end": 7.8,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "they",
+          "start": 7.8,
+          "end": 7.92,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "hear",
+          "start": 7.92,
+          "end": 9.02,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "um",
+          "start": 9.02,
+          "end": 9.53,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "it's",
+          "start": 9.53,
+          "end": 9.64,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "something",
+          "start": 9.64,
+          "end": 10.04,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "they",
+          "start": 10.04,
+          "end": 10.21,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "do",
+          "start": 10.21,
+          "end": 10.38,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "other",
+          "start": 10.38,
+          "end": 10.61,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "things",
+          "start": 10.61,
+          "end": 10.9,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "to",
+          "start": 10.9,
+          "end": 11.08,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "like",
+          "start": 11.08,
+          "end": 11.33,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "turn",
+          "start": 11.33,
+          "end": 11.49,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "it",
+          "start": 11.49,
+          "end": 11.58,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "on",
+          "start": 11.58,
+          "end": 11.76,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "and",
+          "start": 11.76,
+          "end": 11.91,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "turn",
+          "start": 11.91,
+          "end": 12.1,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "it",
+          "start": 12.1,
+          "end": 12.21,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "off",
+          "start": 12.21,
+          "end": 12.56,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "I",
+          "start": 12.56,
+          "end": 13.05,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "mean",
+          "start": 13.05,
+          "end": 13.27,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "like",
+          "start": 13.27,
+          "end": 13.47,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "so",
+          "start": 13.47,
+          "end": 13.69,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "what",
+          "start": 13.69,
+          "end": 13.9,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "we",
+          "start": 13.9,
+          "end": 13.99,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "could",
+          "start": 13.99,
+          "end": 14.12,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "have",
+          "start": 14.12,
+          "end": 14.3,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "is",
+          "start": 14.3,
+          "end": 14.4,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "like",
+          "start": 14.4,
+          "end": 14.54,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "three",
+          "start": 14.54,
+          "end": 14.7,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "buckets",
+          "start": 14.7,
+          "end": 15.18,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "right",
+          "start": 15.18,
+          "end": 15.6,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "where",
+          "start": 15.6,
+          "end": 15.69,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "we",
+          "start": 15.69,
+          "end": 15.76,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "could",
+          "start": 15.76,
+          "end": 15.9,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "throw",
+          "start": 15.9,
+          "end": 16.21,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "things",
+          "start": 16.21,
+          "end": 16.47,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "into",
+          "start": 16.47,
+          "end": 16.73,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "like",
+          "start": 16.73,
+          "end": 16.94,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "if",
+          "start": 16.94,
+          "end": 17.05,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "we",
+          "start": 17.05,
+          "end": 17.12,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "want",
+          "start": 17.12,
+          "end": 17.32,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "this",
+          "start": 17.32,
+          "end": 17.43,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "feature",
+          "start": 17.43,
+          "end": 17.7,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "let's",
+          "start": 17.7,
+          "end": 17.82,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "throw",
+          "start": 17.82,
+          "end": 17.96,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "it",
+          "start": 17.96,
+          "end": 18.05,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "into",
+          "start": 18.05,
+          "end": 18.27,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "there",
+          "start": 18.27,
+          "end": 19.12,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "and",
+          "start": 19.12,
+          "end": 19.21,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "then",
+          "start": 19.21,
+          "end": 19.36,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "from",
+          "start": 19.36,
+          "end": 19.54,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "there",
+          "start": 19.54,
+          "end": 19.71,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "decide",
+          "start": 19.71,
+          "end": 20.08,
+          "timingSource": "forcedAlignment"
+        }
+      ],
+      "duration": 20.43,
+      "license": "CC BY 4.0 \u2014 AMI Meeting Corpus",
+      "sourceURL": "https://groups.inf.ed.ac.uk/ami/AMICorpusMirror/amicorpus/ES2002b/audio/ES2002b.Headset-0.wav",
+      "isPublic": true
+    },
+    {
+      "id": "ami-ES2002b-B-0",
+      "speakerID": "FEE005",
+      "split": "train",
+      "audioPath": "ami-ES2002b-B-0.wav",
+      "sourceOffsetSeconds": 1122.5,
+      "sourceSHA256": "bb79fbf1892d03ae7a81e9e6f72d22feb37513c149fd59a0ddf2d216a262c1fb",
+      "audioSHA256": "5cc7fa85e0190f0483a5b192e62a790cc9108074b29c5bb0a94be31f00486241",
+      "script": "Yeah who wou who would have the money to spend Well i if if like twenty five Euro is our is our selling price then you can imagine well I don't I'm not really sure how much that will retail at But you want it's somebody who's not gonna just use the remote that comes with their telly I suppose they're gonna actually go out and buy one So who do you think we're aiming this at",
+      "referenceWords": [
+        {
+          "text": "Yeah",
+          "start": 0.15,
+          "end": 0.5,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "who",
+          "start": 0.5,
+          "end": 0.63,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "wou",
+          "start": 0.63,
+          "end": 0.76,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "who",
+          "start": 0.76,
+          "end": 0.86,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "would",
+          "start": 0.86,
+          "end": 0.95,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "have",
+          "start": 0.95,
+          "end": 1.1,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "the",
+          "start": 1.1,
+          "end": 1.18,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "money",
+          "start": 1.18,
+          "end": 1.41,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "to",
+          "start": 1.41,
+          "end": 1.54,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "spend",
+          "start": 1.54,
+          "end": 2.98,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "Well",
+          "start": 2.98,
+          "end": 3.15,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "i",
+          "start": 3.15,
+          "end": 3.19,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "if",
+          "start": 3.19,
+          "end": 4.04,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "if",
+          "start": 4.04,
+          "end": 4.22,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "like",
+          "start": 4.22,
+          "end": 4.82,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "twenty",
+          "start": 4.82,
+          "end": 5.05,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "five",
+          "start": 5.05,
+          "end": 5.32,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "Euro",
+          "start": 5.32,
+          "end": 5.74,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "is",
+          "start": 5.74,
+          "end": 5.9,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "our",
+          "start": 5.9,
+          "end": 6.25,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "is",
+          "start": 6.25,
+          "end": 6.35,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "our",
+          "start": 6.35,
+          "end": 6.47,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "selling",
+          "start": 6.47,
+          "end": 6.8,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "price",
+          "start": 6.8,
+          "end": 7.15,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "then",
+          "start": 7.15,
+          "end": 7.62,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "you",
+          "start": 7.62,
+          "end": 7.76,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "can",
+          "start": 7.76,
+          "end": 7.89,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "imagine",
+          "start": 7.89,
+          "end": 8.43,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "well",
+          "start": 8.43,
+          "end": 8.61,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "I",
+          "start": 8.61,
+          "end": 8.67,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "don't",
+          "start": 8.67,
+          "end": 8.89,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "I'm",
+          "start": 8.89,
+          "end": 9.01,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "not",
+          "start": 9.01,
+          "end": 9.13,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "really",
+          "start": 9.13,
+          "end": 9.3,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "sure",
+          "start": 9.3,
+          "end": 9.51,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "how",
+          "start": 9.51,
+          "end": 9.61,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "much",
+          "start": 9.61,
+          "end": 9.87,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "that",
+          "start": 9.87,
+          "end": 10.01,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "will",
+          "start": 10.01,
+          "end": 10.17,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "retail",
+          "start": 10.17,
+          "end": 10.62,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "at",
+          "start": 10.62,
+          "end": 11.18,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "But",
+          "start": 11.18,
+          "end": 11.31,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "you",
+          "start": 11.31,
+          "end": 11.39,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "want",
+          "start": 11.39,
+          "end": 11.64,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "it's",
+          "start": 11.64,
+          "end": 11.82,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "somebody",
+          "start": 11.82,
+          "end": 12.16,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "who's",
+          "start": 12.16,
+          "end": 12.29,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "not",
+          "start": 12.29,
+          "end": 12.51,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "gonna",
+          "start": 12.51,
+          "end": 12.71,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "just",
+          "start": 12.71,
+          "end": 12.99,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "use",
+          "start": 12.99,
+          "end": 13.26,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "the",
+          "start": 13.26,
+          "end": 13.35,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "remote",
+          "start": 13.35,
+          "end": 13.63,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "that",
+          "start": 13.63,
+          "end": 13.76,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "comes",
+          "start": 13.76,
+          "end": 14.01,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "with",
+          "start": 14.01,
+          "end": 14.11,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "their",
+          "start": 14.11,
+          "end": 14.26,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "telly",
+          "start": 14.26,
+          "end": 14.62,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "I",
+          "start": 14.62,
+          "end": 14.68,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "suppose",
+          "start": 14.68,
+          "end": 15.04,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "they're",
+          "start": 15.04,
+          "end": 15.16,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "gonna",
+          "start": 15.16,
+          "end": 15.61,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "actually",
+          "start": 15.61,
+          "end": 15.89,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "go",
+          "start": 15.89,
+          "end": 15.98,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "out",
+          "start": 15.98,
+          "end": 16.04,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "and",
+          "start": 16.04,
+          "end": 16.15,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "buy",
+          "start": 16.15,
+          "end": 16.37,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "one",
+          "start": 16.37,
+          "end": 17.01,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "So",
+          "start": 17.01,
+          "end": 17.26,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "who",
+          "start": 17.26,
+          "end": 17.65,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "do",
+          "start": 17.65,
+          "end": 17.72,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "you",
+          "start": 17.72,
+          "end": 17.94,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "think",
+          "start": 17.94,
+          "end": 18.14,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "we're",
+          "start": 18.14,
+          "end": 18.29,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "aiming",
+          "start": 18.29,
+          "end": 18.52,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "this",
+          "start": 18.52,
+          "end": 18.75,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "at",
+          "start": 18.75,
+          "end": 18.89,
+          "timingSource": "forcedAlignment"
+        }
+      ],
+      "duration": 19.24,
+      "license": "CC BY 4.0 \u2014 AMI Meeting Corpus",
+      "sourceURL": "https://groups.inf.ed.ac.uk/ami/AMICorpusMirror/amicorpus/ES2002b/audio/ES2002b.Headset-1.wav",
+      "isPublic": true
+    },
+    {
+      "id": "ami-ES2002b-B-0-noise15db",
+      "speakerID": "FEE005",
+      "split": "train",
+      "audioPath": "ami-ES2002b-B-0-noise15db.wav",
+      "sourceOffsetSeconds": 1122.5,
+      "sourceSHA256": "bb79fbf1892d03ae7a81e9e6f72d22feb37513c149fd59a0ddf2d216a262c1fb",
+      "audioSHA256": "af352dac75c0895fda09c6d5c46af3cfd4207325a79e1626042bcbefd2aced8d",
+      "script": "Yeah who wou who would have the money to spend Well i if if like twenty five Euro is our is our selling price then you can imagine well I don't I'm not really sure how much that will retail at But you want it's somebody who's not gonna just use the remote that comes with their telly I suppose they're gonna actually go out and buy one So who do you think we're aiming this at",
+      "referenceWords": [
+        {
+          "text": "Yeah",
+          "start": 0.15,
+          "end": 0.5,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "who",
+          "start": 0.5,
+          "end": 0.63,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "wou",
+          "start": 0.63,
+          "end": 0.76,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "who",
+          "start": 0.76,
+          "end": 0.86,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "would",
+          "start": 0.86,
+          "end": 0.95,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "have",
+          "start": 0.95,
+          "end": 1.1,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "the",
+          "start": 1.1,
+          "end": 1.18,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "money",
+          "start": 1.18,
+          "end": 1.41,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "to",
+          "start": 1.41,
+          "end": 1.54,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "spend",
+          "start": 1.54,
+          "end": 2.98,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "Well",
+          "start": 2.98,
+          "end": 3.15,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "i",
+          "start": 3.15,
+          "end": 3.19,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "if",
+          "start": 3.19,
+          "end": 4.04,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "if",
+          "start": 4.04,
+          "end": 4.22,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "like",
+          "start": 4.22,
+          "end": 4.82,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "twenty",
+          "start": 4.82,
+          "end": 5.05,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "five",
+          "start": 5.05,
+          "end": 5.32,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "Euro",
+          "start": 5.32,
+          "end": 5.74,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "is",
+          "start": 5.74,
+          "end": 5.9,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "our",
+          "start": 5.9,
+          "end": 6.25,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "is",
+          "start": 6.25,
+          "end": 6.35,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "our",
+          "start": 6.35,
+          "end": 6.47,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "selling",
+          "start": 6.47,
+          "end": 6.8,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "price",
+          "start": 6.8,
+          "end": 7.15,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "then",
+          "start": 7.15,
+          "end": 7.62,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "you",
+          "start": 7.62,
+          "end": 7.76,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "can",
+          "start": 7.76,
+          "end": 7.89,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "imagine",
+          "start": 7.89,
+          "end": 8.43,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "well",
+          "start": 8.43,
+          "end": 8.61,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "I",
+          "start": 8.61,
+          "end": 8.67,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "don't",
+          "start": 8.67,
+          "end": 8.89,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "I'm",
+          "start": 8.89,
+          "end": 9.01,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "not",
+          "start": 9.01,
+          "end": 9.13,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "really",
+          "start": 9.13,
+          "end": 9.3,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "sure",
+          "start": 9.3,
+          "end": 9.51,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "how",
+          "start": 9.51,
+          "end": 9.61,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "much",
+          "start": 9.61,
+          "end": 9.87,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "that",
+          "start": 9.87,
+          "end": 10.01,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "will",
+          "start": 10.01,
+          "end": 10.17,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "retail",
+          "start": 10.17,
+          "end": 10.62,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "at",
+          "start": 10.62,
+          "end": 11.18,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "But",
+          "start": 11.18,
+          "end": 11.31,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "you",
+          "start": 11.31,
+          "end": 11.39,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "want",
+          "start": 11.39,
+          "end": 11.64,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "it's",
+          "start": 11.64,
+          "end": 11.82,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "somebody",
+          "start": 11.82,
+          "end": 12.16,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "who's",
+          "start": 12.16,
+          "end": 12.29,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "not",
+          "start": 12.29,
+          "end": 12.51,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "gonna",
+          "start": 12.51,
+          "end": 12.71,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "just",
+          "start": 12.71,
+          "end": 12.99,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "use",
+          "start": 12.99,
+          "end": 13.26,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "the",
+          "start": 13.26,
+          "end": 13.35,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "remote",
+          "start": 13.35,
+          "end": 13.63,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "that",
+          "start": 13.63,
+          "end": 13.76,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "comes",
+          "start": 13.76,
+          "end": 14.01,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "with",
+          "start": 14.01,
+          "end": 14.11,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "their",
+          "start": 14.11,
+          "end": 14.26,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "telly",
+          "start": 14.26,
+          "end": 14.62,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "I",
+          "start": 14.62,
+          "end": 14.68,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "suppose",
+          "start": 14.68,
+          "end": 15.04,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "they're",
+          "start": 15.04,
+          "end": 15.16,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "gonna",
+          "start": 15.16,
+          "end": 15.61,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "actually",
+          "start": 15.61,
+          "end": 15.89,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "go",
+          "start": 15.89,
+          "end": 15.98,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "out",
+          "start": 15.98,
+          "end": 16.04,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "and",
+          "start": 16.04,
+          "end": 16.15,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "buy",
+          "start": 16.15,
+          "end": 16.37,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "one",
+          "start": 16.37,
+          "end": 17.01,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "So",
+          "start": 17.01,
+          "end": 17.26,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "who",
+          "start": 17.26,
+          "end": 17.65,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "do",
+          "start": 17.65,
+          "end": 17.72,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "you",
+          "start": 17.72,
+          "end": 17.94,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "think",
+          "start": 17.94,
+          "end": 18.14,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "we're",
+          "start": 18.14,
+          "end": 18.29,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "aiming",
+          "start": 18.29,
+          "end": 18.52,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "this",
+          "start": 18.52,
+          "end": 18.75,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "at",
+          "start": 18.75,
+          "end": 18.89,
+          "timingSource": "forcedAlignment"
+        }
+      ],
+      "duration": 19.24,
+      "license": "CC BY 4.0 \u2014 AMI Meeting Corpus",
+      "sourceURL": "https://groups.inf.ed.ac.uk/ami/AMICorpusMirror/amicorpus/ES2002b/audio/ES2002b.Headset-1.wav",
+      "isPublic": true
+    },
+    {
+      "id": "ami-ES2002b-B-1",
+      "speakerID": "FEE005",
+      "split": "train",
+      "audioPath": "ami-ES2002b-B-1.wav",
+      "sourceOffsetSeconds": 1684.8,
+      "sourceSHA256": "bb79fbf1892d03ae7a81e9e6f72d22feb37513c149fd59a0ddf2d216a262c1fb",
+      "audioSHA256": "34f73e2e3cf5bf2eae4d1f80bdd16d76dd0e9c4beabb4a9265e0a052142d260e",
+      "script": "Well well a worry that was was expressed in the new requirements was that if we made this too complex it would e it would effect um how long how long it took us to get this to market so I th suspect it might be a good idea just to restrict our kind of our creative influence on this on the user interface and not worry so much about uh how we transmit it um because I mean it",
+      "referenceWords": [
+        {
+          "text": "Well",
+          "start": 0.15,
+          "end": 0.43,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "well",
+          "start": 0.43,
+          "end": 0.54,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "a",
+          "start": 0.54,
+          "end": 0.62,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "worry",
+          "start": 0.62,
+          "end": 0.88,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "that",
+          "start": 0.88,
+          "end": 1.01,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "was",
+          "start": 1.01,
+          "end": 1.44,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "was",
+          "start": 1.44,
+          "end": 1.66,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "expressed",
+          "start": 1.66,
+          "end": 2.28,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "in",
+          "start": 2.28,
+          "end": 2.38,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "the",
+          "start": 2.38,
+          "end": 2.47,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "new",
+          "start": 2.47,
+          "end": 2.62,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "requirements",
+          "start": 2.62,
+          "end": 3.28,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "was",
+          "start": 3.28,
+          "end": 3.38,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "that",
+          "start": 3.38,
+          "end": 3.49,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "if",
+          "start": 3.49,
+          "end": 3.61,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "we",
+          "start": 3.61,
+          "end": 3.7,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "made",
+          "start": 3.7,
+          "end": 3.9,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "this",
+          "start": 3.9,
+          "end": 4.06,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "too",
+          "start": 4.06,
+          "end": 4.22,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "complex",
+          "start": 4.22,
+          "end": 4.86,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "it",
+          "start": 4.86,
+          "end": 4.96,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "would",
+          "start": 4.96,
+          "end": 5.11,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "e",
+          "start": 5.11,
+          "end": 5.26,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "it",
+          "start": 5.26,
+          "end": 5.38,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "would",
+          "start": 5.38,
+          "end": 5.47,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "effect",
+          "start": 5.47,
+          "end": 5.97,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "um",
+          "start": 5.97,
+          "end": 6.22,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "how",
+          "start": 6.22,
+          "end": 6.41,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "long",
+          "start": 6.41,
+          "end": 7.29,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "how",
+          "start": 7.29,
+          "end": 7.44,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "long",
+          "start": 7.44,
+          "end": 7.57,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "it",
+          "start": 7.57,
+          "end": 7.64,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "took",
+          "start": 7.64,
+          "end": 7.8,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "us",
+          "start": 7.8,
+          "end": 7.89,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "to",
+          "start": 7.89,
+          "end": 7.98,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "get",
+          "start": 7.98,
+          "end": 8.14,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "this",
+          "start": 8.14,
+          "end": 8.27,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "to",
+          "start": 8.27,
+          "end": 8.37,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "market",
+          "start": 8.37,
+          "end": 8.82,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "so",
+          "start": 8.82,
+          "end": 9.7,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "I",
+          "start": 9.7,
+          "end": 9.84,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "th",
+          "start": 9.84,
+          "end": 9.96,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "suspect",
+          "start": 9.96,
+          "end": 10.59,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "it",
+          "start": 10.59,
+          "end": 10.66,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "might",
+          "start": 10.66,
+          "end": 10.93,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "be",
+          "start": 10.93,
+          "end": 11.27,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "a",
+          "start": 11.27,
+          "end": 11.38,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "good",
+          "start": 11.38,
+          "end": 11.55,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "idea",
+          "start": 11.55,
+          "end": 11.85,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "just",
+          "start": 11.85,
+          "end": 12.04,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "to",
+          "start": 12.04,
+          "end": 12.17,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "restrict",
+          "start": 12.17,
+          "end": 12.76,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "our",
+          "start": 12.76,
+          "end": 13.04,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "kind",
+          "start": 13.04,
+          "end": 13.25,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "of",
+          "start": 13.25,
+          "end": 13.41,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "our",
+          "start": 13.41,
+          "end": 13.59,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "creative",
+          "start": 13.59,
+          "end": 14.08,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "influence",
+          "start": 14.08,
+          "end": 14.53,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "on",
+          "start": 14.53,
+          "end": 14.63,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "this",
+          "start": 14.63,
+          "end": 14.85,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "on",
+          "start": 14.85,
+          "end": 14.95,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "the",
+          "start": 14.95,
+          "end": 15.03,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "user",
+          "start": 15.03,
+          "end": 15.27,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "interface",
+          "start": 15.27,
+          "end": 15.79,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "and",
+          "start": 15.79,
+          "end": 15.88,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "not",
+          "start": 15.88,
+          "end": 16.0,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "worry",
+          "start": 16.0,
+          "end": 16.26,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "so",
+          "start": 16.26,
+          "end": 16.4,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "much",
+          "start": 16.4,
+          "end": 16.63,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "about",
+          "start": 16.63,
+          "end": 17.38,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "uh",
+          "start": 17.38,
+          "end": 17.6,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "how",
+          "start": 17.6,
+          "end": 17.89,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "we",
+          "start": 17.89,
+          "end": 18.07,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "transmit",
+          "start": 18.07,
+          "end": 18.56,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "it",
+          "start": 18.56,
+          "end": 19.16,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "um",
+          "start": 19.16,
+          "end": 19.61,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "because",
+          "start": 19.61,
+          "end": 19.87,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "I",
+          "start": 19.87,
+          "end": 19.92,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "mean",
+          "start": 19.92,
+          "end": 20.05,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "it",
+          "start": 20.05,
+          "end": 20.15,
+          "timingSource": "forcedAlignment"
+        }
+      ],
+      "duration": 20.5,
+      "license": "CC BY 4.0 \u2014 AMI Meeting Corpus",
+      "sourceURL": "https://groups.inf.ed.ac.uk/ami/AMICorpusMirror/amicorpus/ES2002b/audio/ES2002b.Headset-1.wav",
+      "isPublic": true
+    },
+    {
+      "id": "ami-ES2002b-B-2",
+      "speakerID": "FEE005",
+      "split": "train",
+      "audioPath": "ami-ES2002b-B-2.wav",
+      "sourceOffsetSeconds": 1770.42,
+      "sourceSHA256": "bb79fbf1892d03ae7a81e9e6f72d22feb37513c149fd59a0ddf2d216a262c1fb",
+      "audioSHA256": "f1479d4f3914f0637dff3602d6d1e480b6c73b8ee1624652dfb99d627654e94a",
+      "script": "Well well we've um In the new requirement spec they said just to focus on the T_V_ so that's what we should do for now I think Something I was wondering about was the power Um is it worth considering like having like a charging unit as opposed to just regular batteries I mean is that something we really want to go into do you think or should we just consider running on regular batteries",
+      "referenceWords": [
+        {
+          "text": "Well",
+          "start": 0.15,
+          "end": 0.53,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "well",
+          "start": 0.53,
+          "end": 0.71,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "we've",
+          "start": 0.71,
+          "end": 0.96,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "um",
+          "start": 0.96,
+          "end": 1.52,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "In",
+          "start": 1.52,
+          "end": 1.67,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "the",
+          "start": 1.67,
+          "end": 1.77,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "new",
+          "start": 1.77,
+          "end": 1.92,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "requirement",
+          "start": 1.92,
+          "end": 2.45,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "spec",
+          "start": 2.45,
+          "end": 2.85,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "they",
+          "start": 2.85,
+          "end": 2.94,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "said",
+          "start": 2.94,
+          "end": 3.21,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "just",
+          "start": 3.21,
+          "end": 3.44,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "to",
+          "start": 3.44,
+          "end": 3.53,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "focus",
+          "start": 3.53,
+          "end": 3.91,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "on",
+          "start": 3.91,
+          "end": 4.04,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "the",
+          "start": 4.04,
+          "end": 4.12,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "T_V_",
+          "start": 4.12,
+          "end": 4.67,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "so",
+          "start": 4.67,
+          "end": 4.81,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "that's",
+          "start": 4.81,
+          "end": 5.0,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "what",
+          "start": 5.0,
+          "end": 5.09,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "we",
+          "start": 5.09,
+          "end": 5.16,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "should",
+          "start": 5.16,
+          "end": 5.36,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "do",
+          "start": 5.36,
+          "end": 5.52,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "for",
+          "start": 5.52,
+          "end": 5.68,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "now",
+          "start": 5.68,
+          "end": 5.82,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "I",
+          "start": 5.82,
+          "end": 5.95,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "think",
+          "start": 5.95,
+          "end": 6.43,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "Something",
+          "start": 6.43,
+          "end": 6.73,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "I",
+          "start": 6.73,
+          "end": 6.79,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "was",
+          "start": 6.79,
+          "end": 6.92,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "wondering",
+          "start": 6.92,
+          "end": 7.24,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "about",
+          "start": 7.24,
+          "end": 7.47,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "was",
+          "start": 7.47,
+          "end": 7.66,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "the",
+          "start": 7.66,
+          "end": 7.75,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "power",
+          "start": 7.75,
+          "end": 8.31,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "Um",
+          "start": 8.31,
+          "end": 9.07,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "is",
+          "start": 9.07,
+          "end": 9.21,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "it",
+          "start": 9.21,
+          "end": 9.32,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "worth",
+          "start": 9.32,
+          "end": 9.57,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "considering",
+          "start": 9.57,
+          "end": 10.51,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "like",
+          "start": 10.51,
+          "end": 10.74,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "having",
+          "start": 10.74,
+          "end": 10.98,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "like",
+          "start": 10.98,
+          "end": 11.14,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "a",
+          "start": 11.14,
+          "end": 11.18,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "charging",
+          "start": 11.18,
+          "end": 11.7,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "unit",
+          "start": 11.7,
+          "end": 12.37,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "as",
+          "start": 12.37,
+          "end": 12.5,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "opposed",
+          "start": 12.5,
+          "end": 12.89,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "to",
+          "start": 12.89,
+          "end": 12.98,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "just",
+          "start": 12.98,
+          "end": 13.17,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "regular",
+          "start": 13.17,
+          "end": 13.5,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "batteries",
+          "start": 13.5,
+          "end": 14.44,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "I",
+          "start": 14.44,
+          "end": 14.55,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "mean",
+          "start": 14.55,
+          "end": 15.31,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "is",
+          "start": 15.31,
+          "end": 15.44,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "that",
+          "start": 15.44,
+          "end": 15.59,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "something",
+          "start": 15.59,
+          "end": 15.82,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "we",
+          "start": 15.82,
+          "end": 15.88,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "really",
+          "start": 15.88,
+          "end": 16.08,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "want",
+          "start": 16.08,
+          "end": 16.24,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "to",
+          "start": 16.24,
+          "end": 16.3,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "go",
+          "start": 16.3,
+          "end": 16.42,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "into",
+          "start": 16.42,
+          "end": 16.74,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "do",
+          "start": 16.74,
+          "end": 16.81,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "you",
+          "start": 16.81,
+          "end": 16.87,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "think",
+          "start": 16.87,
+          "end": 17.17,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "or",
+          "start": 17.17,
+          "end": 17.35,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "should",
+          "start": 17.35,
+          "end": 17.47,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "we",
+          "start": 17.47,
+          "end": 17.55,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "just",
+          "start": 17.55,
+          "end": 17.74,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "consider",
+          "start": 17.74,
+          "end": 18.67,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "running",
+          "start": 18.67,
+          "end": 18.94,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "on",
+          "start": 18.94,
+          "end": 19.05,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "regular",
+          "start": 19.05,
+          "end": 19.35,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "batteries",
+          "start": 19.35,
+          "end": 19.93,
+          "timingSource": "forcedAlignment"
+        }
+      ],
+      "duration": 20.28,
+      "license": "CC BY 4.0 \u2014 AMI Meeting Corpus",
+      "sourceURL": "https://groups.inf.ed.ac.uk/ami/AMICorpusMirror/amicorpus/ES2002b/audio/ES2002b.Headset-1.wav",
+      "isPublic": true
+    },
+    {
+      "id": "ami-ES2002b-C-0",
+      "speakerID": "MEE007",
+      "split": "validation",
+      "audioPath": "ami-ES2002b-C-0.wav",
+      "sourceOffsetSeconds": 266.75,
+      "sourceSHA256": "78c7dac38706d7d30629f5f481db8ac7f52644e588bd67083c37036290d4d451",
+      "audioSHA256": "fca1e59089a5a11435d2e804775e75b6f78d793d4edb410617e238396293a69c",
+      "script": "um the design I have I've had a look online I've had a look at the homepage which has given us um some insp inspiration from previous products Um I've had a look at the previous products to see what they offer and um I would like to ask you guys for um your ideas about the design at the end of the meeting Um unfortunately we're not allowed to talk outside the meeting room",
+      "referenceWords": [
+        {
+          "text": "um",
+          "start": 0.15,
+          "end": 1.24,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "the",
+          "start": 1.24,
+          "end": 1.36,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "design",
+          "start": 1.36,
+          "end": 1.72,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "I",
+          "start": 1.72,
+          "end": 1.92,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "have",
+          "start": 1.92,
+          "end": 2.86,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "I've",
+          "start": 2.86,
+          "end": 2.93,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "had",
+          "start": 2.93,
+          "end": 3.02,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "a",
+          "start": 3.02,
+          "end": 3.05,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "look",
+          "start": 3.05,
+          "end": 3.18,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "online",
+          "start": 3.18,
+          "end": 3.49,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "I've",
+          "start": 3.49,
+          "end": 3.55,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "had",
+          "start": 3.55,
+          "end": 3.64,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "a",
+          "start": 3.64,
+          "end": 3.67,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "look",
+          "start": 3.67,
+          "end": 3.79,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "at",
+          "start": 3.79,
+          "end": 3.87,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "the",
+          "start": 3.87,
+          "end": 3.94,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "homepage",
+          "start": 3.94,
+          "end": 4.4,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "which",
+          "start": 4.4,
+          "end": 4.6,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "has",
+          "start": 4.6,
+          "end": 4.72,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "given",
+          "start": 4.72,
+          "end": 4.98,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "us",
+          "start": 4.98,
+          "end": 5.2,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "um",
+          "start": 5.2,
+          "end": 5.38,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "some",
+          "start": 5.38,
+          "end": 5.5,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "insp",
+          "start": 5.5,
+          "end": 5.88,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "inspiration",
+          "start": 5.88,
+          "end": 6.39,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "from",
+          "start": 6.39,
+          "end": 6.63,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "previous",
+          "start": 6.63,
+          "end": 6.91,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "products",
+          "start": 6.91,
+          "end": 8.3,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "Um",
+          "start": 8.3,
+          "end": 8.74,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "I've",
+          "start": 8.74,
+          "end": 8.8,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "had",
+          "start": 8.8,
+          "end": 8.93,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "a",
+          "start": 8.93,
+          "end": 9.0,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "look",
+          "start": 9.0,
+          "end": 9.12,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "at",
+          "start": 9.12,
+          "end": 9.2,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "the",
+          "start": 9.2,
+          "end": 9.27,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "previous",
+          "start": 9.27,
+          "end": 9.56,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "products",
+          "start": 9.56,
+          "end": 10.05,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "to",
+          "start": 10.05,
+          "end": 10.32,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "see",
+          "start": 10.32,
+          "end": 10.45,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "what",
+          "start": 10.45,
+          "end": 10.6,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "they",
+          "start": 10.6,
+          "end": 10.69,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "offer",
+          "start": 10.69,
+          "end": 11.57,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "and",
+          "start": 11.57,
+          "end": 12.04,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "um",
+          "start": 12.04,
+          "end": 13.03,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "I",
+          "start": 13.03,
+          "end": 13.11,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "would",
+          "start": 13.11,
+          "end": 13.23,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "like",
+          "start": 13.23,
+          "end": 13.38,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "to",
+          "start": 13.38,
+          "end": 13.52,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "ask",
+          "start": 13.52,
+          "end": 13.88,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "you",
+          "start": 13.88,
+          "end": 14.02,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "guys",
+          "start": 14.02,
+          "end": 14.43,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "for",
+          "start": 14.43,
+          "end": 14.87,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "um",
+          "start": 14.87,
+          "end": 15.68,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "your",
+          "start": 15.68,
+          "end": 15.85,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "ideas",
+          "start": 15.85,
+          "end": 16.05,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "about",
+          "start": 16.05,
+          "end": 16.2,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "the",
+          "start": 16.2,
+          "end": 16.29,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "design",
+          "start": 16.29,
+          "end": 16.65,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "at",
+          "start": 16.65,
+          "end": 16.75,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "the",
+          "start": 16.75,
+          "end": 16.81,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "end",
+          "start": 16.81,
+          "end": 16.98,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "of",
+          "start": 16.98,
+          "end": 17.04,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "the",
+          "start": 17.04,
+          "end": 17.1,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "meeting",
+          "start": 17.1,
+          "end": 17.85,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "Um",
+          "start": 17.85,
+          "end": 18.04,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "unfortunately",
+          "start": 18.04,
+          "end": 18.53,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "we're",
+          "start": 18.53,
+          "end": 18.63,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "not",
+          "start": 18.63,
+          "end": 18.75,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "allowed",
+          "start": 18.75,
+          "end": 18.87,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "to",
+          "start": 18.87,
+          "end": 18.93,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "talk",
+          "start": 18.93,
+          "end": 19.12,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "outside",
+          "start": 19.12,
+          "end": 19.39,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "the",
+          "start": 19.39,
+          "end": 19.45,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "meeting",
+          "start": 19.45,
+          "end": 19.67,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "room",
+          "start": 19.67,
+          "end": 20.12,
+          "timingSource": "forcedAlignment"
+        }
+      ],
+      "duration": 20.47,
+      "license": "CC BY 4.0 \u2014 AMI Meeting Corpus",
+      "sourceURL": "https://groups.inf.ed.ac.uk/ami/AMICorpusMirror/amicorpus/ES2002b/audio/ES2002b.Headset-2.wav",
+      "isPublic": true
+    },
+    {
+      "id": "ami-ES2002b-C-0-noise15db",
+      "speakerID": "MEE007",
+      "split": "validation",
+      "audioPath": "ami-ES2002b-C-0-noise15db.wav",
+      "sourceOffsetSeconds": 266.75,
+      "sourceSHA256": "78c7dac38706d7d30629f5f481db8ac7f52644e588bd67083c37036290d4d451",
+      "audioSHA256": "eb82e1f29f29fc2afabd179c156d976b825b61bc91e9a9abf4e30b9e05694d77",
+      "script": "um the design I have I've had a look online I've had a look at the homepage which has given us um some insp inspiration from previous products Um I've had a look at the previous products to see what they offer and um I would like to ask you guys for um your ideas about the design at the end of the meeting Um unfortunately we're not allowed to talk outside the meeting room",
+      "referenceWords": [
+        {
+          "text": "um",
+          "start": 0.15,
+          "end": 1.24,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "the",
+          "start": 1.24,
+          "end": 1.36,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "design",
+          "start": 1.36,
+          "end": 1.72,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "I",
+          "start": 1.72,
+          "end": 1.92,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "have",
+          "start": 1.92,
+          "end": 2.86,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "I've",
+          "start": 2.86,
+          "end": 2.93,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "had",
+          "start": 2.93,
+          "end": 3.02,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "a",
+          "start": 3.02,
+          "end": 3.05,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "look",
+          "start": 3.05,
+          "end": 3.18,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "online",
+          "start": 3.18,
+          "end": 3.49,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "I've",
+          "start": 3.49,
+          "end": 3.55,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "had",
+          "start": 3.55,
+          "end": 3.64,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "a",
+          "start": 3.64,
+          "end": 3.67,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "look",
+          "start": 3.67,
+          "end": 3.79,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "at",
+          "start": 3.79,
+          "end": 3.87,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "the",
+          "start": 3.87,
+          "end": 3.94,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "homepage",
+          "start": 3.94,
+          "end": 4.4,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "which",
+          "start": 4.4,
+          "end": 4.6,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "has",
+          "start": 4.6,
+          "end": 4.72,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "given",
+          "start": 4.72,
+          "end": 4.98,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "us",
+          "start": 4.98,
+          "end": 5.2,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "um",
+          "start": 5.2,
+          "end": 5.38,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "some",
+          "start": 5.38,
+          "end": 5.5,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "insp",
+          "start": 5.5,
+          "end": 5.88,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "inspiration",
+          "start": 5.88,
+          "end": 6.39,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "from",
+          "start": 6.39,
+          "end": 6.63,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "previous",
+          "start": 6.63,
+          "end": 6.91,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "products",
+          "start": 6.91,
+          "end": 8.3,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "Um",
+          "start": 8.3,
+          "end": 8.74,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "I've",
+          "start": 8.74,
+          "end": 8.8,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "had",
+          "start": 8.8,
+          "end": 8.93,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "a",
+          "start": 8.93,
+          "end": 9.0,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "look",
+          "start": 9.0,
+          "end": 9.12,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "at",
+          "start": 9.12,
+          "end": 9.2,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "the",
+          "start": 9.2,
+          "end": 9.27,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "previous",
+          "start": 9.27,
+          "end": 9.56,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "products",
+          "start": 9.56,
+          "end": 10.05,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "to",
+          "start": 10.05,
+          "end": 10.32,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "see",
+          "start": 10.32,
+          "end": 10.45,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "what",
+          "start": 10.45,
+          "end": 10.6,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "they",
+          "start": 10.6,
+          "end": 10.69,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "offer",
+          "start": 10.69,
+          "end": 11.57,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "and",
+          "start": 11.57,
+          "end": 12.04,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "um",
+          "start": 12.04,
+          "end": 13.03,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "I",
+          "start": 13.03,
+          "end": 13.11,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "would",
+          "start": 13.11,
+          "end": 13.23,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "like",
+          "start": 13.23,
+          "end": 13.38,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "to",
+          "start": 13.38,
+          "end": 13.52,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "ask",
+          "start": 13.52,
+          "end": 13.88,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "you",
+          "start": 13.88,
+          "end": 14.02,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "guys",
+          "start": 14.02,
+          "end": 14.43,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "for",
+          "start": 14.43,
+          "end": 14.87,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "um",
+          "start": 14.87,
+          "end": 15.68,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "your",
+          "start": 15.68,
+          "end": 15.85,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "ideas",
+          "start": 15.85,
+          "end": 16.05,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "about",
+          "start": 16.05,
+          "end": 16.2,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "the",
+          "start": 16.2,
+          "end": 16.29,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "design",
+          "start": 16.29,
+          "end": 16.65,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "at",
+          "start": 16.65,
+          "end": 16.75,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "the",
+          "start": 16.75,
+          "end": 16.81,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "end",
+          "start": 16.81,
+          "end": 16.98,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "of",
+          "start": 16.98,
+          "end": 17.04,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "the",
+          "start": 17.04,
+          "end": 17.1,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "meeting",
+          "start": 17.1,
+          "end": 17.85,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "Um",
+          "start": 17.85,
+          "end": 18.04,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "unfortunately",
+          "start": 18.04,
+          "end": 18.53,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "we're",
+          "start": 18.53,
+          "end": 18.63,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "not",
+          "start": 18.63,
+          "end": 18.75,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "allowed",
+          "start": 18.75,
+          "end": 18.87,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "to",
+          "start": 18.87,
+          "end": 18.93,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "talk",
+          "start": 18.93,
+          "end": 19.12,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "outside",
+          "start": 19.12,
+          "end": 19.39,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "the",
+          "start": 19.39,
+          "end": 19.45,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "meeting",
+          "start": 19.45,
+          "end": 19.67,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "room",
+          "start": 19.67,
+          "end": 20.12,
+          "timingSource": "forcedAlignment"
+        }
+      ],
+      "duration": 20.47,
+      "license": "CC BY 4.0 \u2014 AMI Meeting Corpus",
+      "sourceURL": "https://groups.inf.ed.ac.uk/ami/AMICorpusMirror/amicorpus/ES2002b/audio/ES2002b.Headset-2.wav",
+      "isPublic": true
+    },
+    {
+      "id": "ami-ES2002b-C-1",
+      "speakerID": "MEE007",
+      "split": "validation",
+      "audioPath": "ami-ES2002b-C-1.wav",
+      "sourceOffsetSeconds": 363.04,
+      "sourceSHA256": "78c7dac38706d7d30629f5f481db8ac7f52644e588bd67083c37036290d4d451",
+      "audioSHA256": "b0ae134dde2f33786d22b7f6a92c6646768e7c6ffa8249c5f035e5df53e78bca",
+      "script": "my own preferences I prefer the the clunky one Um it's very easy to use Um but unfortunately it does lack the advanced functions which I I quite like having on the controls Um so I believe the the advanced functions should maybe be hidden in a drawer or something like tha from the bottom of it So now I'd like to ask for your",
+      "referenceWords": [
+        {
+          "text": "my",
+          "start": 0.15,
+          "end": 0.32,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "own",
+          "start": 0.32,
+          "end": 0.44,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "preferences",
+          "start": 0.44,
+          "end": 1.13,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "I",
+          "start": 1.13,
+          "end": 1.3,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "prefer",
+          "start": 1.3,
+          "end": 1.66,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "the",
+          "start": 1.66,
+          "end": 1.88,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "the",
+          "start": 1.88,
+          "end": 1.96,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "clunky",
+          "start": 1.96,
+          "end": 2.25,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "one",
+          "start": 2.25,
+          "end": 2.89,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "Um",
+          "start": 2.89,
+          "end": 3.13,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "it's",
+          "start": 3.13,
+          "end": 3.24,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "very",
+          "start": 3.24,
+          "end": 3.41,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "easy",
+          "start": 3.41,
+          "end": 3.55,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "to",
+          "start": 3.55,
+          "end": 3.63,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "use",
+          "start": 3.63,
+          "end": 4.35,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "Um",
+          "start": 4.35,
+          "end": 4.98,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "but",
+          "start": 4.98,
+          "end": 5.1,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "unfortunately",
+          "start": 5.1,
+          "end": 5.67,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "it",
+          "start": 5.67,
+          "end": 5.75,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "does",
+          "start": 5.75,
+          "end": 5.88,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "lack",
+          "start": 5.88,
+          "end": 6.1,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "the",
+          "start": 6.1,
+          "end": 6.18,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "advanced",
+          "start": 6.18,
+          "end": 6.5,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "functions",
+          "start": 6.5,
+          "end": 7.69,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "which",
+          "start": 7.69,
+          "end": 7.97,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "I",
+          "start": 7.97,
+          "end": 8.35,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "I",
+          "start": 8.35,
+          "end": 8.41,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "quite",
+          "start": 8.41,
+          "end": 8.6,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "like",
+          "start": 8.6,
+          "end": 8.76,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "having",
+          "start": 8.76,
+          "end": 8.97,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "on",
+          "start": 8.97,
+          "end": 9.08,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "the",
+          "start": 9.08,
+          "end": 9.14,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "controls",
+          "start": 9.14,
+          "end": 10.81,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "Um",
+          "start": 10.81,
+          "end": 11.52,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "so",
+          "start": 11.52,
+          "end": 11.59,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "I",
+          "start": 11.59,
+          "end": 11.62,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "believe",
+          "start": 11.62,
+          "end": 11.96,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "the",
+          "start": 11.96,
+          "end": 12.11,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "the",
+          "start": 12.11,
+          "end": 12.19,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "advanced",
+          "start": 12.19,
+          "end": 12.46,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "functions",
+          "start": 12.46,
+          "end": 12.82,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "should",
+          "start": 12.82,
+          "end": 12.94,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "maybe",
+          "start": 12.94,
+          "end": 13.15,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "be",
+          "start": 13.15,
+          "end": 13.4,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "hidden",
+          "start": 13.4,
+          "end": 13.56,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "in",
+          "start": 13.56,
+          "end": 13.7,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "a",
+          "start": 13.7,
+          "end": 13.76,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "drawer",
+          "start": 13.76,
+          "end": 14.2,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "or",
+          "start": 14.2,
+          "end": 14.27,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "something",
+          "start": 14.27,
+          "end": 14.7,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "like",
+          "start": 14.7,
+          "end": 14.98,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "tha",
+          "start": 14.98,
+          "end": 15.12,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "from",
+          "start": 15.12,
+          "end": 15.29,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "the",
+          "start": 15.29,
+          "end": 15.37,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "bottom",
+          "start": 15.37,
+          "end": 15.62,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "of",
+          "start": 15.62,
+          "end": 15.74,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "it",
+          "start": 15.74,
+          "end": 15.95,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "So",
+          "start": 18.5,
+          "end": 19.18,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "now",
+          "start": 19.18,
+          "end": 19.41,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "I'd",
+          "start": 19.41,
+          "end": 19.56,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "like",
+          "start": 19.56,
+          "end": 19.72,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "to",
+          "start": 19.72,
+          "end": 19.81,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "ask",
+          "start": 19.81,
+          "end": 19.94,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "for",
+          "start": 19.94,
+          "end": 20.01,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "your",
+          "start": 20.01,
+          "end": 20.13,
+          "timingSource": "forcedAlignment"
+        }
+      ],
+      "duration": 20.48,
+      "license": "CC BY 4.0 \u2014 AMI Meeting Corpus",
+      "sourceURL": "https://groups.inf.ed.ac.uk/ami/AMICorpusMirror/amicorpus/ES2002b/audio/ES2002b.Headset-2.wav",
+      "isPublic": true
+    },
+    {
+      "id": "ami-ES2002b-C-2",
+      "speakerID": "MEE007",
+      "split": "validation",
+      "audioPath": "ami-ES2002b-C-2.wav",
+      "sourceOffsetSeconds": 461.14,
+      "sourceSHA256": "78c7dac38706d7d30629f5f481db8ac7f52644e588bd67083c37036290d4d451",
+      "audioSHA256": "a88bf63302834248bc0efec82293bc39cfc34aa9887871ee848bc15fe48521c5",
+      "script": "do we have any functions that um we'd want on it I mean so far I've got um on and off um switch the channel up and down and put the volume up and down Um they're just the the very basics you could use for a T_V_ Okay Um you say that's a h a required one or a requested one Would you like um the channels like the the numbers",
+      "referenceWords": [
+        {
+          "text": "do",
+          "start": 0.15,
+          "end": 0.33,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "we",
+          "start": 0.33,
+          "end": 0.39,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "have",
+          "start": 0.39,
+          "end": 0.55,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "any",
+          "start": 0.55,
+          "end": 0.71,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "functions",
+          "start": 0.71,
+          "end": 1.25,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "that",
+          "start": 1.25,
+          "end": 1.39,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "um",
+          "start": 1.39,
+          "end": 1.66,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "we'd",
+          "start": 1.66,
+          "end": 1.85,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "want",
+          "start": 1.85,
+          "end": 2.03,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "on",
+          "start": 2.03,
+          "end": 2.18,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "it",
+          "start": 2.18,
+          "end": 2.41,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "I",
+          "start": 2.41,
+          "end": 2.44,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "mean",
+          "start": 2.44,
+          "end": 2.7,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "so",
+          "start": 2.7,
+          "end": 2.84,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "far",
+          "start": 2.84,
+          "end": 3.01,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "I've",
+          "start": 3.01,
+          "end": 3.13,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "got",
+          "start": 3.13,
+          "end": 3.3,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "um",
+          "start": 3.3,
+          "end": 3.77,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "on",
+          "start": 3.77,
+          "end": 3.94,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "and",
+          "start": 3.94,
+          "end": 4.04,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "off",
+          "start": 4.04,
+          "end": 4.65,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "um",
+          "start": 4.65,
+          "end": 4.87,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "switch",
+          "start": 4.87,
+          "end": 5.08,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "the",
+          "start": 5.08,
+          "end": 5.14,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "channel",
+          "start": 5.14,
+          "end": 5.4,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "up",
+          "start": 5.4,
+          "end": 5.52,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "and",
+          "start": 5.52,
+          "end": 5.64,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "down",
+          "start": 5.64,
+          "end": 5.96,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "and",
+          "start": 5.96,
+          "end": 6.3,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "put",
+          "start": 6.3,
+          "end": 6.41,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "the",
+          "start": 6.41,
+          "end": 6.47,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "volume",
+          "start": 6.47,
+          "end": 6.71,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "up",
+          "start": 6.71,
+          "end": 6.81,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "and",
+          "start": 6.81,
+          "end": 6.93,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "down",
+          "start": 6.93,
+          "end": 7.43,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "Um",
+          "start": 7.43,
+          "end": 7.9,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "they're",
+          "start": 7.9,
+          "end": 8.02,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "just",
+          "start": 8.02,
+          "end": 8.16,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "the",
+          "start": 8.16,
+          "end": 8.32,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "the",
+          "start": 8.32,
+          "end": 8.41,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "very",
+          "start": 8.41,
+          "end": 8.56,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "basics",
+          "start": 8.56,
+          "end": 8.88,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "you",
+          "start": 8.88,
+          "end": 8.94,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "could",
+          "start": 8.94,
+          "end": 9.03,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "use",
+          "start": 9.03,
+          "end": 9.16,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "for",
+          "start": 9.16,
+          "end": 9.24,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "a",
+          "start": 9.24,
+          "end": 9.3,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "T_V_",
+          "start": 9.3,
+          "end": 9.71,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "Okay",
+          "start": 13.02,
+          "end": 14.03,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "Um",
+          "start": 14.03,
+          "end": 14.21,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "you",
+          "start": 14.21,
+          "end": 14.29,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "say",
+          "start": 14.29,
+          "end": 14.38,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "that's",
+          "start": 14.38,
+          "end": 14.56,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "a",
+          "start": 14.56,
+          "end": 14.74,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "h",
+          "start": 14.74,
+          "end": 14.8,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "a",
+          "start": 14.8,
+          "end": 14.83,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "required",
+          "start": 14.83,
+          "end": 15.16,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "one",
+          "start": 15.16,
+          "end": 15.3,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "or",
+          "start": 15.3,
+          "end": 15.33,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "a",
+          "start": 15.33,
+          "end": 15.4,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "requested",
+          "start": 15.4,
+          "end": 15.98,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "one",
+          "start": 15.98,
+          "end": 16.54,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "Would",
+          "start": 16.54,
+          "end": 16.63,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "you",
+          "start": 16.63,
+          "end": 16.82,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "like",
+          "start": 16.82,
+          "end": 17.38,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "um",
+          "start": 17.38,
+          "end": 17.88,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "the",
+          "start": 17.88,
+          "end": 18.24,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "channels",
+          "start": 18.24,
+          "end": 18.89,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "like",
+          "start": 18.89,
+          "end": 19.07,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "the",
+          "start": 19.07,
+          "end": 19.38,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "the",
+          "start": 19.38,
+          "end": 19.45,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "numbers",
+          "start": 19.45,
+          "end": 20.05,
+          "timingSource": "forcedAlignment"
+        }
+      ],
+      "duration": 20.4,
+      "license": "CC BY 4.0 \u2014 AMI Meeting Corpus",
+      "sourceURL": "https://groups.inf.ed.ac.uk/ami/AMICorpusMirror/amicorpus/ES2002b/audio/ES2002b.Headset-2.wav",
+      "isPublic": true
+    },
+    {
+      "id": "ami-ES2002b-D-0",
+      "speakerID": "MEE008",
+      "split": "held-out",
+      "audioPath": "ami-ES2002b-D-0.wav",
+      "sourceOffsetSeconds": 818.88,
+      "sourceSHA256": "b94f7b20c7b633aa37ed23ceb644c8376968cfab1fadaa23fe47460194a46253",
+      "audioSHA256": "f9edc061d1c44dbf763e569ca8d1fa79ea4b2f90fd450995493c123378557cfe",
+      "script": "um does that make sense So what I basically got is I just looked into some information and sort of th tried to think about how how we could review it and how we could and what kind of decisions we could take away from it and then maybe by the end of just looking at some of these things we can think about what are our priorities 'Cause certainly there's lots of different information to go through So um I'm thinking here",
+      "referenceWords": [
+        {
+          "text": "um",
+          "start": 0.15,
+          "end": 0.85,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "does",
+          "start": 0.85,
+          "end": 0.94,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "that",
+          "start": 0.94,
+          "end": 1.03,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "make",
+          "start": 1.03,
+          "end": 1.17,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "sense",
+          "start": 1.17,
+          "end": 1.46,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "So",
+          "start": 1.46,
+          "end": 1.56,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "what",
+          "start": 1.56,
+          "end": 1.69,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "I",
+          "start": 1.69,
+          "end": 1.73,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "basically",
+          "start": 1.73,
+          "end": 2.34,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "got",
+          "start": 2.34,
+          "end": 2.56,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "is",
+          "start": 2.56,
+          "end": 2.71,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "I",
+          "start": 2.71,
+          "end": 2.77,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "just",
+          "start": 2.77,
+          "end": 3.07,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "looked",
+          "start": 3.07,
+          "end": 3.23,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "into",
+          "start": 3.23,
+          "end": 3.37,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "some",
+          "start": 3.37,
+          "end": 3.52,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "information",
+          "start": 3.52,
+          "end": 4.47,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "and",
+          "start": 4.47,
+          "end": 4.69,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "sort",
+          "start": 4.69,
+          "end": 4.87,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "of",
+          "start": 4.87,
+          "end": 4.95,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "th",
+          "start": 4.95,
+          "end": 5.05,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "tried",
+          "start": 5.05,
+          "end": 5.27,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "to",
+          "start": 5.27,
+          "end": 5.37,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "think",
+          "start": 5.37,
+          "end": 5.57,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "about",
+          "start": 5.57,
+          "end": 5.96,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "how",
+          "start": 5.96,
+          "end": 6.6,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "how",
+          "start": 6.6,
+          "end": 6.72,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "we",
+          "start": 6.72,
+          "end": 6.84,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "could",
+          "start": 6.84,
+          "end": 7.02,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "review",
+          "start": 7.02,
+          "end": 7.28,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "it",
+          "start": 7.28,
+          "end": 7.34,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "and",
+          "start": 7.34,
+          "end": 7.43,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "how",
+          "start": 7.43,
+          "end": 7.5,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "we",
+          "start": 7.5,
+          "end": 7.63,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "could",
+          "start": 7.63,
+          "end": 7.89,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "and",
+          "start": 7.89,
+          "end": 8.07,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "what",
+          "start": 8.07,
+          "end": 8.26,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "kind",
+          "start": 8.26,
+          "end": 8.45,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "of",
+          "start": 8.45,
+          "end": 8.51,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "decisions",
+          "start": 8.51,
+          "end": 8.91,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "we",
+          "start": 8.91,
+          "end": 9.03,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "could",
+          "start": 9.03,
+          "end": 9.35,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "take",
+          "start": 9.35,
+          "end": 9.55,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "away",
+          "start": 9.55,
+          "end": 9.76,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "from",
+          "start": 9.76,
+          "end": 10.01,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "it",
+          "start": 10.01,
+          "end": 10.09,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "and",
+          "start": 10.09,
+          "end": 10.19,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "then",
+          "start": 10.19,
+          "end": 10.81,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "maybe",
+          "start": 10.81,
+          "end": 11.04,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "by",
+          "start": 11.04,
+          "end": 11.21,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "the",
+          "start": 11.21,
+          "end": 11.33,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "end",
+          "start": 11.33,
+          "end": 11.53,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "of",
+          "start": 11.53,
+          "end": 11.93,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "just",
+          "start": 11.93,
+          "end": 12.15,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "looking",
+          "start": 12.15,
+          "end": 12.39,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "at",
+          "start": 12.39,
+          "end": 12.46,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "some",
+          "start": 12.46,
+          "end": 12.61,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "of",
+          "start": 12.61,
+          "end": 12.67,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "these",
+          "start": 12.67,
+          "end": 12.83,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "things",
+          "start": 12.83,
+          "end": 13.02,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "we",
+          "start": 13.02,
+          "end": 13.12,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "can",
+          "start": 13.12,
+          "end": 13.25,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "think",
+          "start": 13.25,
+          "end": 13.44,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "about",
+          "start": 13.44,
+          "end": 13.7,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "what",
+          "start": 13.7,
+          "end": 13.93,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "are",
+          "start": 13.93,
+          "end": 14.08,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "our",
+          "start": 14.08,
+          "end": 14.18,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "priorities",
+          "start": 14.18,
+          "end": 15.22,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "'Cause",
+          "start": 15.22,
+          "end": 15.37,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "certainly",
+          "start": 15.37,
+          "end": 15.64,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "there's",
+          "start": 15.64,
+          "end": 15.85,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "lots",
+          "start": 15.85,
+          "end": 16.08,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "of",
+          "start": 16.08,
+          "end": 16.16,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "different",
+          "start": 16.16,
+          "end": 16.43,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "information",
+          "start": 16.43,
+          "end": 17.08,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "to",
+          "start": 17.08,
+          "end": 17.44,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "go",
+          "start": 17.44,
+          "end": 17.6,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "through",
+          "start": 17.6,
+          "end": 17.82,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "So",
+          "start": 17.82,
+          "end": 18.48,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "um",
+          "start": 18.48,
+          "end": 19.29,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "I'm",
+          "start": 19.29,
+          "end": 19.36,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "thinking",
+          "start": 19.36,
+          "end": 19.8,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "here",
+          "start": 19.8,
+          "end": 19.97,
+          "timingSource": "forcedAlignment"
+        }
+      ],
+      "duration": 20.32,
+      "license": "CC BY 4.0 \u2014 AMI Meeting Corpus",
+      "sourceURL": "https://groups.inf.ed.ac.uk/ami/AMICorpusMirror/amicorpus/ES2002b/audio/ES2002b.Headset-3.wav",
+      "isPublic": true
+    },
+    {
+      "id": "ami-ES2002b-D-0-noise15db",
+      "speakerID": "MEE008",
+      "split": "held-out",
+      "audioPath": "ami-ES2002b-D-0-noise15db.wav",
+      "sourceOffsetSeconds": 818.88,
+      "sourceSHA256": "b94f7b20c7b633aa37ed23ceb644c8376968cfab1fadaa23fe47460194a46253",
+      "audioSHA256": "a3eff3855a9e2b43c7c92c852b56bbd680b0c614ef7da4ded5b2aea155b60e93",
+      "script": "um does that make sense So what I basically got is I just looked into some information and sort of th tried to think about how how we could review it and how we could and what kind of decisions we could take away from it and then maybe by the end of just looking at some of these things we can think about what are our priorities 'Cause certainly there's lots of different information to go through So um I'm thinking here",
+      "referenceWords": [
+        {
+          "text": "um",
+          "start": 0.15,
+          "end": 0.85,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "does",
+          "start": 0.85,
+          "end": 0.94,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "that",
+          "start": 0.94,
+          "end": 1.03,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "make",
+          "start": 1.03,
+          "end": 1.17,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "sense",
+          "start": 1.17,
+          "end": 1.46,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "So",
+          "start": 1.46,
+          "end": 1.56,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "what",
+          "start": 1.56,
+          "end": 1.69,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "I",
+          "start": 1.69,
+          "end": 1.73,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "basically",
+          "start": 1.73,
+          "end": 2.34,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "got",
+          "start": 2.34,
+          "end": 2.56,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "is",
+          "start": 2.56,
+          "end": 2.71,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "I",
+          "start": 2.71,
+          "end": 2.77,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "just",
+          "start": 2.77,
+          "end": 3.07,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "looked",
+          "start": 3.07,
+          "end": 3.23,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "into",
+          "start": 3.23,
+          "end": 3.37,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "some",
+          "start": 3.37,
+          "end": 3.52,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "information",
+          "start": 3.52,
+          "end": 4.47,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "and",
+          "start": 4.47,
+          "end": 4.69,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "sort",
+          "start": 4.69,
+          "end": 4.87,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "of",
+          "start": 4.87,
+          "end": 4.95,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "th",
+          "start": 4.95,
+          "end": 5.05,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "tried",
+          "start": 5.05,
+          "end": 5.27,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "to",
+          "start": 5.27,
+          "end": 5.37,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "think",
+          "start": 5.37,
+          "end": 5.57,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "about",
+          "start": 5.57,
+          "end": 5.96,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "how",
+          "start": 5.96,
+          "end": 6.6,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "how",
+          "start": 6.6,
+          "end": 6.72,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "we",
+          "start": 6.72,
+          "end": 6.84,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "could",
+          "start": 6.84,
+          "end": 7.02,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "review",
+          "start": 7.02,
+          "end": 7.28,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "it",
+          "start": 7.28,
+          "end": 7.34,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "and",
+          "start": 7.34,
+          "end": 7.43,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "how",
+          "start": 7.43,
+          "end": 7.5,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "we",
+          "start": 7.5,
+          "end": 7.63,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "could",
+          "start": 7.63,
+          "end": 7.89,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "and",
+          "start": 7.89,
+          "end": 8.07,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "what",
+          "start": 8.07,
+          "end": 8.26,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "kind",
+          "start": 8.26,
+          "end": 8.45,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "of",
+          "start": 8.45,
+          "end": 8.51,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "decisions",
+          "start": 8.51,
+          "end": 8.91,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "we",
+          "start": 8.91,
+          "end": 9.03,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "could",
+          "start": 9.03,
+          "end": 9.35,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "take",
+          "start": 9.35,
+          "end": 9.55,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "away",
+          "start": 9.55,
+          "end": 9.76,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "from",
+          "start": 9.76,
+          "end": 10.01,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "it",
+          "start": 10.01,
+          "end": 10.09,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "and",
+          "start": 10.09,
+          "end": 10.19,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "then",
+          "start": 10.19,
+          "end": 10.81,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "maybe",
+          "start": 10.81,
+          "end": 11.04,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "by",
+          "start": 11.04,
+          "end": 11.21,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "the",
+          "start": 11.21,
+          "end": 11.33,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "end",
+          "start": 11.33,
+          "end": 11.53,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "of",
+          "start": 11.53,
+          "end": 11.93,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "just",
+          "start": 11.93,
+          "end": 12.15,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "looking",
+          "start": 12.15,
+          "end": 12.39,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "at",
+          "start": 12.39,
+          "end": 12.46,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "some",
+          "start": 12.46,
+          "end": 12.61,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "of",
+          "start": 12.61,
+          "end": 12.67,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "these",
+          "start": 12.67,
+          "end": 12.83,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "things",
+          "start": 12.83,
+          "end": 13.02,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "we",
+          "start": 13.02,
+          "end": 13.12,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "can",
+          "start": 13.12,
+          "end": 13.25,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "think",
+          "start": 13.25,
+          "end": 13.44,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "about",
+          "start": 13.44,
+          "end": 13.7,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "what",
+          "start": 13.7,
+          "end": 13.93,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "are",
+          "start": 13.93,
+          "end": 14.08,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "our",
+          "start": 14.08,
+          "end": 14.18,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "priorities",
+          "start": 14.18,
+          "end": 15.22,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "'Cause",
+          "start": 15.22,
+          "end": 15.37,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "certainly",
+          "start": 15.37,
+          "end": 15.64,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "there's",
+          "start": 15.64,
+          "end": 15.85,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "lots",
+          "start": 15.85,
+          "end": 16.08,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "of",
+          "start": 16.08,
+          "end": 16.16,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "different",
+          "start": 16.16,
+          "end": 16.43,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "information",
+          "start": 16.43,
+          "end": 17.08,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "to",
+          "start": 17.08,
+          "end": 17.44,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "go",
+          "start": 17.44,
+          "end": 17.6,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "through",
+          "start": 17.6,
+          "end": 17.82,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "So",
+          "start": 17.82,
+          "end": 18.48,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "um",
+          "start": 18.48,
+          "end": 19.29,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "I'm",
+          "start": 19.29,
+          "end": 19.36,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "thinking",
+          "start": 19.36,
+          "end": 19.8,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "here",
+          "start": 19.8,
+          "end": 19.97,
+          "timingSource": "forcedAlignment"
+        }
+      ],
+      "duration": 20.32,
+      "license": "CC BY 4.0 \u2014 AMI Meeting Corpus",
+      "sourceURL": "https://groups.inf.ed.ac.uk/ami/AMICorpusMirror/amicorpus/ES2002b/audio/ES2002b.Headset-3.wav",
+      "isPublic": true
+    },
+    {
+      "id": "ami-ES2002b-D-1",
+      "speakerID": "MEE008",
+      "split": "held-out",
+      "audioPath": "ami-ES2002b-D-1.wav",
+      "sourceOffsetSeconds": 935.49,
+      "sourceSHA256": "b94f7b20c7b633aa37ed23ceb644c8376968cfab1fadaa23fe47460194a46253",
+      "audioSHA256": "e39d2cd32f01c7433c4bbdcb32700293c4bb5638920188a36b918510ea1e7216",
+      "script": "They get lost a lot s as it came up in our last meeting Um takes time to learn how to use them This is uh why I mention when Craig was uh showing us some ideas that we actually try and group controls so d it doesn't just look like a big panel kinda like when you you look at you know a new computer keyboard or something that is quite explanatory If you want audio if you",
+      "referenceWords": [
+        {
+          "text": "They",
+          "start": 0.15,
+          "end": 0.25,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "get",
+          "start": 0.25,
+          "end": 0.45,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "lost",
+          "start": 0.45,
+          "end": 0.88,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "a",
+          "start": 0.88,
+          "end": 0.94,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "lot",
+          "start": 0.94,
+          "end": 1.23,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "s",
+          "start": 1.23,
+          "end": 1.42,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "as",
+          "start": 1.42,
+          "end": 1.61,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "it",
+          "start": 1.61,
+          "end": 1.7,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "came",
+          "start": 1.7,
+          "end": 1.89,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "up",
+          "start": 1.89,
+          "end": 2.02,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "in",
+          "start": 2.02,
+          "end": 2.11,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "our",
+          "start": 2.11,
+          "end": 2.21,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "last",
+          "start": 2.21,
+          "end": 2.51,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "meeting",
+          "start": 2.51,
+          "end": 2.98,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "Um",
+          "start": 2.98,
+          "end": 4.52,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "takes",
+          "start": 4.52,
+          "end": 4.76,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "time",
+          "start": 4.76,
+          "end": 5.0,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "to",
+          "start": 5.0,
+          "end": 5.06,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "learn",
+          "start": 5.06,
+          "end": 5.27,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "how",
+          "start": 5.27,
+          "end": 5.37,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "to",
+          "start": 5.37,
+          "end": 5.47,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "use",
+          "start": 5.47,
+          "end": 5.7,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "them",
+          "start": 5.7,
+          "end": 6.06,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "This",
+          "start": 6.06,
+          "end": 6.26,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "is",
+          "start": 6.26,
+          "end": 6.45,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "uh",
+          "start": 6.45,
+          "end": 6.64,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "why",
+          "start": 6.64,
+          "end": 6.9,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "I",
+          "start": 6.9,
+          "end": 6.93,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "mention",
+          "start": 6.93,
+          "end": 7.38,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "when",
+          "start": 7.38,
+          "end": 7.55,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "Craig",
+          "start": 7.55,
+          "end": 7.83,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "was",
+          "start": 7.83,
+          "end": 8.33,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "uh",
+          "start": 8.33,
+          "end": 8.48,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "showing",
+          "start": 8.48,
+          "end": 8.8,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "us",
+          "start": 8.8,
+          "end": 8.91,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "some",
+          "start": 8.91,
+          "end": 9.13,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "ideas",
+          "start": 9.13,
+          "end": 9.45,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "that",
+          "start": 9.45,
+          "end": 9.56,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "we",
+          "start": 9.56,
+          "end": 9.93,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "actually",
+          "start": 9.93,
+          "end": 10.23,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "try",
+          "start": 10.23,
+          "end": 10.4,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "and",
+          "start": 10.4,
+          "end": 10.49,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "group",
+          "start": 10.49,
+          "end": 10.71,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "controls",
+          "start": 10.71,
+          "end": 11.17,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "so",
+          "start": 11.17,
+          "end": 11.26,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "d",
+          "start": 11.26,
+          "end": 11.31,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "it",
+          "start": 11.31,
+          "end": 11.38,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "doesn't",
+          "start": 11.38,
+          "end": 11.63,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "just",
+          "start": 11.63,
+          "end": 11.84,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "look",
+          "start": 11.84,
+          "end": 12.01,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "like",
+          "start": 12.01,
+          "end": 12.14,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "a",
+          "start": 12.14,
+          "end": 12.21,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "big",
+          "start": 12.21,
+          "end": 12.4,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "panel",
+          "start": 12.4,
+          "end": 13.24,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "kinda",
+          "start": 13.24,
+          "end": 13.47,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "like",
+          "start": 13.47,
+          "end": 13.61,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "when",
+          "start": 13.61,
+          "end": 13.7,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "you",
+          "start": 13.7,
+          "end": 14.42,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "you",
+          "start": 14.42,
+          "end": 14.55,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "look",
+          "start": 14.55,
+          "end": 14.72,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "at",
+          "start": 14.72,
+          "end": 15.03,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "you",
+          "start": 15.03,
+          "end": 15.14,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "know",
+          "start": 15.14,
+          "end": 15.26,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "a",
+          "start": 15.26,
+          "end": 15.3,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "new",
+          "start": 15.3,
+          "end": 15.46,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "computer",
+          "start": 15.46,
+          "end": 15.83,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "keyboard",
+          "start": 15.83,
+          "end": 16.2,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "or",
+          "start": 16.2,
+          "end": 16.25,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "something",
+          "start": 16.25,
+          "end": 16.53,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "that",
+          "start": 16.53,
+          "end": 16.89,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "is",
+          "start": 16.89,
+          "end": 17.05,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "quite",
+          "start": 17.05,
+          "end": 17.72,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "explanatory",
+          "start": 17.72,
+          "end": 18.3,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "If",
+          "start": 18.3,
+          "end": 18.36,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "you",
+          "start": 18.36,
+          "end": 18.45,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "want",
+          "start": 18.45,
+          "end": 18.69,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "audio",
+          "start": 18.69,
+          "end": 19.36,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "if",
+          "start": 19.36,
+          "end": 19.44,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "you",
+          "start": 19.44,
+          "end": 19.52,
+          "timingSource": "forcedAlignment"
+        }
+      ],
+      "duration": 19.87,
+      "license": "CC BY 4.0 \u2014 AMI Meeting Corpus",
+      "sourceURL": "https://groups.inf.ed.ac.uk/ami/AMICorpusMirror/amicorpus/ES2002b/audio/ES2002b.Headset-3.wav",
+      "isPublic": true
+    },
+    {
+      "id": "ami-ES2002b-D-2",
+      "speakerID": "MEE008",
+      "split": "held-out",
+      "audioPath": "ami-ES2002b-D-2.wav",
+      "sourceOffsetSeconds": 1035.11,
+      "sourceSHA256": "b94f7b20c7b633aa37ed23ceb644c8376968cfab1fadaa23fe47460194a46253",
+      "audioSHA256": "ea77f17c0622b5d25b54113490dd797eafd84e7669e6cb977c32d6c1490635ad",
+      "script": "are s sorta tell me that maybe what we wanna do is try and um separate the different things that we wanna include in this So if we do say well we want there to be all the technology will we try and make that almost be like optional technology You know it's like like I find a lot of T_V_s these days something really like about 'em is if you wanna just turn 'em on and off you",
+      "referenceWords": [
+        {
+          "text": "are",
+          "start": 0.15,
+          "end": 0.33,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "s",
+          "start": 0.33,
+          "end": 0.55,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "sorta",
+          "start": 0.55,
+          "end": 0.81,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "tell",
+          "start": 0.81,
+          "end": 1.02,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "me",
+          "start": 1.02,
+          "end": 1.16,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "that",
+          "start": 1.16,
+          "end": 1.3,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "maybe",
+          "start": 1.3,
+          "end": 1.47,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "what",
+          "start": 1.47,
+          "end": 1.61,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "we",
+          "start": 1.61,
+          "end": 1.71,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "wanna",
+          "start": 1.71,
+          "end": 1.95,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "do",
+          "start": 1.95,
+          "end": 2.09,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "is",
+          "start": 2.09,
+          "end": 2.27,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "try",
+          "start": 2.27,
+          "end": 2.59,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "and",
+          "start": 2.59,
+          "end": 3.17,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "um",
+          "start": 3.17,
+          "end": 4.54,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "separate",
+          "start": 4.54,
+          "end": 5.12,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "the",
+          "start": 5.12,
+          "end": 5.2,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "different",
+          "start": 5.2,
+          "end": 5.51,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "things",
+          "start": 5.51,
+          "end": 5.73,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "that",
+          "start": 5.73,
+          "end": 5.82,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "we",
+          "start": 5.82,
+          "end": 5.89,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "wanna",
+          "start": 5.89,
+          "end": 6.11,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "include",
+          "start": 6.11,
+          "end": 6.43,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "in",
+          "start": 6.43,
+          "end": 6.53,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "this",
+          "start": 6.53,
+          "end": 6.71,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "So",
+          "start": 6.71,
+          "end": 6.8,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "if",
+          "start": 6.8,
+          "end": 7.0,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "we",
+          "start": 7.0,
+          "end": 7.09,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "do",
+          "start": 7.09,
+          "end": 7.36,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "say",
+          "start": 7.36,
+          "end": 7.61,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "well",
+          "start": 7.61,
+          "end": 7.81,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "we",
+          "start": 7.81,
+          "end": 7.92,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "want",
+          "start": 7.92,
+          "end": 8.27,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "there",
+          "start": 8.27,
+          "end": 8.4,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "to",
+          "start": 8.4,
+          "end": 8.51,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "be",
+          "start": 8.51,
+          "end": 8.97,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "all",
+          "start": 8.97,
+          "end": 9.16,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "the",
+          "start": 9.16,
+          "end": 9.25,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "technology",
+          "start": 9.25,
+          "end": 10.28,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "will",
+          "start": 10.28,
+          "end": 10.38,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "we",
+          "start": 10.38,
+          "end": 10.48,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "try",
+          "start": 10.48,
+          "end": 10.77,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "and",
+          "start": 10.77,
+          "end": 10.87,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "make",
+          "start": 10.87,
+          "end": 11.05,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "that",
+          "start": 11.05,
+          "end": 11.22,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "almost",
+          "start": 11.22,
+          "end": 11.57,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "be",
+          "start": 11.57,
+          "end": 11.69,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "like",
+          "start": 11.69,
+          "end": 11.92,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "optional",
+          "start": 11.92,
+          "end": 12.44,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "technology",
+          "start": 12.44,
+          "end": 13.64,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "You",
+          "start": 13.64,
+          "end": 13.71,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "know",
+          "start": 13.71,
+          "end": 13.82,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "it's",
+          "start": 13.82,
+          "end": 14.06,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "like",
+          "start": 14.06,
+          "end": 15.42,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "like",
+          "start": 15.42,
+          "end": 15.63,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "I",
+          "start": 15.63,
+          "end": 15.69,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "find",
+          "start": 15.69,
+          "end": 15.95,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "a",
+          "start": 15.95,
+          "end": 15.99,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "lot",
+          "start": 15.99,
+          "end": 16.16,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "of",
+          "start": 16.16,
+          "end": 16.4,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "T_V_s",
+          "start": 16.4,
+          "end": 16.79,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "these",
+          "start": 16.79,
+          "end": 17.02,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "days",
+          "start": 17.02,
+          "end": 17.23,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "something",
+          "start": 17.23,
+          "end": 17.45,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "really",
+          "start": 17.45,
+          "end": 17.69,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "like",
+          "start": 17.69,
+          "end": 17.92,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "about",
+          "start": 17.92,
+          "end": 18.1,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "'em",
+          "start": 18.1,
+          "end": 18.21,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "is",
+          "start": 18.21,
+          "end": 18.69,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "if",
+          "start": 18.69,
+          "end": 18.79,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "you",
+          "start": 18.79,
+          "end": 18.88,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "wanna",
+          "start": 18.88,
+          "end": 19.1,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "just",
+          "start": 19.1,
+          "end": 19.31,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "turn",
+          "start": 19.31,
+          "end": 19.48,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "'em",
+          "start": 19.48,
+          "end": 19.6,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "on",
+          "start": 19.6,
+          "end": 19.7,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "and",
+          "start": 19.7,
+          "end": 19.82,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "off",
+          "start": 19.82,
+          "end": 20.02,
+          "timingSource": "forcedAlignment"
+        },
+        {
+          "text": "you",
+          "start": 20.02,
+          "end": 20.12,
+          "timingSource": "forcedAlignment"
+        }
+      ],
+      "duration": 20.47,
+      "license": "CC BY 4.0 \u2014 AMI Meeting Corpus",
+      "sourceURL": "https://groups.inf.ed.ac.uk/ami/AMICorpusMirror/amicorpus/ES2002b/audio/ES2002b.Headset-3.wav",
+      "isPublic": true
+    }
+  ]
+}

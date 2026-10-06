@@ -4,6 +4,8 @@
 .swiftpm/
 dist/
 .DS_Store
+__pycache__/
+*.pyc
 *.xcuserstate
 xcuserdata/
 
@@ -15,6 +17,7 @@ Assets/IconOptions/
 **/scripts.json
 **/scripts-recovery-*.json
 **/*.cameracue.json
+**/*.cameracue.speech.json
 .Originals/
 recordings/
 *.mp4

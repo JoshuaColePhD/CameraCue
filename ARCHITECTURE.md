@@ -49,3 +49,19 @@ Swift 6 language mode enables strict concurrency checking. Tests inject speech/c
 Joshua Cole directed the product requirements, visual iterations and workflow decisions. Codex assisted with implementation, debugging, regression tests, evaluation tooling and documentation. This is not a claim that every generated line received an independent human review.
 
 Verification evidence is the compiler, automated tests, deterministic replay results and documented native-view checks. Synthetic replay is useful for alignment regressions; it does not establish human speaking performance. The project is under active development, is locally ad hoc signed, and does not yet ship a notarized customer installer.
+
+## Speech evaluation and local learning
+
+`CameraCueSpeech` separates file/live transcription from app navigation. On macOS 26 or later, `AnalyzerSpeechSession` uses SpeechAnalyzer and SpeechTranscriber with explicit asset availability and installation. Live modern mode requests fast volatile results; file coaching uses the accurate default reporting configuration. Automatic live selection retains the existing recognizer when available and authorized until comparative acceptance is complete. Legacy file evaluation requires on-device support and never falls back to a server.
+
+Audio taps synchronously copy borrowed PCM into `OwnedSpeechBuffer`. A serial conversion sink feeds a bounded async input sequence; overflow fails explicitly rather than silently losing audio. No audio frame is published through SwiftUI. Recognition callbacks create Sendable value snapshots before crossing to the main actor. SDK callbacks with unspecified executor behavior are explicitly Sendable, preventing Swift from imposing an incorrect main-actor runtime assertion.
+
+`SpeechTranscriptLedger` replaces overlapping volatile results and protects finalized spans. Evaluation distinguishes recognition text, audio timestamps, callback delivery, tracking position, and screen latency (currently unmeasured). Public pilot reference times retain their forced-alignment provenance. Offline throughput is never labeled live latency.
+
+`PersonalPaceTracker` learns from short reliable forward progress, excluding jumps and rebasing across pauses/recovery. Recent window rates blend with a local median profile. Existing pacing hysteresis/pulse logic remains responsible for stable warnings. Profiles and reset controls are local; no recording or telemetry is uploaded.
+
+`AlignmentDecisionModel` is a small multinomial logistic classifier trained on public transcript-error simulations. Its optional pilot veto applies only to uncertain short-phrase jumps in scripts within the training-size domain. Longer scripts retain the established tracker. The pilot is off by default, with corpus attribution bundled alongside weights; invalid resources fall back safely.
+
+Recording feedback is stored in a bounded `.cameracue.speech.json` sidecar. Its transcript timestamps are shifted onto the video's continuous timeline, including prompting pauses. Provisional words and estimated timing are disclosed. Existing MP4 analysis extracts a temporary audio copy and runs on-device transcription. Coaching findings link to native playback; removing feedback moves only the sidecar to Trash. The recording is unchanged.
+
+Modern live transcription requires microphone access and installed model assets. Legacy recognition additionally requires Speech Recognition authorization. Readiness and startup choose the same policy; unavailable modern engines fail before requesting unrelated permissions. Automatic selection prefers modern when legacy access is unavailable, while retaining an available authorized legacy engine.

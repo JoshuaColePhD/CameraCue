@@ -100,6 +100,12 @@ See [ARCHITECTURE.md](ARCHITECTURE.md) for design decisions and AI-assisted deve
 
 On the held-out transcript replay, the revised tracker stayed within two tokens on **99.44%** of callbacks, versus **92.63%** for the previous tracker and **89.25%** for an exact-match baseline. It recovered from all 12 scripted skips/restarts with no erroneous jumps. These are synthetic recognizer-error tests on published transcripts, **not measured live ASR performance**. [Read the methodology, results table, and remaining limitations](docs/VOICE_FOLLOW_EVALUATION.md).
 
+### Machine-learning work in progress
+
+An [AMI real-audio pilot](docs/evaluation/ami-pilot/README.md) compares standard and fast on-device SpeechAnalyzer reporting at 1x playback, with speaker-separated data and explicit timing provenance. Local pace calibration and timestamped recording feedback are implemented in the development build. Confidence-model promotion, legacy-engine comparison, and final hardware acceptance are still in progress; these are not claims of general production accuracy.
+
+The AMI evaluation data and experimental weights carry CC BY 4.0 attribution. CameraCue source code remains MIT. Raw corpus audio and user recordings are excluded from the repository and application bundle.
+
 ## Try a local build
 
 **Status:** a working native app under active development. This repository provides source and local build instructions; it does not currently offer a notarized customer installer.

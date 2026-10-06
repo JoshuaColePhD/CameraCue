@@ -1,0 +1,412 @@
+[
+  {
+    "actualRemaining" : 11.55,
+    "atSeconds" : 8.52,
+    "baselineRemaining" : 20,
+    "clipID" : "ami-ES2002b-A-1",
+    "predictedRemaining" : 12.935483870967742,
+    "speakerID" : "MEE006",
+    "split" : "train",
+    "usesPersonalHistory" : false
+  },
+  {
+    "actualRemaining" : 8.4,
+    "atSeconds" : 11.67,
+    "baselineRemaining" : 14,
+    "clipID" : "ami-ES2002b-A-1",
+    "predictedRemaining" : 9.05483870967742,
+    "speakerID" : "MEE006",
+    "split" : "train",
+    "usesPersonalHistory" : false
+  },
+  {
+    "actualRemaining" : 5.34,
+    "atSeconds" : 14.73,
+    "baselineRemaining" : 8.4,
+    "clipID" : "ami-ES2002b-A-1",
+    "predictedRemaining" : 5.432903225806452,
+    "speakerID" : "MEE006",
+    "split" : "train",
+    "usesPersonalHistory" : false
+  },
+  {
+    "actualRemaining" : 2.0599999999999987,
+    "atSeconds" : 18.01,
+    "baselineRemaining" : 4.4,
+    "clipID" : "ami-ES2002b-A-1",
+    "predictedRemaining" : 2.4318918918918917,
+    "speakerID" : "MEE006",
+    "split" : "train",
+    "usesPersonalHistory" : false
+  },
+  {
+    "actualRemaining" : 11.059999999999999,
+    "atSeconds" : 9.02,
+    "baselineRemaining" : 20.8,
+    "clipID" : "ami-ES2002b-A-2",
+    "predictedRemaining" : 11.496216216216215,
+    "speakerID" : "MEE006",
+    "split" : "train",
+    "usesPersonalHistory" : true
+  },
+  {
+    "actualRemaining" : 7.979999999999999,
+    "atSeconds" : 12.1,
+    "baselineRemaining" : 14.8,
+    "clipID" : "ami-ES2002b-A-2",
+    "predictedRemaining" : 8.18,
+    "speakerID" : "MEE006",
+    "split" : "train",
+    "usesPersonalHistory" : true
+  },
+  {
+    "actualRemaining" : 4.899999999999999,
+    "atSeconds" : 15.18,
+    "baselineRemaining" : 9.2,
+    "clipID" : "ami-ES2002b-A-2",
+    "predictedRemaining" : 5.084864864864865,
+    "speakerID" : "MEE006",
+    "split" : "train",
+    "usesPersonalHistory" : true
+  },
+  {
+    "actualRemaining" : 1.8099999999999987,
+    "atSeconds" : 18.27,
+    "baselineRemaining" : 2.4,
+    "clipID" : "ami-ES2002b-A-2",
+    "predictedRemaining" : 1.312072072072072,
+    "speakerID" : "MEE006",
+    "split" : "train",
+    "usesPersonalHistory" : true
+  },
+  {
+    "actualRemaining" : 10.850000000000001,
+    "atSeconds" : 9.27,
+    "baselineRemaining" : 16.4,
+    "clipID" : "ami-ES2002b-C-0",
+    "predictedRemaining" : 9.683235294117647,
+    "speakerID" : "MEE007",
+    "split" : "validation",
+    "usesPersonalHistory" : false
+  },
+  {
+    "actualRemaining" : 7.090000000000002,
+    "atSeconds" : 13.03,
+    "baselineRemaining" : 12.8,
+    "clipID" : "ami-ES2002b-C-0",
+    "predictedRemaining" : 7.557647058823529,
+    "speakerID" : "MEE007",
+    "split" : "validation",
+    "usesPersonalHistory" : false
+  },
+  {
+    "actualRemaining" : 4.07,
+    "atSeconds" : 16.05,
+    "baselineRemaining" : 8.4,
+    "clipID" : "ami-ES2002b-C-0",
+    "predictedRemaining" : 4.959705882352941,
+    "speakerID" : "MEE007",
+    "split" : "validation",
+    "usesPersonalHistory" : false
+  },
+  {
+    "actualRemaining" : 11.78,
+    "atSeconds" : 8.35,
+    "baselineRemaining" : 15.6,
+    "clipID" : "ami-ES2002b-C-1",
+    "predictedRemaining" : 9.210882352941177,
+    "speakerID" : "MEE007",
+    "split" : "validation",
+    "usesPersonalHistory" : true
+  },
+  {
+    "actualRemaining" : 8.61,
+    "atSeconds" : 11.52,
+    "baselineRemaining" : 12.4,
+    "clipID" : "ami-ES2002b-C-1",
+    "predictedRemaining" : 7.961225490196077,
+    "speakerID" : "MEE007",
+    "split" : "validation",
+    "usesPersonalHistory" : true
+  },
+  {
+    "actualRemaining" : 5.43,
+    "atSeconds" : 14.7,
+    "baselineRemaining" : 6,
+    "clipID" : "ami-ES2002b-C-1",
+    "predictedRemaining" : 3.8522058823529406,
+    "speakerID" : "MEE007",
+    "split" : "validation",
+    "usesPersonalHistory" : true
+  },
+  {
+    "actualRemaining" : 12.030000000000001,
+    "atSeconds" : 8.02,
+    "baselineRemaining" : 15.2,
+    "clipID" : "ami-ES2002b-C-2",
+    "predictedRemaining" : 8.974705882352941,
+    "speakerID" : "MEE007",
+    "split" : "validation",
+    "usesPersonalHistory" : true
+  },
+  {
+    "actualRemaining" : 6.020000000000001,
+    "atSeconds" : 14.03,
+    "baselineRemaining" : 9.6,
+    "clipID" : "ami-ES2002b-C-2",
+    "predictedRemaining" : 5.668235294117647,
+    "speakerID" : "MEE007",
+    "split" : "validation",
+    "usesPersonalHistory" : true
+  },
+  {
+    "actualRemaining" : 2.6700000000000017,
+    "atSeconds" : 17.38,
+    "baselineRemaining" : 2.8,
+    "clipID" : "ami-ES2002b-C-2",
+    "predictedRemaining" : 1.6532352941176471,
+    "speakerID" : "MEE007",
+    "split" : "validation",
+    "usesPersonalHistory" : true
+  },
+  {
+    "actualRemaining" : 11.059999999999999,
+    "atSeconds" : 8.91,
+    "baselineRemaining" : 17.6,
+    "clipID" : "ami-ES2002b-D-0",
+    "predictedRemaining" : 9.093333333333332,
+    "speakerID" : "MEE008",
+    "split" : "held-out",
+    "usesPersonalHistory" : false
+  },
+  {
+    "actualRemaining" : 8.04,
+    "atSeconds" : 11.93,
+    "baselineRemaining" : 12.4,
+    "clipID" : "ami-ES2002b-D-0",
+    "predictedRemaining" : 6.406666666666665,
+    "speakerID" : "MEE008",
+    "split" : "held-out",
+    "usesPersonalHistory" : false
+  },
+  {
+    "actualRemaining" : 4.749999999999998,
+    "atSeconds" : 15.22,
+    "baselineRemaining" : 6.4,
+    "clipID" : "ami-ES2002b-D-0",
+    "predictedRemaining" : 3.306666666666666,
+    "speakerID" : "MEE008",
+    "split" : "held-out",
+    "usesPersonalHistory" : false
+  },
+  {
+    "actualRemaining" : 1.4899999999999984,
+    "atSeconds" : 18.48,
+    "baselineRemaining" : 2,
+    "clipID" : "ami-ES2002b-D-0",
+    "predictedRemaining" : 1.0333333333333332,
+    "speakerID" : "MEE008",
+    "split" : "held-out",
+    "usesPersonalHistory" : false
+  },
+  {
+    "actualRemaining" : 11.19,
+    "atSeconds" : 8.33,
+    "baselineRemaining" : 18.8,
+    "clipID" : "ami-ES2002b-D-1",
+    "predictedRemaining" : 10.13616487455197,
+    "speakerID" : "MEE008",
+    "split" : "held-out",
+    "usesPersonalHistory" : true
+  },
+  {
+    "actualRemaining" : 8.139999999999999,
+    "atSeconds" : 11.38,
+    "baselineRemaining" : 12.8,
+    "clipID" : "ami-ES2002b-D-1",
+    "predictedRemaining" : 6.90121863799283,
+    "speakerID" : "MEE008",
+    "split" : "held-out",
+    "usesPersonalHistory" : true
+  },
+  {
+    "actualRemaining" : 5.1,
+    "atSeconds" : 14.42,
+    "baselineRemaining" : 8.4,
+    "clipID" : "ami-ES2002b-D-1",
+    "predictedRemaining" : 4.528924731182795,
+    "speakerID" : "MEE008",
+    "split" : "held-out",
+    "usesPersonalHistory" : true
+  },
+  {
+    "actualRemaining" : 1.8000000000000007,
+    "atSeconds" : 17.72,
+    "baselineRemaining" : 2.8,
+    "clipID" : "ami-ES2002b-D-1",
+    "predictedRemaining" : 1.4815615615615618,
+    "speakerID" : "MEE008",
+    "split" : "held-out",
+    "usesPersonalHistory" : true
+  },
+  {
+    "actualRemaining" : 11.850000000000001,
+    "atSeconds" : 8.27,
+    "baselineRemaining" : 19.6,
+    "clipID" : "ami-ES2002b-D-2",
+    "predictedRemaining" : 10.126666666666665,
+    "speakerID" : "MEE008",
+    "split" : "held-out",
+    "usesPersonalHistory" : true
+  },
+  {
+    "actualRemaining" : 8.55,
+    "atSeconds" : 11.57,
+    "baselineRemaining" : 14.4,
+    "clipID" : "ami-ES2002b-D-2",
+    "predictedRemaining" : 7.667272727272726,
+    "speakerID" : "MEE008",
+    "split" : "held-out",
+    "usesPersonalHistory" : true
+  },
+  {
+    "actualRemaining" : 4.700000000000001,
+    "atSeconds" : 15.42,
+    "baselineRemaining" : 10.8,
+    "clipID" : "ami-ES2002b-D-2",
+    "predictedRemaining" : 5.750454545454544,
+    "speakerID" : "MEE008",
+    "split" : "held-out",
+    "usesPersonalHistory" : true
+  },
+  {
+    "actualRemaining" : 1.4299999999999997,
+    "atSeconds" : 18.69,
+    "baselineRemaining" : 4,
+    "clipID" : "ami-ES2002b-D-2",
+    "predictedRemaining" : 2.1297979797979796,
+    "speakerID" : "MEE008",
+    "split" : "held-out",
+    "usesPersonalHistory" : true
+  },
+  {
+    "actualRemaining" : 10.280000000000001,
+    "atSeconds" : 8.61,
+    "baselineRemaining" : 21.2,
+    "clipID" : "ami-ES2002b-B-0",
+    "predictedRemaining" : 15.351071428571428,
+    "speakerID" : "FEE005",
+    "split" : "train",
+    "usesPersonalHistory" : false
+  },
+  {
+    "actualRemaining" : 7.25,
+    "atSeconds" : 11.64,
+    "baselineRemaining" : 14.4,
+    "clipID" : "ami-ES2002b-B-0",
+    "predictedRemaining" : 10.427142857142858,
+    "speakerID" : "FEE005",
+    "split" : "train",
+    "usesPersonalHistory" : false
+  },
+  {
+    "actualRemaining" : 4.210000000000001,
+    "atSeconds" : 14.68,
+    "baselineRemaining" : 8,
+    "clipID" : "ami-ES2002b-B-0",
+    "predictedRemaining" : 5.792857142857143,
+    "speakerID" : "FEE005",
+    "split" : "train",
+    "usesPersonalHistory" : false
+  },
+  {
+    "actualRemaining" : 1.1700000000000017,
+    "atSeconds" : 17.72,
+    "baselineRemaining" : 2.8,
+    "clipID" : "ami-ES2002b-B-0",
+    "predictedRemaining" : 2.0275,
+    "speakerID" : "FEE005",
+    "split" : "train",
+    "usesPersonalHistory" : false
+  },
+  {
+    "actualRemaining" : 11.329999999999998,
+    "atSeconds" : 8.82,
+    "baselineRemaining" : 16.4,
+    "clipID" : "ami-ES2002b-B-1",
+    "predictedRemaining" : 9.052368421052632,
+    "speakerID" : "FEE005",
+    "split" : "train",
+    "usesPersonalHistory" : false
+  },
+  {
+    "actualRemaining" : 8.299999999999999,
+    "atSeconds" : 11.85,
+    "baselineRemaining" : 12.4,
+    "clipID" : "ami-ES2002b-B-1",
+    "predictedRemaining" : 6.844473684210526,
+    "speakerID" : "FEE005",
+    "split" : "train",
+    "usesPersonalHistory" : false
+  },
+  {
+    "actualRemaining" : 5.299999999999999,
+    "atSeconds" : 14.85,
+    "baselineRemaining" : 8,
+    "clipID" : "ami-ES2002b-B-1",
+    "predictedRemaining" : 4.41578947368421,
+    "speakerID" : "FEE005",
+    "split" : "train",
+    "usesPersonalHistory" : false
+  },
+  {
+    "actualRemaining" : 2.259999999999998,
+    "atSeconds" : 17.89,
+    "baselineRemaining" : 3.2,
+    "clipID" : "ami-ES2002b-B-1",
+    "predictedRemaining" : 1.7663157894736843,
+    "speakerID" : "FEE005",
+    "split" : "train",
+    "usesPersonalHistory" : false
+  },
+  {
+    "actualRemaining" : 11.62,
+    "atSeconds" : 8.31,
+    "baselineRemaining" : 16,
+    "clipID" : "ami-ES2002b-B-2",
+    "predictedRemaining" : 8.83157894736842,
+    "speakerID" : "FEE005",
+    "split" : "train",
+    "usesPersonalHistory" : true
+  },
+  {
+    "actualRemaining" : 8.23,
+    "atSeconds" : 11.7,
+    "baselineRemaining" : 12,
+    "clipID" : "ami-ES2002b-B-2",
+    "predictedRemaining" : 6.623684210526316,
+    "speakerID" : "FEE005",
+    "split" : "train",
+    "usesPersonalHistory" : true
+  },
+  {
+    "actualRemaining" : 4.619999999999999,
+    "atSeconds" : 15.31,
+    "baselineRemaining" : 8.4,
+    "clipID" : "ami-ES2002b-B-2",
+    "predictedRemaining" : 4.7862351443123945,
+    "speakerID" : "FEE005",
+    "split" : "train",
+    "usesPersonalHistory" : true
+  },
+  {
+    "actualRemaining" : 1.259999999999998,
+    "atSeconds" : 18.67,
+    "baselineRemaining" : 1.6,
+    "clipID" : "ami-ES2002b-B-2",
+    "predictedRemaining" : 0.9116638370118846,
+    "speakerID" : "FEE005",
+    "split" : "train",
+    "usesPersonalHistory" : true
+  }
+]

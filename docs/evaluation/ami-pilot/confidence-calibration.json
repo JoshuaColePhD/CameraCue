@@ -1,0 +1,31 @@
+{
+  "method": "transcript-derived recognition-error simulation; independent of ASR and live latency",
+  "epochs": 400,
+  "learningRate": 0.3,
+  "L2": 0.01,
+  "thresholdSelectedOn": "validation",
+  "splits": {
+    "train": {
+      "rows": 4167,
+      "wrongCandidateAccepted": 43,
+      "correctCandidateHeld": 0,
+      "brierCorrectness": 0.020875998114032505,
+      "incorrectCandidates": 127
+    },
+    "validation": {
+      "rows": 1838,
+      "wrongCandidateAccepted": 25,
+      "correctCandidateHeld": 0,
+      "brierCorrectness": 0.023952297922957215,
+      "incorrectCandidates": 63
+    },
+    "held-out": {
+      "rows": 2054,
+      "wrongCandidateAccepted": 18,
+      "correctCandidateHeld": 0,
+      "brierCorrectness": 0.019321807628524965,
+      "incorrectCandidates": 60
+    }
+  },
+  "baseline": "Current rule tracker; these candidate statistics do not measure resulting tracking/recovery. Production promotion requires end-to-end replay."
+}

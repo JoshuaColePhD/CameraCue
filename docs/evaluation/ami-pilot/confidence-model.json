@@ -1,0 +1,66 @@
+{
+  "version": "ami-pilot-simulation-v1",
+  "featureNames": [
+    "quality",
+    "margin",
+    "coverage",
+    "context",
+    "distance",
+    "backward",
+    "misses",
+    "asrConfidence",
+    "asrConfidenceKnown"
+  ],
+  "coefficients": [
+    [
+      1.0380586457044614,
+      0.4924009024202795,
+      -0.09362355411692466,
+      0.30592058778172077,
+      0.6070664648712927,
+      -0.6038983423292685,
+      -1.5817723431207373,
+      -0.12999666218531664,
+      0.0,
+      0.0
+    ],
+    [
+      -0.4696702108768304,
+      -0.3758082180651139,
+      0.21124110853752545,
+      -0.1702553206715691,
+      -0.5583566664298796,
+      0.16645601511669378,
+      0.9484162837093166,
+      0.06297887901565011,
+      0.0,
+      0.0
+    ],
+    [
+      -0.5683884348276322,
+      -0.11659268435516557,
+      -0.117617554420601,
+      -0.13566526711015287,
+      -0.04870979844141375,
+      0.43744232721257365,
+      0.633356059411421,
+      0.06701778316966653,
+      0.0,
+      0.0
+    ]
+  ],
+  "trainingSpeakers": [
+    "FEE005",
+    "MEE006"
+  ],
+  "validationSpeakers": [
+    "MEE007"
+  ],
+  "heldOutSpeakers": [
+    "MEE008"
+  ],
+  "trainingRows": 4167,
+  "sourceCorpus": "AMI ES2002b CC BY 4.0; transcript-derived error simulations, no audio training",
+  "holdThreshold": 0.8,
+  "maximumScriptTokens": 88
+}
