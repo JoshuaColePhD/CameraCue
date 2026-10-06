@@ -130,6 +130,7 @@ struct SavedTakePlayer: View {
     let url: URL
     var seekRequest: PlaybackSeekRequest? = nil
     @State private var player: AVPlayer?
+    @State private var pendingSeek: PlaybackSeekRequest?
     @State private var duration: String?
     @State private var playbackError: String?
     var body: some View {
@@ -140,7 +141,8 @@ struct SavedTakePlayer: View {
             if let playbackError { Text(playbackError).font(.system(size: 14)).foregroundStyle(StudioPalette.mutedInk) }
             if let duration { Text("Video duration · \(duration)").font(.caption).foregroundStyle(StudioPalette.mutedInk) }
         }.task(id: url) {
-            player?.pause()
+            player?.pause(); player = nil
+            pendingSeek = seekRequest
             playbackError = nil
             guard (try? await AVURLAsset(url: url).load(.isPlayable)) == true else {
                 player = nil; duration = nil
@@ -149,13 +151,19 @@ struct SavedTakePlayer: View {
             }
             guard !Task.isCancelled else { return }
             player = AVPlayer(url: url)
+            if let pendingSeek {
+                player?.seek(to: CMTime(seconds: max(0, pendingSeek.seconds), preferredTimescale: 600), toleranceBefore: .zero, toleranceAfter: .zero, completionHandler: { @Sendable _ in })
+                player?.play()
+                self.pendingSeek = nil
+            }
             duration = nil
             if let time = try? await AVURLAsset(url: url).load(.duration), time.seconds.isFinite {
                 duration = TakeSummary.time(time.seconds)
             }
-        }.onChange(of: seekRequest) { _, request in
+        }.onChange(of: seekRequest, initial: true) { _, request in
             guard let request, request.seconds.isFinite else { return }
-            player?.seek(to: CMTime(seconds: max(0, request.seconds), preferredTimescale: 600), toleranceBefore: .zero, toleranceAfter: .zero)
+            pendingSeek = player == nil ? request : nil
+            player?.seek(to: CMTime(seconds: max(0, request.seconds), preferredTimescale: 600), toleranceBefore: .zero, toleranceAfter: .zero, completionHandler: { @Sendable _ in })
             player?.play()
         }.onDisappear { player?.pause(); player = nil }
     }

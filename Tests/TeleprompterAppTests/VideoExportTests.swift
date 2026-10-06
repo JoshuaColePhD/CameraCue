@@ -1,5 +1,8 @@
 import XCTest
 import AVFoundation
+import AppKit
+import AVKit
+import SwiftUI
 @testable import TeleprompterApp
 
 @MainActor final class VideoExportTests: XCTestCase {
@@ -56,6 +59,19 @@ import AVFoundation
         let readable = try AVAudioFile(forReading: extracted)
         XCTAssertGreaterThan(readable.length, 0)
         XCTAssertEqual(readable.processingFormat.channelCount, 1)
+        // A finding can be clicked before native player metadata finishes
+        // loading. The initial seek must be queued rather than discarded.
+        let host = NSHostingView(rootView: SavedTakePlayer(url: mp4, seekRequest: PlaybackSeekRequest(seconds: 0.5)).frame(width: 640, height: 400))
+        let window = NSWindow(contentRect: CGRect(x: 0, y: 0, width: 640, height: 400), styleMask: [.borderless], backing: .buffered, defer: false)
+        window.isReleasedWhenClosed = false; window.contentView = host; window.orderFront(nil)
+        defer { window.close() }
+        func videoView(_ view: NSView) -> AVPlayerView? {
+            if let result = view as? AVPlayerView { return result }
+            return view.subviews.lazy.compactMap { videoView($0) }.first
+        }
+        let seekDeadline = Date().addingTimeInterval(3)
+        while (videoView(host)?.player?.currentTime().seconds ?? 0) < 0.4, Date() < seekDeadline { try await Task.sleep(for: .milliseconds(20)) }
+        XCTAssertGreaterThanOrEqual(videoView(host)?.player?.currentTime().seconds ?? 0, 0.4, "Initial finding click must survive player loading")
         let result = AVURLAsset(url: mp4)
         let videoTracks = try await result.loadTracks(withMediaType: .video)
         let audioTracks = try await result.loadTracks(withMediaType: .audio)
