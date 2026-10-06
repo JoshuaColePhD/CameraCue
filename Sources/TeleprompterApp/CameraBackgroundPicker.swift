@@ -7,7 +7,7 @@ struct CameraBackgroundPicker: View {
     var body: some View {
         BackgroundOptions(setting: video.background, disabled: locked || video.isBusy || video.changingBackground,
                           busy: video.changingBackground, message: video.backgroundMessage,
-                          detail: locked || video.isBusy ? "Finish your take to change the background." : "Applied to the preview and saved video. Processed on your Mac.",
+                          detail: video.state == .preparing ? "Wait for camera setup or cancel it before changing the background." : locked || video.isBusy ? "Finish your take to change the background." : "Applied to the preview and saved video. Processed on your Mac.",
                           change: { setting in Task { await video.changeBackground(setting) } }, upload: video.chooseBackgroundImage)
     }
 }

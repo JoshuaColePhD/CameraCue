@@ -14,7 +14,7 @@ struct PresentationReadiness: View {
                   systemImage: model.wordCount > 0 ? "checkmark.circle" : "doc.badge.plus")
             if model.mode != .manual {
                 Text(speech.readiness).fixedSize(horizontal: false, vertical: true)
-                if speech.state == .denied {
+                if speech.state == .denied && showsSetupAction {
                     Button("Open Voice Follow Settings") { NSWorkspace.shared.open(speech.permissionSettingsURL) }
                 } else if speech.needsPermissionSetup && showsSetupAction {
                     Button("Set up Voice Follow") { Task { await speech.prepare() } }

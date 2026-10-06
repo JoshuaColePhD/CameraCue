@@ -122,6 +122,7 @@ struct CameraPresentationStage: View {
     }
     private var stageDetail: String {
         if video.state == .saving { return "Your MP4 will appear here when it is ready." }
+        if video.state == .failed { return video.message }
         if hidesSelfView { return "Keep your eyes on the words beneath the lens." }
         if !video.enabled { return "Use QuickTime to record, and CameraCue Studio to follow your words." }
         if model.phase == .finished { return "Review your timing, then try another take." }
