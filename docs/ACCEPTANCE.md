@@ -27,3 +27,11 @@ The installed CameraCue Studio release was inspected natively in Ready. Preparin
 Permission requests now have a bounded 30-second wait, ignore late/duplicate callbacks, and release on cancellation. Camera setup has an explicit Cancel action; failed Voice Follow setup offers System Settings. Relevant permission/capture regressions pass. The final application was built, installed and its executable hash and signature verified. Native checks confirmed unanswered microphone and camera requests return to enabled controls after the timeout; no test video has been saved. These changes make failure recoverable; they do not prove successful live recording or diagnose the OS attribution issue conclusively.
 
 A Developer ID/hardened-runtime/notarization packaging workflow is now provided, with syntax and entitlements validation. Apple identity/profile access and actual notarization, Gatekeeper and clean-Mac acceptance remain pending. The existing personal/local certificate is not a Developer ID distribution certificate.
+
+## Available-display checkpoint
+
+The installed code at `6d73888` passed [Mac CI](https://github.com/JoshuaColePhD/CameraCue/actions/runs/37407906665): native tests, Voice Follow regression gates, app package/signature and the scoped learned-model gate.
+
+An opt-in isolated native motion/popover run passed on the available **Built-in Retina Display**, backing scale 2, reported maximum refresh 120 Hz. Across twelve open/close cycles, 986 display-link callbacks had p95 interval 8.38 ms, maximum 20.85 ms, and zero gaps above 50 ms. These are main-run-loop display-link callback intervals, not measured render-server frame delivery or microphone-to-visible-highlight latency. The external display was unavailable for this run.
+
+Timer popovers remained within the available screen at left, center and right anchors and retained their size across direction and long-target changes. The countdown snapshot was inspected for clipping. No camera/microphone was activated by these isolated fixtures. The live permission/recording acceptance above remains unfinished.
