@@ -57,6 +57,7 @@ final class CameraBackgroundProcessor {
     private var maskSize = CGSize.zero
     private var pool: CVPixelBufferPool?
     private var poolSize = CGSize.zero
+    private let liveMask = LivePersonMask()
     private let offline: Bool
     init(offline: Bool = false) {
         self.offline = offline
@@ -72,6 +73,7 @@ final class CameraBackgroundProcessor {
             image = CIImage(cgImage: cg)
         }
         self.setting = setting; backdrop = image; lastMask = nil; lastMaskTime = -.infinity
+        liveMask.reset()
     }
     static func aspectFill(_ image: CIImage, into bounds: CGRect) -> CIImage {
         let extent = image.extent
@@ -99,11 +101,18 @@ final class CameraBackgroundProcessor {
     func process(_ buffer: CVPixelBuffer, time: Double) throws -> CVPixelBuffer {
         guard setting.mode != .original else { return buffer }
         let size = CGSize(width: CVPixelBufferGetWidth(buffer), height: CVPixelBufferGetHeight(buffer))
-        // Reuse a stateful mask for intervening frames, at most 15 segmentations/s.
-        if offline || size != maskSize || time - lastMaskTime >= 1.0 / 15 {
+        if offline {
             try VNImageRequestHandler(cvPixelBuffer: buffer, orientation: .up).perform([segmentation])
             lastMask = segmentation.results?.first.map { CIImage(cvPixelBuffer: $0.pixelBuffer) }
+        } else if size != maskSize || !lastMaskTime.isFinite {
+            liveMask.reset()
+            lastMask = try liveMask.first(buffer).map { CIImage(cvPixelBuffer: $0) }
             lastMaskTime = time; maskSize = size
+        } else {
+            if let current = liveMask.latest { lastMask = CIImage(cvPixelBuffer: current) }
+            // Vision cannot stall every video/audio callback. Keep the latest
+            // completed mask and submit at most one refresh, up to 15 times/s.
+            if time - lastMaskTime >= 1.0 / 15, liveMask.submit(buffer) { lastMaskTime = time }
         }
         if pool == nil || poolSize != size {
             CVPixelBufferPoolCreate(nil, [kCVPixelBufferPoolMinimumBufferCountKey: 3] as CFDictionary, [
