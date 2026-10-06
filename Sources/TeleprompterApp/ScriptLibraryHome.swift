@@ -27,19 +27,13 @@ struct ScriptLibraryHome: View {
     let onDelete: (ScriptRecord) -> Void
     let onDrop: ([NSItemProvider]) -> Bool
     @State private var importTargeted = false
-    @State private var draftsExpanded = false
     @AppStorage("studio.library.list") private var listLayout = false
 
     private var results: [ScriptDashboardEntry] {
-        let matching = ScriptDashboardQuery.homeResults(entries, search: search, filter: filter, sort: sort, isHome: isHome)
-        if focusedHome, let featured = ScriptDashboardQuery.continuation(entries, selectedID: selectedID) {
-            return matching.filter { $0.id != featured.id }
-        }
-        return matching
+        if focusedHome { return ScriptDashboardQuery.recentHomeScripts(entries, selectedID: selectedID) }
+        return ScriptDashboardQuery.results(entries, search: search, filter: filter, sort: sort)
     }
-    private var simpleHome: Bool { focusedHome && readyCount < 4 }
     private var focusedHome: Bool { isHome && !isSearching && filter == .all }
-    private var drafts: [ScriptDashboardEntry] { ScriptDashboardQuery.results(entries, search: "", filter: .drafts, sort: sort) }
     private var readyCount: Int { entries.filter(\.isReady).count }
     private var isSearching: Bool { !search.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
 
@@ -62,17 +56,14 @@ struct ScriptLibraryHome: View {
                         continuation(entry)
                     }
 
-                    ViewThatFits(in: .horizontal) {
-                        HStack(spacing: 12) { creationCards }.frame(minWidth: 680)
-                        VStack(spacing: 12) { creationCards }
-                    }
+                    if readyCount == 0 { firstScript }
                 }
-                if !simpleHome { libraryToolbar }
+                if !focusedHome { libraryToolbar }
                 if results.isEmpty {
-                    if !focusedHome || entries.isEmpty { emptyResults } else if readyCount == 0 { Text("Write or import a script to prepare your next recording.").font(.system(size: 14)).foregroundStyle(StudioPalette.mutedInk) }
+                    if !focusedHome { emptyResults }
                 } else {
-                    if simpleHome { Text("More recent scripts").font(.system(size: 18, weight: .semibold)) }
-                    if listLayout {
+                    if focusedHome { Text("Recent scripts").font(.system(size: 18, weight: .semibold)).foregroundStyle(StudioPalette.ink) }
+                    if focusedHome || listLayout {
                         LazyVStack(spacing: 8) { ForEach(results) { scriptCard($0) } }
                     } else {
                         LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 16), count: StudioLayout.columns(for: min(1100, geometry.size.width - 48))), spacing: 16) {
@@ -82,11 +73,7 @@ struct ScriptLibraryHome: View {
                 }
                 if focusedHome {
                     Button("View all scripts", action: onViewAll).buttonStyle(StudioButtonStyle())
-                    if !drafts.isEmpty {
-                        DisclosureGroup("Empty drafts (\(drafts.count))", isExpanded: $draftsExpanded) {
-                            LazyVStack(spacing: 8) { ForEach(drafts) { scriptCard($0) } }.padding(.top, 8)
-                        }.font(.system(size: 14, weight: .medium)).tint(StudioPalette.violet)
-                    }
+
                 }
             }
             .frame(maxWidth: 1100, alignment: .leading)
@@ -94,16 +81,31 @@ struct ScriptLibraryHome: View {
             .frame(maxWidth: .infinity, alignment: .top)
         }
         .background(StudioPalette.canvas)
+        .overlay(RoundedRectangle(cornerRadius: 16).strokeBorder(importTargeted ? StudioPalette.violet : .clear, style: StrokeStyle(lineWidth: 2, dash: [6, 4])).padding(8).allowsHitTesting(false))
+        .onDrop(of: [UTType.fileURL.identifier, UTType.plainText.identifier], isTargeted: $importTargeted, perform: onDrop)
         }
     }
 
-    @ViewBuilder private var creationCards: some View {
-        actionCard("Write", detail: "Start with a blank page", symbol: .write, accent: StudioPalette.lavender, action: onNew)
-        actionCard("Import text", detail: importTargeted ? "Release to import and format" : "Drop a .txt or .md file, or text", symbol: .import, accent: StudioPalette.sky, action: onImport)
-            .overlay(RoundedRectangle(cornerRadius: 16).strokeBorder(importTargeted ? StudioPalette.violet : .clear, style: StrokeStyle(lineWidth: 2, dash: [5, 4])))
-            .onDrop(of: [UTType.fileURL.identifier, UTType.plainText.identifier], isTargeted: $importTargeted, perform: onDrop)
-        actionCard("Draft with AI", detail: "Turn an idea into a draft to review", symbol: .sparkle, accent: StudioPalette.peach, action: onDevelop)
+    private var firstScript: some View {
+        VStack(alignment: .leading, spacing: 16) {
+            Image(systemName: "sparkles").font(.system(size: 26)).foregroundStyle(StudioPalette.violet)
+            Text("What would you like to say?").font(.system(size: 28, weight: .semibold, design: .rounded)).foregroundStyle(StudioPalette.ink)
+            Text("Start with your words. We’ll help you prepare them for the camera.")
+                .font(.system(size: 14)).foregroundStyle(StudioPalette.mutedInk)
+            ViewThatFits(in: .horizontal) {
+                HStack(spacing: 12) { firstScriptActions }
+                VStack(alignment: .leading, spacing: 12) { firstScriptActions }
+            }
+        }
+        .padding(24).frame(maxWidth: .infinity, alignment: .leading)
+        .background(LinearGradient(colors: [StudioPalette.lavender.opacity(0.45), StudioPalette.peach.opacity(0.5)], startPoint: .topLeading, endPoint: .bottomTrailing), in: RoundedRectangle(cornerRadius: 16))
     }
+    @ViewBuilder private var firstScriptActions: some View {
+        Button("Write a script", action: onNew).buttonStyle(StudioButtonStyle(primary: true))
+        Button("Import text", action: onImport).buttonStyle(StudioButtonStyle())
+        Button("Draft with AI", action: onDevelop).buttonStyle(StudioButtonStyle())
+    }
+
     @ViewBuilder private var importBanner: some View {
         if let importingTitle {
             HStack(spacing: 12) { ProgressView().controlSize(.small); Text("Importing · \(importingTitle)") }
@@ -145,9 +147,15 @@ struct ScriptLibraryHome: View {
                     .foregroundStyle(StudioPalette.mutedInk)
             }
             Spacer(minLength: 12)
-            Button(action: onNew) { StudioLabel("New script", .plus) }
-                .buttonStyle(StudioButtonStyle())
-                .help("Start a blank script (⌘N)")
+            Menu {
+                Button("Blank script", action: onNew)
+                Button("Import text…", action: onImport)
+                Button("Draft with AI…", action: onDevelop)
+            } label: { StudioLabel("New script", .plus).font(.system(size: 14, weight: .semibold)).foregroundStyle(StudioPalette.ink).padding(.horizontal, 14).padding(.vertical, 10).background(StudioPalette.lavender, in: RoundedRectangle(cornerRadius: 10)) }
+                .menuStyle(.borderlessButton).menuIndicator(.hidden).fixedSize()
+                .padding(.horizontal, 12).padding(.vertical, 9).background(StudioPalette.lavender, in: RoundedRectangle(cornerRadius: 10))
+                .accessibilityLabel("New script: blank, import text, or draft with AI")
+                .help("Choose how to create your next script")
         }
     }
 
@@ -157,8 +165,8 @@ struct ScriptLibraryHome: View {
             VStack(alignment: .leading, spacing: 16) { continuationText(entry); continuationActions(entry) }
         }
         .padding(16).frame(maxWidth: .infinity, alignment: .leading)
-        .background(StudioPalette.surface, in: RoundedRectangle(cornerRadius: 16))
-        .overlay(RoundedRectangle(cornerRadius: 16).stroke(StudioPalette.outline))
+        .background(LinearGradient(colors: [StudioPalette.lavender.opacity(0.52), StudioPalette.sky.opacity(0.38)], startPoint: .leading, endPoint: .trailing), in: RoundedRectangle(cornerRadius: 16))
+        .overlay(RoundedRectangle(cornerRadius: 16).stroke(StudioPalette.lavender.opacity(0.8)))
     }
     private func continuationText(_ entry: ScriptDashboardEntry) -> some View {
         VStack(alignment: .leading, spacing: 8) {
@@ -175,33 +183,10 @@ struct ScriptLibraryHome: View {
             if entry.isReady {
                 Button("Prepare to record") { onOpen(entry.script, .present) }.buttonStyle(StudioButtonStyle(primary: true)).disabled(!canRehearse).help("Open Present without capture. Finish your current take first if unavailable.")
                 Button("Edit") { onOpen(entry.script, .write) }.buttonStyle(StudioButtonStyle())
-                Button("Rehearse") { onOpen(entry.script, .rehearse) }.buttonStyle(StudioButtonStyle()).disabled(!canRehearse)
             } else {
                 Button("Write script") { onOpen(entry.script, .write) }.buttonStyle(StudioButtonStyle(primary: true))
             }
         }
-    }
-
-    private func actionCard(_ title: String, detail: String,
-                            symbol: CueSymbol, accent: Color, action: @escaping () -> Void) -> some View {
-        Button(action: action) {
-            HStack(spacing: 12) {
-                    Image(systemName: symbol == .write ? "square.and.pencil" : symbol == .import ? "square.and.arrow.down" : "sparkles").font(.system(size: 18)).foregroundStyle(StudioPalette.violet)
-                    .padding(8).background(accent.opacity(0.35), in: RoundedRectangle(cornerRadius: 10))
-                VStack(alignment: .leading, spacing: 5) {
-                    Text(title).font(.system(size: 14, weight: .semibold, design: .rounded))
-                    Text(detail).font(.system(size: 11)).foregroundStyle(StudioPalette.mutedInk)
-                        .lineLimit(2)
-                }
-                Spacer(minLength: 0)
-                Image(systemName: "chevron.right").font(.system(size: 12)).foregroundStyle(StudioPalette.violet)
-            }
-            .foregroundStyle(StudioPalette.ink)
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(16).frame(minHeight: 72)
-
-        }
-        .buttonStyle(StudioSurfaceStyle())
     }
 
     private var libraryToolbar: some View {
@@ -276,42 +261,34 @@ struct ScriptLibraryHome: View {
                 .overlay(RoundedRectangle(cornerRadius: 12).stroke(StudioPalette.outline.opacity(0.45)))
     }
 
+    private func documentAccent(_ entry: ScriptDashboardEntry) -> Color {
+        let accents = [StudioPalette.sky, StudioPalette.peach, StudioPalette.mint]
+        let index = entry.id.uuidString.utf8.reduce(0) { ($0 + Int($1)) % accents.count }
+        return accents[index]
+    }
+
     private func scriptCard(_ entry: ScriptDashboardEntry) -> some View {
         HStack(spacing: 0) {
             Button { onOpen(entry.script, .write) } label: {
-                HStack(spacing: 14) {
-                    CueIcon(entry.isReady ? .reader : .write, size: 20, badge: entry.isReady)
+                HStack(spacing: 12) {
+                    Image(systemName: entry.isReady ? "doc.text" : "doc")
+                        .font(.system(size: 18)).foregroundStyle(StudioPalette.violet)
+                        .frame(width: 36, height: 36)
+                        .background(entry.isReady ? documentAccent(entry).opacity(0.8) : StudioPalette.lavenderWash, in: RoundedRectangle(cornerRadius: 10))
                     VStack(alignment: .leading, spacing: 5) {
-                        HStack(spacing: 8) {
-                            Text(entry.title).font(.system(size: 15, weight: .semibold, design: .rounded)).lineLimit(1)
-                            if entry.script.isFavorite {
-                                Image(systemName: "star.fill").font(.system(size: 10))
-                                    .foregroundStyle(StudioPalette.violet).accessibilityLabel("Favorite")
-                            }
-                            Text(importProgress[entry.id]?.phase == .formatting ? "Formatting…" : entry.isReady ? "Ready to read" : "Empty draft")
-                                .font(.system(size: 10, weight: .medium))
-                                .padding(.horizontal, 7).padding(.vertical, 3)
-                                .background((entry.isReady ? StudioPalette.mint : StudioPalette.lavenderWash).opacity(0.45), in: Capsule())
-                        }
-                        Text(entry.text.excerpt.isEmpty ? "Add spoken words to start practicing." : entry.text.excerpt)
-                            .font(.system(size: 12)).foregroundStyle(StudioPalette.mutedInk).lineLimit(1)
+                        Text(entry.title).font(.system(size: 15, weight: .semibold)).lineLimit(1)
+                        Text(importProgress[entry.id]?.phase == .formatting ? "Formatting…" : entry.isReady ? entry.text.durationLabel : "Empty draft")
+                            .font(.system(size: 12)).foregroundStyle(StudioPalette.mutedInk)
                     }
                     Spacer(minLength: 8)
-                    VStack(alignment: .trailing, spacing: 5) {
-                        Text(entry.isReady ? "\(entry.text.wordCount) words · \(entry.text.durationLabel)" : "No spoken text")
-                            .font(.system(size: 11, weight: .medium))
-                        Text("Edited \(entry.script.modifiedAt.formatted(.relative(presentation: .named)))")
-                            .font(.system(size: 10))
-                    }.foregroundStyle(StudioPalette.mutedInk)
-                    CueIcon(.next, size: 12).foregroundStyle(StudioPalette.violet)
+                    Text(entry.script.modifiedAt.formatted(.relative(presentation: .named)))
+                        .font(.system(size: 12)).foregroundStyle(StudioPalette.mutedInk).lineLimit(1)
+                    Image(systemName: "chevron.right").font(.system(size: 12)).foregroundStyle(StudioPalette.violet)
                 }
-                .foregroundStyle(StudioPalette.ink)
-                .frame(maxWidth: .infinity, alignment: .leading)
+                .foregroundStyle(StudioPalette.ink).frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.leading, 16).padding(.trailing, 10).padding(.vertical, 12)
-                .frame(minHeight: 72).contentShape(Rectangle())
-            }
-            .buttonStyle(CueDashboardRowStyle()).accessibilityLabel("Open \(entry.title)")
-            .help("Open this script in the editor")
+                .contentShape(Rectangle())
+            }.buttonStyle(CueDashboardRowStyle()).accessibilityLabel("Open \(entry.title)")
             Menu {
                 Button("Rename…") { onRename(entry.script) }
                 Button("Duplicate") { onDuplicate(entry.script) }
@@ -319,16 +296,14 @@ struct ScriptLibraryHome: View {
                 Divider()
                 Button("Delete…", role: .destructive) { onDelete(entry.script) }.disabled(!canDelete)
             } label: {
-                Label("Script actions", systemImage: "ellipsis")
-                    .labelStyle(.iconOnly).font(.system(size: 16, weight: .semibold))
-                    .foregroundStyle(StudioPalette.violet).frame(width: 44, height: 72).contentShape(Rectangle())
-            }
-            .menuStyle(.borderlessButton).menuIndicator(.hidden).fixedSize()
-            .accessibilityLabel("Actions for \(entry.title)").help("Rename, duplicate, favorite, or delete this script")
+                Image(systemName: "ellipsis").font(.system(size: 16, weight: .semibold))
+                    .foregroundStyle(StudioPalette.violet).frame(width: 44, height: 60).contentShape(Rectangle())
+            }.menuStyle(.borderlessButton).menuIndicator(.hidden).fixedSize()
+                .accessibilityLabel("Actions for \(entry.title)")
         }
-        .background(entry.isReady ? StudioPalette.surface : StudioPalette.canvas, in: RoundedRectangle(cornerRadius: 16))
+        .background(StudioPalette.surface, in: RoundedRectangle(cornerRadius: 16))
         .clipShape(RoundedRectangle(cornerRadius: 16))
-        .overlay(RoundedRectangle(cornerRadius: 16).stroke(StudioPalette.outline.opacity(0.6)))
+        .overlay(RoundedRectangle(cornerRadius: 16).stroke(StudioPalette.outline.opacity(0.65)))
     }
 
     private func documentCard(_ entry: ScriptDashboardEntry) -> some View {

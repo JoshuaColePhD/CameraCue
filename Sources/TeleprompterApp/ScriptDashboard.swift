@@ -89,6 +89,12 @@ enum ScriptDashboardQuery {
         return focused ? Array(matching.prefix(6)) : matching
     }
 
+    static func recentHomeScripts(_ entries: [ScriptDashboardEntry], selectedID: UUID?) -> [ScriptDashboardEntry] {
+        let continuedID = continuation(entries, selectedID: selectedID)?.id
+        return Array(results(entries, search: "", filter: .ready, sort: .recent)
+            .filter { $0.id != continuedID }.prefix(5))
+    }
+
     static func continuation(_ entries: [ScriptDashboardEntry], selectedID: UUID?) -> ScriptDashboardEntry? {
         let recent = results(entries, search: "", filter: .ready)
         return recent.first { $0.id == selectedID } ?? recent.first

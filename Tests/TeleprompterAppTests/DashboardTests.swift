@@ -74,6 +74,18 @@ import TeleprompterCore
         XCTAssertEqual(ScriptDashboardQuery.continuation(all, selectedID: UUID())?.id, ready.last?.id)
     }
 
+    func testSimplifiedHomeKeepsFiveRecentReadableScriptsWithoutDuplicatingContinuation() {
+        let ready = (0..<9).map { entry("Script \($0)", body: "Spoken words", edited: Double($0)) }
+        let blank = entry("Draft", body: "[Pause.]", edited: 30)
+        let entries = ready + [blank]
+        let newest = ScriptDashboardQuery.recentHomeScripts(entries, selectedID: nil)
+        XCTAssertEqual(newest.map(\.id), Array(ready.reversed().dropFirst().prefix(5)).map(\.id))
+        let olderContinuation = ScriptDashboardQuery.recentHomeScripts(entries, selectedID: ready[0].id)
+        XCTAssertEqual(olderContinuation.map(\.id), Array(ready.reversed().prefix(5)).map(\.id))
+        XCTAssertTrue(ScriptDashboardQuery.recentHomeScripts([blank], selectedID: blank.id).isEmpty)
+        XCTAssertTrue(ScriptDashboardQuery.recentHomeScripts([ready[0]], selectedID: nil).isEmpty)
+    }
+
     func testSidebarPrioritizesReadableScriptsAndFallsBackToDrafts() {
         let draft = entry("Untitled", body: "", edited: 10)
         let script = entry("Ready", body: "Read these words", edited: 1)

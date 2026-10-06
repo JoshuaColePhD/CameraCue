@@ -29,7 +29,7 @@ import UniformTypeIdentifiers
         let model = TeleprompterModel(capture: capture, defaults: nil)
         model.load(records[0])
         let controller = NotchController(defaults: nil)
-        let host = NSHostingView(rootView: StudioView().environmentObject(library).environmentObject(model).environmentObject(controller).frame(width: 1230, height: 800).environment(\.controlActiveState, .active))
+        let host = NSHostingView(rootView: StudioView().environmentObject(library).environmentObject(model).environmentObject(controller).environment(\.controlActiveState, .active))
         let window = NSWindow(contentRect: CGRect(x: 0, y: 0, width: 1230, height: 800), styleMask: [.borderless], backing: .buffered, defer: false)
         window.isReleasedWhenClosed = false
         window.contentView = host
@@ -39,6 +39,29 @@ import UniformTypeIdentifiers
         resizeSidebar(host)
         try await Task.sleep(for: .milliseconds(200))
         try png(host, to: folder.appendingPathComponent("studio.png"))
+        window.setContentSize(CGSize(width: 900, height: 680))
+        try await Task.sleep(for: .milliseconds(300))
+        resizeSidebar(host)
+        try await Task.sleep(for: .milliseconds(200))
+        try png(host, to: folder.appendingPathComponent("studio-compact.png"))
+        let blankStorage = storage.appendingPathComponent("blank-library")
+        try FileManager.default.createDirectory(at: blankStorage, withIntermediateDirectories: true)
+        let blank = ScriptRecord(id: UUID(), title: "Untitled Script", body: "", modifiedAt: .now)
+        try JSONEncoder().encode([blank]).write(to: blankStorage.appendingPathComponent("scripts.json"))
+        let blankLibrary = ScriptLibrary(storageDirectory: blankStorage)
+        let emptyHost = NSHostingView(rootView: ScriptLibraryHome(
+            entries: blankLibrary.dashboardEntries(), selectedID: nil,
+            search: .constant(""), filter: .constant(.all), sort: .constant(.recent),
+            canRehearse: true, storageNotice: nil, isHome: true,
+            importProgress: [:], latestImportID: nil, importingTitle: nil,
+            onRetryFormatting: { _ in }, canDelete: false, onViewAll: {},
+            onNew: {}, onImport: {}, onDevelop: {}, onOpen: { _, _ in },
+            onRename: { _ in }, onDuplicate: { _ in }, onFavorite: { _ in },
+            onDelete: { _ in }, onDrop: { _ in false }))
+        window.contentView = emptyHost
+        window.setContentSize(CGSize(width: 666, height: 680))
+        try await Task.sleep(for: .milliseconds(300))
+        try png(emptyHost, to: folder.appendingPathComponent("studio-empty.png"))
         let surface = NotchSurface(model: model, interactive: false)
         surface.reduceMotionOverride = true
         surface.configure(size: CGSize(width: 548, height: 380), housing: 0, header: 28, scale: 2)

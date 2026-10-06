@@ -196,81 +196,27 @@ struct StudioView: View {
                                 .tracking(2)
                         }
                         .foregroundStyle(StudioPalette.ink)
-                        Text("Your scripts")
+                        Text("Your studio")
                             .font(.system(size: 12))
                             .foregroundStyle(StudioPalette.mutedInk)
                     }
                     Spacer()
-                    Button { createScript() } label: { CueIcon(.plus, size: 16) }
-                        .buttonStyle(StudioButtonStyle())
-                        .foregroundStyle(StudioPalette.violet)
-                        .accessibilityLabel("New script")
-                        .help("New script")
+
                 }
                 .padding(18)
                 VStack(spacing: 4) {
                     sidebarDestination("Home", systemImage: "house", selected: !showingRecordings && showingLibrary && dashboardHome && libraryFilter == .all) {
                         showDashboard(home: true)
                     }
-                    sidebarDestination("All scripts", systemImage: "square.grid.2x2", selected: !showingRecordings && showingLibrary && !dashboardHome && libraryFilter != .favorites) {
+                    sidebarDestination("Scripts", systemImage: "square.grid.2x2", selected: !showingRecordings && showingLibrary && !dashboardHome && libraryFilter != .favorites) {
                         showDashboard(home: false)
-                    }
-                    sidebarDestination("Favorites", systemImage: "star", selected: !showingRecordings && showingLibrary && libraryFilter == .favorites) {
-                        showDashboard(home: false, filter: .favorites)
                     }
                     sidebarDestination("Recordings", systemImage: "video", selected: showingRecordings) {
                         showingRecordings = true
                     }.disabled(model.displayIsLocked).help(model.displayIsLocked ? "Finish the current take before reviewing recordings" : "Browse saved MP4 recordings")
                 }.padding(.horizontal, 14)
-                if !showingLibrary {
-                TextField("Search scripts", text: $search)
-                    .textFieldStyle(.plain)
-                    .padding(.horizontal, 11)
-                    .padding(.vertical, 8)
-                    .background(StudioPalette.surface.opacity(0.8), in: RoundedRectangle(cornerRadius: 10))
-                    .overlay(RoundedRectangle(cornerRadius: 10).stroke(StudioPalette.outline.opacity(0.7)))
-                    .padding(.horizontal, 14).padding(.top, 10)
-                }
-                Text("RECENT SCRIPTS").font(.system(size: 10, weight: .semibold)).tracking(1)
-                    .foregroundStyle(StudioPalette.mutedInk).frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.horizontal, 22).padding(.top, 20).padding(.bottom, 4)
-                List {
-                    ForEach(Array(ScriptDashboardQuery.sidebarResults(library.dashboardEntries(), search: showingLibrary || showingRecordings ? "" : search).prefix(4))) { entry in
-                        Button { openScript(entry.script, at: .write) } label: {
-                        HStack(spacing: 11) {
-                            CueIcon(entry.isReady ? .reader : .write, size: 16, badge: false)
-                                .foregroundStyle(StudioPalette.violet)
-                            VStack(alignment: .leading, spacing: 3) {
-                                Text(entry.title)
-                                    .lineLimit(1)
-                                    .fontWeight(.semibold)
-                                    .foregroundStyle(StudioPalette.ink)
-                                Text(entry.isReady ? "\(entry.text.wordCount) words · \(entry.text.durationLabel)" : "Blank draft")
-                                    .font(.system(size: 10))
-                                    .lineLimit(1)
-                                    .foregroundStyle(StudioPalette.mutedInk)
-                            }
-                        }
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(.vertical, 4)
-                        .contentShape(Rectangle())
-                        }
-                        .buttonStyle(CueSidebarButtonStyle())
-                        .accessibilityLabel("Open \(entry.title)")
-                        .accessibilityValue(entry.id == library.selectedID && !showingLibrary ? "Selected" : "")
-                        .listRowBackground(entry.id == library.selectedID && !showingLibrary
-                                           ? StudioPalette.lavender.opacity(0.35) : Color.clear)
-                    }
-                }
-                .listStyle(.sidebar)
-                .scrollContentBackground(.hidden)
+                Spacer(minLength: 24)
                 HStack {
-                    Button { showsImporter = true } label: {
-                        StudioLabel("Import", systemImage: "square.and.arrow.down")
-                            .lineLimit(1)
-                    }
-                    .buttonStyle(.borderless)
-                    Spacer()
                     Menu {
                         Button("Detached Reading Window") { openWindow(id: "prompter") }
                         if library.selected?.performance != nil {
@@ -280,8 +226,9 @@ struct StudioView: View {
                         Button("Duplicate Script") { library.duplicate() }
                         Button("Delete Script", role: .destructive) { deleteTarget = library.selected; showsDeleteConfirmation = true }
                             .disabled(library.scripts.count < 2)
-                    } label: { CueIcon(systemName: "ellipsis.circle") }
-                        .menuStyle(.borderlessButton).accessibilityLabel("Script actions").help("Script actions")
+                    } label: { Label("More", systemImage: "ellipsis.circle") }
+                        .menuStyle(.borderlessButton).accessibilityLabel("More Studio actions").help("Reading window and script actions")
+                    Spacer()
                 }
                 .foregroundStyle(StudioPalette.violet)
                 .padding(16)
@@ -323,7 +270,7 @@ struct StudioView: View {
                     Button { showingLibrary = true } label: { StudioLabel("Scripts", .back) }.buttonStyle(StudioButtonStyle())
                     Spacer()
                     Picker("Workflow", selection: $step) {
-                        ForEach(StudioStep.allCases, id: \.self) { Text($0.rawValue).tag($0) }
+                        ForEach(StudioStep.allCases, id: \.self) { Text($0 == .present ? "Record" : $0.rawValue).tag($0) }
                     }.pickerStyle(.segmented).labelsHidden().frame(width: 240)
                     Spacer()
                     if step != .write {
@@ -457,7 +404,7 @@ struct StudioView: View {
             }
             .frame(maxWidth: .infinity, alignment: .leading).padding(.horizontal, 13).padding(.vertical, 10)
             .foregroundStyle(StudioPalette.ink)
-            .background(selected ? StudioPalette.lavender.opacity(0.45) : .clear, in: RoundedRectangle(cornerRadius: 11))
+            .background(selected ? StudioPalette.lavender.opacity(0.70) : .clear, in: RoundedRectangle(cornerRadius: 11))
         }.buttonStyle(CueSidebarButtonStyle()).accessibilityValue(selected ? "Selected" : "")
     }
 
