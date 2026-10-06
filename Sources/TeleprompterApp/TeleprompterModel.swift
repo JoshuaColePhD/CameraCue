@@ -63,7 +63,10 @@ import TeleprompterCore
             aligner.reset(to: tokenIndex)
         }
     } }
-    @Published var personalPacingEnabled = true { didSet { defaults?.set(personalPacingEnabled, forKey: "personalPacingEnabled") } }
+    @Published var personalPacingEnabled = true { didSet {
+        defaults?.set(personalPacingEnabled, forKey: "personalPacingEnabled")
+        if personalPacingEnabled != oldValue { personalPaceTracker = PersonalPaceTracker() }
+    } }
     @Published var saveSpeechFeedback = true { didSet {
         defaults?.set(saveSpeechFeedback, forKey: "saveSpeechFeedback")
         if !saveSpeechFeedback { speechCollector = RecordingSpeechCollector(); pendingSpeechAnalysis = nil }
@@ -118,6 +121,7 @@ import TeleprompterCore
             guard let self, self.isRunning else { return }
             let confidences = event.words.compactMap(\.confidence)
             self.latestSpeechConfidence = confidences.isEmpty ? nil : confidences.reduce(0, +) / Double(confidences.count)
+            if self.personalPacingEnabled, event.isFinal, self.confidence != .low, self.trackingState != .recovering { self.personalPaceTracker.observePauseTimings(event.words) }
             if self.saveSpeechFeedback { self.speechCollector.consume(event) }
         }
         self.video.onSaved = { [weak self] url in
@@ -468,7 +472,7 @@ import TeleprompterCore
     private func consume(_ text: String) {
         guard isRunning, mode != .manual else { return }
         let result = aligner.align(text, recognizerConfidence: latestSpeechConfidence)
-        personalPaceTracker.observe(position: result.tokenIndex, activeElapsed: takeClock.elapsed(at: now()), reliable: result.confidence != .low)
+        if personalPacingEnabled { personalPaceTracker.observe(position: result.tokenIndex, activeElapsed: takeClock.elapsed(at: now()), reliable: result.confidence != .low) }
         tracking.consume(text, confidence: result.confidence, at: now())
         if trackingState != tracking.state { trackingState = tracking.state }
         if trackingState == .recovering { clearPaceFeedback() }

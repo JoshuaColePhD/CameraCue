@@ -76,7 +76,8 @@ public struct SpeechCorpusManifest: Codable, Sendable {
     public func validate() throws {
         var ids = Set<String>(), speakers: [String: String] = [:]
         for clip in clips {
-            guard ids.insert(clip.id).inserted, !clip.speakerID.isEmpty,
+            guard !clip.id.isEmpty, clip.id.allSatisfy({ $0.isLetter || $0.isNumber || $0 == "-" || $0 == "_" }),
+                  ids.insert(clip.id).inserted, !clip.speakerID.isEmpty,
                   ["train", "validation", "held-out"].contains(clip.split), clip.duration.isFinite, clip.duration > 0,
                   !clip.referenceWords.isEmpty, !clip.license.isEmpty,
                   !clip.audioPath.hasPrefix("/"), !clip.audioPath.split(separator: "/").contains("..") else { throw SpeechCorpusError.invalidClip(clip.id) }

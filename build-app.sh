@@ -56,5 +56,5 @@ cat > "$app/Contents/Info.plist" <<'PLIST'
 <key>NSSpeechRecognitionUsageDescription</key><string>CameraCue recognizes your spoken words locally when supported to keep your place in the script.</string>
 </dict></plist>
 PLIST
-codesign --force --sign - "$app" >/dev/null
+codesign --force --sign "${CAMERACUE_SIGNING_IDENTITY:--}" "$app" >/dev/null
 print "Built $app"

@@ -138,6 +138,10 @@ import TeleprompterCore
         if permissionOverride == nil, !prefersModern, recognizer?.isAvailable != true { return "Speech recognition is unavailable. You can use Manual mode." }
         return permissions.summary
     }
+    var permissionSettingsURL: URL {
+        let pane = !prefersModern && SFSpeechRecognizer.authorizationStatus() != .authorized ? "Privacy_SpeechRecognition" : "Privacy_Microphone"
+        return URL(string: "x-apple.systempreferences:com.apple.preference.security?" + pane)!
+    }
     var needsPermissionSetup: Bool { permissions.needsPrompt }
     func selectEngine(_ choice: EngineChoice) {
         guard state != .listening, !isAuthorizing else { return }
@@ -182,7 +186,7 @@ import TeleprompterCore
             state = .listening
         } catch {
             guard startupGeneration == generation else { return }
-            setupMessage = nil
+            setupMessage = error.localizedDescription
             stopAudio()
             state = .error
         }
@@ -230,8 +234,9 @@ import TeleprompterCore
                 let text = self.transcriptLedger.recentText
                 self.onObservation?(observation)
                 if text != self.transcript { self.transcript = text; self.onTranscript?(text) }
-            }, onFailure: { [weak self] _ in
+            }, onFailure: { [weak self] reason in
                 guard let self, generation == self.startupGeneration else { return }
+                self.setupMessage = reason
                 self.stopAudio(); self.state = .error; self.onUnexpectedStop?()
             })
             do {

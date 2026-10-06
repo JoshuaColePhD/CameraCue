@@ -44,6 +44,9 @@ guard let path = argument("--manifest") else {
 let manifestURL = URL(fileURLWithPath: path)
 let manifest = try JSONDecoder().decode(SpeechCorpusManifest.self, from: Data(contentsOf: manifestURL))
 try manifest.validate()
+if manifest.clips.contains(where: { !$0.isPublic }), !args.contains("--allow-private") {
+    throw NSError(domain: "CameraCue.Evaluation", code: 1, userInfo: [NSLocalizedDescriptionKey: "Nonpublic fixtures require explicit --allow-private. Raw private traces are omitted unless --write-private-traces is also supplied."])
+}
 if let rowsPath = argument("--export-training-rows") {
     var examples: [TrainingRow] = []
     // Reference-derived simulations are labeled independently of recognition
@@ -94,15 +97,29 @@ if let replay = argument("--replay-training-rows"), let modelPath = argument("--
     let model = try JSONDecoder().decode(AlignmentDecisionModel.self, from: Data(contentsOf: URL(fileURLWithPath: modelPath)))
     guard model.isValid else { throw SpeechSessionError.audioFormat }
     let rows = try JSONDecoder().decode([TrainingRow].self, from: Data(contentsOf: URL(fileURLWithPath: replay)))
-    struct Comparison: Codable { var observations = 0; var baselineWithinTwo = 0; var learnedWithinTwo = 0; var baselineWrongJumps = 0; var learnedWrongJumps = 0 }
+    struct Comparison: Codable { var observations = 0; var baselineWithinTwo = 0; var learnedWithinTwo = 0; var baselineWrongJumps = 0; var learnedWrongJumps = 0; var recoveryEpisodes: Int?; var baselineRecoveryCallbacks: [Int]?; var learnedRecoveryCallbacks: [Int]? }
     var comparisons: [String: Comparison] = [:]
     for group in Dictionary(grouping: rows, by: { "\($0.clipID)-\($0.variant)" }).values {
         guard let first = group.first, let clip = manifest.clips.first(where: { $0.id == first.clipID }) else { continue }
         let base = ScriptAligner(script: ScriptDocument(clip.script)), learned = ScriptAligner(script: ScriptDocument(clip.script), decisionModel: model)
         var score = comparisons[first.split] ?? Comparison()
-        for row in group.sorted(by: { $0.step < $1.step }) {
+        var previousTruth: Int?, episodeStart: Int?, baseStreak = 0, learnedStreak = 0, baseRecovered = false, learnedRecovered = false
+        for (callback, row) in group.sorted(by: { $0.step < $1.step }).enumerated() {
+            guard row.speakerID == clip.speakerID, row.split == clip.split, row.scriptTokenCount == ScriptDocument(clip.script).tokens.count,
+                  row.truth >= 0, row.truth < row.scriptTokenCount else { throw SpeechSessionError.audioFormat }
+            if let previousTruth, row.truth < previousTruth - 6 || row.truth > previousTruth + 12 {
+                episodeStart = callback; baseStreak = 0; learnedStreak = 0; baseRecovered = false; learnedRecovered = false
+                score.recoveryEpisodes = (score.recoveryEpisodes ?? 0) + 1
+            }
+            previousTruth = row.truth
             let bp = base.position, lp = learned.position
             let b = base.align(row.transcript), l = learned.align(row.transcript)
+            if let start = episodeStart {
+                baseStreak = b.confidence != .low && abs(b.tokenIndex - row.truth) <= 2 ? baseStreak + 1 : 0
+                learnedStreak = l.confidence != .low && abs(l.tokenIndex - row.truth) <= 2 ? learnedStreak + 1 : 0
+                if baseStreak >= 2 && !baseRecovered { score.baselineRecoveryCallbacks = (score.baselineRecoveryCallbacks ?? []) + [callback - start + 1]; baseRecovered = true }
+                if learnedStreak >= 2 && !learnedRecovered { score.learnedRecoveryCallbacks = (score.learnedRecoveryCallbacks ?? []) + [callback - start + 1]; learnedRecovered = true }
+            }
             score.observations += 1
             if abs(b.tokenIndex - row.truth) <= 2 { score.baselineWithinTwo += 1 }
             if abs(l.tokenIndex - row.truth) <= 2 { score.learnedWithinTwo += 1 }
@@ -121,6 +138,11 @@ if let replay = argument("--replay-training-rows"), let modelPath = argument("--
             guard let score = comparisons[split], score.observations == reference.observations,
                   score.learnedWithinTwo >= reference.learnedWithinTwo, score.learnedWrongJumps <= reference.learnedWrongJumps else {
                 print("Learned tracking regression: " + split); exit(1)
+            }
+            if let expected = reference.learnedRecoveryCallbacks {
+                let actual = score.learnedRecoveryCallbacks ?? []
+                func p95(_ values: [Int]) -> Int { let sorted = values.sorted(); return sorted.isEmpty ? 0 : sorted[Int(ceil(Double(sorted.count - 1) * 0.95))] }
+                guard actual.count >= expected.count, p95(actual) <= p95(expected) else { print("Learned recovery regression: " + split); exit(1) }
             }
         }
     }
@@ -215,7 +237,7 @@ for clip in manifest.clips {
                                    duration: result.audioDuration, processingSeconds: result.elapsedSeconds, error: nil))
             let trace = URL(fileURLWithPath: output).deletingLastPathComponent().appendingPathComponent("\(clip.id)-\(engine.rawValue)-trace.json")
             try FileManager.default.createDirectory(at: trace.deletingLastPathComponent(), withIntermediateDirectories: true)
-            try JSONEncoder().encode(result).write(to: trace, options: .atomic)
+            if clip.isPublic || args.contains("--write-private-traces") { try JSONEncoder().encode(result).write(to: trace, options: .atomic) }
             print(String(format: "WER %.1f%% · within-two %.1f%% · wrong jumps %d", wordErrors.rate * 100, metrics.withinTwoTokens * 100, metrics.wrongJumps))
         } catch {
             rows.append(ClipResult(clipID: clip.id, speakerID: clip.speakerID, split: clip.split, engine: engine, wordErrors: nil, tracking: nil, duration: clip.duration, processingSeconds: nil, error: error.localizedDescription))

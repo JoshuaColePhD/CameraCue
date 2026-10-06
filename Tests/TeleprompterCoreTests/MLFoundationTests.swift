@@ -68,4 +68,24 @@ final class MLFoundationTests: XCTestCase {
         XCTAssertEqual(profile.samples.count, 1); XCTAssertEqual(profile.usualWordsPerMinute, 120)
     }
 
+    func testCorpusIDsCannotEscapeTheTraceOutputDirectory() throws {
+        let bytes = Data(#"{"version":"test","clips":[{"id":"../escape","speakerID":"speaker","split":"train","audioPath":"audio.wav","script":"hello","referenceWords":[{"text":"hello","start":0,"end":1,"timingSource":"forcedAlignment"}],"license":"CC BY 4.0","sourceURL":"https://example.org","duration":1,"isPublic":true}]}"#.utf8)
+        let manifest = try JSONDecoder().decode(SpeechCorpusManifest.self, from: bytes)
+        XCTAssertThrowsError(try manifest.validate())
+    }
+
+    func testPauseLearningExcludesStoppedTimeAndEstimatedSegments() throws {
+        var tracker = PersonalPaceTracker()
+        tracker.observe(position: 0, activeElapsed: 0, reliable: true)
+        for step in 1...20 { tracker.observe(position: step * 3, activeElapsed: Double(step) * 1.5, reliable: true) }
+        tracker.observePauseTimings([TimedSpeechWord(text: "hello", start: 0, end: 1), TimedSpeechWord(text: "there", start: 2, end: 3)])
+        tracker.resetAnchor()
+        tracker.observePauseTimings([TimedSpeechWord(text: "resume", start: 8, end: 9)])
+        tracker.observePauseTimings([TimedSpeechWord(text: "uncertain", start: 11, end: 12, timingSource: .estimatedWithinSegment), TimedSpeechWord(text: "again", start: 15, end: 16)])
+        let sample = try XCTUnwrap(tracker.sample(activeSeconds: 30, at: .distantPast))
+        XCTAssertEqual(sample.pauseCount, 1); XCTAssertEqual(sample.medianPauseSeconds, 1)
+        var profile = PersonalPaceProfile(); profile.record(sample)
+        XCTAssertEqual(profile.usualPauseSeconds, 1)
+    }
+
 }

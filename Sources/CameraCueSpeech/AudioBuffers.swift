@@ -12,7 +12,7 @@ public final class OwnedSpeechBuffer: @unchecked Sendable {
         let from = UnsafeMutableAudioBufferListPointer(source.mutableAudioBufferList)
         let to = UnsafeMutableAudioBufferListPointer(copy.mutableAudioBufferList)
         for index in from.indices {
-            guard index < to.count, let input = from[index].mData, let output = to[index].mData else { throw SpeechSessionError.audioFormat }
+            guard index < to.count, from[index].mDataByteSize <= to[index].mDataByteSize, let input = from[index].mData, let output = to[index].mData else { throw SpeechSessionError.audioFormat }
             memcpy(output, input, Int(from[index].mDataByteSize))
             to[index].mDataByteSize = from[index].mDataByteSize
         }

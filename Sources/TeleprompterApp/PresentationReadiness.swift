@@ -18,8 +18,8 @@ struct PresentationReadiness: View {
                     Button("Set up Voice Follow") { Task { await speech.prepare() } }
                         .disabled(speech.isAuthorizing || model.isStarting)
                 } else if speech.state == .denied {
-                    Button("Open Microphone Settings") {
-                        NSWorkspace.shared.open(URL(string: "x-apple.systempreferences:com.apple.preference.security?Privacy_Microphone")!)
+                    Button("Open Voice Follow Settings") {
+                        NSWorkspace.shared.open(speech.permissionSettingsURL)
                     }
                 }
             } else { Text(model.video.enabled ? "Manual reading · Video includes microphone audio" : "Manual reading · Microphone not needed") }

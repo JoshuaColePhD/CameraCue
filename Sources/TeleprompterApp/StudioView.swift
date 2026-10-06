@@ -570,13 +570,16 @@ private struct SettingsPopover: View {
                 ForEach(SpeechFollower.EngineChoice.allCases, id: \.self) { Text($0.rawValue).tag($0) }
             }.disabled(model.isRunning || model.isStarting)
             if let trained = LearnedTrackingModel.available {
-                Toggle("Experimental learned jump check", isOn: $model.learnedTrackingEnabled).disabled(model.takeInProgress)
-                Text("Local pilot for scripts up to \(trained.maximumScriptTokens ?? 0) tokens. Longer scripts use the established tracker.")
+                Toggle("Extra jump protection (experimental)", isOn: $model.learnedTrackingEnabled).disabled(model.takeInProgress)
+                Text("For scripts up to \(trained.maximumScriptTokens ?? 0) spoken words. Longer scripts keep standard Voice Follow.")
                     .font(.caption).foregroundStyle(StudioPalette.mutedInk).fixedSize(horizontal: false, vertical: true)
             }
             Toggle("Personalized pacing", isOn: $model.personalPacingEnabled)
             if let rate = model.paceProfile.usualWordsPerMinute {
                 Text("Your usual pace: \(Int(rate)) words/min · \(model.paceProfile.samples.count) takes").font(.caption).foregroundStyle(StudioPalette.mutedInk)
+                if let pause = model.paceProfile.usualPauseSeconds {
+                    Text("Typical pause · \(pause.formatted(.number.precision(.fractionLength(1)))) seconds").font(.caption).foregroundStyle(StudioPalette.mutedInk)
+                }
                 Button("Reset pace calibration") { model.resetPersonalPace() }.buttonStyle(StudioButtonStyle())
             } else { Text("Practice a few longer passages to learn your pace on this Mac.").font(.caption).foregroundStyle(StudioPalette.mutedInk) }
             Toggle("Save speech feedback with new takes", isOn: $model.saveSpeechFeedback)
