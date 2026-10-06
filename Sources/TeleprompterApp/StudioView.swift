@@ -85,6 +85,10 @@ struct StudioView: View {
                 step = .write; showingRecordings = false; showingLibrary = false
                 openWindow(id: "studio")
             }
+            notch.onViewRecording = {
+                step = .present; showingRecordings = false; showingLibrary = false
+                openWindow(id: "studio")
+            }
             notch.onOpenDashboard = {
                 showDashboard(home: true)
                 notch.shouldOpenDashboard = false
@@ -405,6 +409,7 @@ struct StudioView: View {
             .frame(maxWidth: .infinity, alignment: .leading).padding(.horizontal, 13).padding(.vertical, 10)
             .foregroundStyle(StudioPalette.ink)
             .background(selected ? StudioPalette.lavender.opacity(0.70) : .clear, in: RoundedRectangle(cornerRadius: 11))
+            .contentShape(Rectangle())
         }.buttonStyle(CueSidebarButtonStyle()).accessibilityValue(selected ? "Selected" : "")
     }
 

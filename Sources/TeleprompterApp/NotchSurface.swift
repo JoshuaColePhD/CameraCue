@@ -11,6 +11,7 @@ import TeleprompterCore
     var onAdjustTimer: ((NSView) -> Void)?
     var onAnimationFinished: (() -> Void)?
     var onReturnToScript: (() -> Void)?
+    var onViewRecording: (() -> Void)?
     var onOpenDashboard: (() -> Void)?
     let resizeHandle = NotchResizeHandle()
     private(set) var hasAppeared = false
@@ -72,6 +73,7 @@ import TeleprompterCore
         toggleButton.tint = .white
         brandButton.tint = .white
         reader.rootView.onReturnToScript = { [weak self] in self?.onReturnToScript?() }
+        reader.rootView.onViewRecording = { [weak self] in self?.onViewRecording?() }
         reader.rootView.onOpenDashboard = { [weak self] in
             guard let self, self.interactive else { return }
             self.onOpenDashboard?()
@@ -347,7 +349,7 @@ import TeleprompterCore
     /// Pacing warnings pulse only in the fixed strip; the timer stays steady.
     func updatePacing(_ hint: PaceHint?, pulse: Bool, expanded: Bool, reduceMotion: Bool) {
         currentPaceWarning = hint
-        let color = NSColor(hint == .slowDown ? CuePalette.mint : hint == .overtime ? CuePalette.coral : CuePalette.peach)
+        let color = NSColor(hint == .slowDown ? CuePalette.mint : hint == .overtime ? CuePalette.coral : CuePalette.butter)
         CATransaction.begin(); CATransaction.setDisableActions(true)
         paceBanner.setHint(hint, color: color)
         paceBanner.isHidden = !expanded || hint == nil

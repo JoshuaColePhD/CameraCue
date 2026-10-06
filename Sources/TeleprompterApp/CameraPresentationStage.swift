@@ -11,6 +11,7 @@ struct CameraPresentationStage: View {
     @State private var hidesSelfView = false
     @State private var audioLevel = 0.0
     @State private var editsBackground = false
+    @State private var playbackRequest: PlaybackSeekRequest?
 
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
@@ -24,7 +25,7 @@ struct CameraPresentationStage: View {
                 }
             }
             if model.phase == .finished && video.enabled && video.state == .saved, let url = video.savedURL {
-                SavedTakePlayer(url: url)
+                SavedTakePlayer(url: url, seekRequest: playbackRequest)
             } else {
                 ZStack {
                     RoundedRectangle(cornerRadius: 16).fill(Color.black)
@@ -78,6 +79,11 @@ struct CameraPresentationStage: View {
                 }
             }
             if model.phase == .finished && video.enabled && video.state == .saved, let url = video.savedURL {
+                Label("Video saved", systemImage: "checkmark.circle.fill")
+                    .font(.headline).foregroundStyle(StudioPalette.ink)
+                Text("Saved to \(url.deletingLastPathComponent().path.replacingOccurrences(of: NSHomeDirectory() + "/", with: "").replacingOccurrences(of: "/", with: " → "))")
+                    .font(.callout).foregroundStyle(StudioPalette.mutedInk).textSelection(.enabled)
+                Button("Play video") { playbackRequest = PlaybackSeekRequest(seconds: 0) }.buttonStyle(StudioButtonStyle())
                 if let notice = video.saveNotice { Text(notice).font(.caption).foregroundStyle(StudioPalette.mutedInk) }
                 Button("Change background") { editsBackground = true }.buttonStyle(StudioButtonStyle())
                 if let original = video.originalSavedURL {

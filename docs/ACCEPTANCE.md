@@ -45,3 +45,10 @@ Ongoing balanced-quality person segmentation now runs on its own serial worker. 
 On the same local 60-frame camera clip, frame-processing median/p95 changed from 14.43/27.58 ms to 3.35/3.98 ms in focused runs. The initial mask still cost 88 ms in the latter run; it occurs during camera startup. These are local fixture processing costs, not measured live capture FPS, AVFoundation frame drops, or saved-video frame-rate guarantees. The full native regression passed, including generated MP4 export, subject/background preservation, bounded worker/reset tests and the audio-thread regression. Installed release signature and executable equality were verified.
 
 The patched app launches and reaches Record setup, but still reports microphone setup needed after the ad hoc rebuild. A fresh live recording and perceptual preview check remain required; the existing stable-local-signing decision is still pending. No successful recording is claimed from these tests.
+# Save confirmation and pacing feedback — October 6, 2026
+
+- The notch observes MP4 export separately from prompting completion: Saving video, Video saved with View recording, or an error with Retry save when the original is recoverable.
+- Successful export schedules a smooth collapse after three seconds. Failed export stays expanded. Manual toggling and review navigation cancel pending collapse; a new take invalidates it.
+- Studio retains the saved player, actual destination folder, Play video, and Show in Finder. Reduced Motion disables the success fade and uses the existing immediate shell transition.
+- Countdown pacing cues retain progress/forecast guidance, three-second confirmation, twelve-second reminder spacing, pause suppression and tracking-recovery priority. Behind-target cues are amber; overtime is coral; ahead-of-target is mint. The timer and reading position stay stationary during the cue pulse.
+- Verification: 28 focused capture/presentation/pacing tests passed, including save-success collapse, failed-export persistence and manual-reopening cancellation. Capture was mocked; no new live camera/microphone session was run for this UI pass.

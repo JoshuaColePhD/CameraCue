@@ -21,6 +21,34 @@ import TeleprompterCore
         model.mode = .manual
         return model
     }
+    func testSuccessfulSaveCollapsesButFailureStaysVisible() async {
+        for failure in [false, true] {
+            let (video, _, folder) = fixture(exportFailure: failure)
+            defer { try? FileManager.default.removeItem(at: folder) }
+            let model = model(video)
+            let notch = NotchController(defaults: nil)
+            notch.setExpanded(true)
+            notch.observeSaveCompletion(model: model, delay: .milliseconds(30))
+            await model.start()
+            model.finish()
+            XCTAssertTrue(notch.expanded, "Never collapse while writing the MP4")
+            await video.waitUntilSaved()
+            try? await Task.sleep(for: .milliseconds(100))
+            XCTAssertEqual(notch.expanded, failure)
+        }
+    }
+    func testManualReopeningCancelsSaveCollapse() async {
+        let (video, _, folder) = fixture()
+        defer { try? FileManager.default.removeItem(at: folder) }
+        let model = model(video)
+        let notch = NotchController(defaults: nil)
+        notch.setExpanded(true)
+        notch.observeSaveCompletion(model: model, delay: .milliseconds(30))
+        await model.start(); model.finish(); await video.waitUntilSaved()
+        notch.setExpanded(false); notch.setExpanded(true)
+        try? await Task.sleep(for: .milliseconds(100))
+        XCTAssertTrue(notch.expanded)
+    }
     func testBackgroundChangesAreLockedThroughoutRecordingAndSaving() async {
         let (video, _, folder) = fixture(); defer { try? FileManager.default.removeItem(at: folder) }
         var setting = CameraBackground(); setting.mode = .color; setting.color = "peach"

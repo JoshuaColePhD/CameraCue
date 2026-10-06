@@ -7,16 +7,21 @@ struct NotchReader: View {
     var isPreview = false
     var onReturnToScript: () -> Void = {}
     var onOpenDashboard: () -> Void = {}
+    var onViewRecording: () -> Void = {}
     var body: some View {
         let snapshot = model.snapshot(at: .now)
         VStack(spacing: 0) {
             if let summary = snapshot.summary {
+                if model.video.enabled {
+                    VideoSaveConfirmation(video: model.video, onView: onViewRecording)
+                } else {
                 VStack(spacing: 7) {
                     Text("Take complete").font(.system(size: 12, weight: .medium)).foregroundStyle(CuePalette.mint)
                     Text(summary.durationText).font(.system(size: 38, weight: .medium, design: .rounded)).monospacedDigit().foregroundStyle(CuePalette.cream)
                     Text("Active presentation time").font(.caption).foregroundStyle(.white.opacity(0.65))
                     Text(summary.comparison).font(.caption).foregroundStyle(CuePalette.peach)
                 }.frame(maxWidth: .infinity, maxHeight: .infinity)
+                }
             } else if let remaining = snapshot.countIn {
                 VStack(spacing: 10) {
                     Text("Get comfortable").font(.system(size: 12, weight: .medium)).foregroundStyle(CuePalette.peach)
@@ -63,6 +68,36 @@ struct NotchReader: View {
                 }
             }.font(.system(size: 10, weight: .medium)).padding(.horizontal, 42).frame(height: 27)
         }.background(.black)
+    }
+}
+
+/// Observe the export itself: prompting finishes before the MP4 does.
+private struct VideoSaveConfirmation: View {
+    @ObservedObject var video: CameraRecording
+    var onView: () -> Void
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    var body: some View {
+        VStack(spacing: 12) {
+            if video.state == .saved {
+                Image(systemName: "checkmark.circle.fill")
+                    .font(.system(size: 34)).foregroundStyle(CuePalette.mint)
+                    .transition(reduceMotion ? .identity : .opacity)
+                Text("Video saved").font(.headline).foregroundStyle(CuePalette.mint)
+                Button("View recording", action: onView).buttonStyle(.plain).foregroundStyle(CuePalette.lavender)
+            } else if video.state == .failed {
+                Image(systemName: "exclamationmark.triangle").foregroundStyle(CuePalette.butter)
+                Text("Video couldn’t be saved").font(.headline).foregroundStyle(CuePalette.cream)
+                Text(video.message).font(.caption).foregroundStyle(.white.opacity(0.7)).multilineTextAlignment(.center)
+                if video.recoveryURL != nil {
+                    Button("Retry save") { video.retrySave() }.buttonStyle(.plain).foregroundStyle(CuePalette.lavender)
+                }
+                Button("Open Studio", action: onView).buttonStyle(.plain).foregroundStyle(CuePalette.lavender)
+            } else {
+                ProgressView().tint(CuePalette.mint)
+                Text("Saving video…").font(.headline).foregroundStyle(CuePalette.cream)
+            }
+        }.padding(24).frame(maxWidth: .infinity, maxHeight: .infinity)
+            .animation(reduceMotion ? nil : .easeOut(duration: 0.2), value: video.state)
     }
 }
 

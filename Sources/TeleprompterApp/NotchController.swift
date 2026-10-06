@@ -20,6 +20,7 @@ import QuartzCore
     private var sleeping = false
     private var model: TeleprompterModel?
     private var refreshQueued = false
+    private var saveCollapseTask: Task<Void, Never>?
     @Published private(set) var display: NotchDisplay?
     @Published private(set) var preferredReaderHeight: CGFloat
     private let defaults: UserDefaults?
@@ -35,6 +36,7 @@ import QuartzCore
             ?? NotchLayout(size: CGSize(width: 548, height: preferredReaderHeight), housing: 0, header: 24)
     }
     var onReturnToScript: (() -> Void)?
+    var onViewRecording: (() -> Void)?
     var shouldOpenScriptEditor = false
     var onOpenDashboard: (() -> Void)?
     var shouldOpenDashboard = false
@@ -84,6 +86,7 @@ import QuartzCore
         updateDisplay()
     }
     func returnToScript() {
+        saveCollapseTask?.cancel()
         shouldOpenDashboard = false
         shouldOpenScriptEditor = true
         studioWindow?.makeKeyAndOrderFront(nil)
@@ -118,6 +121,7 @@ import QuartzCore
         setExpanded(!expanded)
     }
     func setExpanded(_ value: Bool) {
+        saveCollapseTask?.cancel()
         let changed = expanded != value
         presentation = value ? .reader : .compact
         guard let surface else { return }
@@ -125,6 +129,21 @@ import QuartzCore
         updateControls()
         surface.setExpanded(value, animated: changed || !surface.hasAppeared)
         updateInputRegion()
+    }
+
+    /// Separated from window creation so export lifecycle can be tested without capture or UI.
+    func observeSaveCompletion(model: TeleprompterModel, delay: Duration = .seconds(3)) {
+        model.video.$state.removeDuplicates().sink { [weak self, weak model] state in
+            guard let self else { return }
+            self.saveCollapseTask?.cancel()
+            self.scheduleControlRefresh()
+            guard state == .saved, model?.phase == .finished, self.expanded else { return }
+            self.saveCollapseTask = Task { @MainActor [weak self, weak model] in
+                do { try await Task.sleep(for: delay) } catch { return }
+                guard let self, model?.video.state == .saved, model?.phase == .finished else { return }
+                self.setExpanded(false)
+            }
+        }.store(in: &subscriptions)
     }
 
     private func createPanel(model: TeleprompterModel) {
@@ -145,6 +164,12 @@ import QuartzCore
         self.surface = surface
         panel.contentView = surface
         surface.onReturnToScript = { [weak self] in self?.returnToScript() }
+        surface.onViewRecording = { [weak self] in
+            self?.saveCollapseTask?.cancel()
+            self?.onViewRecording?()
+            self?.studioWindow?.makeKeyAndOrderFront(nil)
+            NSApp.activate(ignoringOtherApps: true)
+        }
         surface.onOpenDashboard = { [weak self] in self?.openDashboard() }
         surface.resizeHandle.onBegin = { [weak self] in self?.beginResize(at: $0) }
         surface.resizeHandle.onDrag = { [weak self] in self?.resize(to: $0) }
@@ -184,6 +209,7 @@ import QuartzCore
 
         model.objectWillChange.sink { [weak self] in self?.scheduleControlRefresh() }.store(in: &subscriptions)
         model.speech.objectWillChange.sink { [weak self] in self?.scheduleControlRefresh() }.store(in: &subscriptions)
+        observeSaveCompletion(model: model)
         Timer.publish(every: 1, on: .main, in: .common).autoconnect()
             .sink { [weak self] _ in self?.updateDisplay(); self?.updateControls() }.store(in: &subscriptions)
         observers.append(NotificationCenter.default.addObserver(forName: NSApplication.didChangeScreenParametersNotification, object: nil, queue: .main) { [weak self] _ in
