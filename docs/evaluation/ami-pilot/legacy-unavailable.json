@@ -1,0 +1,16 @@
+{
+  "analyzerFastResults" : false,
+  "corpusVersion" : "ami-mini-v1-smoke",
+  "mode" : "realtime",
+  "results" : [
+    {
+      "clipID" : "ami-ES2002b-A-0",
+      "duration" : 20.31,
+      "engine" : "legacy",
+      "error" : "Speech Recognition access is unavailable for this evaluator (status 0). Enable its grant in System Settings or authorize its current signed build.",
+      "speakerID" : "MEE006",
+      "split" : "train"
+    }
+  ],
+  "schemaVersion" : 2
+}
