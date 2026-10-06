@@ -14,13 +14,11 @@ struct PresentationReadiness: View {
                   systemImage: model.wordCount > 0 ? "checkmark.circle" : "doc.badge.plus")
             if model.mode != .manual {
                 Text(speech.readiness).fixedSize(horizontal: false, vertical: true)
-                if speech.needsPermissionSetup && showsSetupAction {
+                if speech.state == .denied {
+                    Button("Open Voice Follow Settings") { NSWorkspace.shared.open(speech.permissionSettingsURL) }
+                } else if speech.needsPermissionSetup && showsSetupAction {
                     Button("Set up Voice Follow") { Task { await speech.prepare() } }
                         .disabled(speech.isAuthorizing || model.isStarting)
-                } else if speech.state == .denied {
-                    Button("Open Voice Follow Settings") {
-                        NSWorkspace.shared.open(speech.permissionSettingsURL)
-                    }
                 }
             } else { Text(model.video.enabled ? "Manual reading · Video includes microphone audio" : "Manual reading · Microphone not needed") }
             if showsShortcutHints || shortcut.error != nil { Text(shortcut.error ?? (model.video.enabled ? "⌃⌥Space starts or pauses prompting. Video continues during pauses. Stop saves your MP4." : "⌃⌥Space starts or pauses prompting. ⌃⌥↑/↓ adjusts your place. QuickTime records separately."))

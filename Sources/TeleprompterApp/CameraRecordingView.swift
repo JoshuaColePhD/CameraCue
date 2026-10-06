@@ -31,7 +31,12 @@ struct CameraRecordingView: View {
                 Text("When an effect is used, saves an additional camera video with the real background. Uses more storage.")
                     .font(.caption2).foregroundStyle(StudioPalette.mutedInk)
                 CameraBackgroundPicker(video: video, locked: locked)
-                if video.state == .preparing || video.state == .saving { ProgressView().controlSize(.small) }
+                if video.state == .preparing {
+                    HStack {
+                        ProgressView().controlSize(.small)
+                        Button("Cancel camera setup") { video.closePreview() }.buttonStyle(StudioButtonStyle())
+                    }
+                } else if video.state == .saving { ProgressView().controlSize(.small) }
                 Text(video.message).font(.caption).fixedSize(horizontal: false, vertical: true)
                     .foregroundStyle(video.state == .failed ? StudioPalette.coral : StudioPalette.mutedInk)
                 if !locked && !video.isBusy {

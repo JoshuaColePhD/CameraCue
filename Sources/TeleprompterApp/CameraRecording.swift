@@ -146,12 +146,12 @@ enum RecordingFailure: LocalizedError {
             for type: AVMediaType in [.video, .audio] {
                 guard current == generation, !Task.isCancelled else { allowed = false; break }
                 if AVCaptureDevice.authorizationStatus(for: type) == .notDetermined {
-                    guard await AVCaptureDevice.requestAccess(for: type) else { allowed = false; break }
+                    guard await PermissionRequest.wait(request: { AVCaptureDevice.requestAccess(for: type, completionHandler: $0) }) == true else { allowed = false; break }
                 }
                 guard current == generation, !Task.isCancelled, AVCaptureDevice.authorizationStatus(for: type) == .authorized else { allowed = false; break }
             }
         } else { allowed = await authorize() }
-        if needsPrompt { onPermissionPromptChanged?(false) }
+        if needsPrompt, current == generation { onPermissionPromptChanged?(false) }
         guard current == generation else { return false }
         guard allowed else { state = .failed; message = "Allow Camera and Microphone in System Settings to record video."; return false }
         do {
@@ -225,6 +225,7 @@ enum RecordingFailure: LocalizedError {
     func waitUntilSaved() async { await saveTask?.value }
     func closePreview() {
         guard state != .recording && state != .saving else { return }
+        if state == .preparing { onPermissionPromptChanged?(false) }
         generation += 1; backend.closePreview()
         if state == .preparing || state == .ready { state = .idle; message = "Camera preview is off." }
     }

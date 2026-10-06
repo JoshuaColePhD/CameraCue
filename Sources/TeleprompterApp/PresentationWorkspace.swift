@@ -211,12 +211,13 @@ private struct PresentationStartAction: View {
     @ObservedObject var speech: SpeechFollower
     var start: () -> Void
     var beforeSetup: () -> Void
-    private var needsSetup: Bool { model.mode != .manual && speech.needsPermissionSetup }
+    private var needsSetup: Bool { model.mode != .manual && (speech.needsPermissionSetup || speech.state == .denied) }
     var body: some View {
         Button {
-            if needsSetup { beforeSetup(); Task { await speech.prepare() } }
+            if needsSetup && speech.state == .denied { NSWorkspace.shared.open(speech.permissionSettingsURL) }
+            else if needsSetup { beforeSetup(); Task { await speech.prepare() } }
             else { start() }
-        } label: { StudioLabel(needsSetup ? "Set up Voice Follow" : model.video.enabled ? "Record video" : "Start prompting", needsSetup ? .microphone : .play) }
+        } label: { StudioLabel(needsSetup ? speech.state == .denied ? "Open Voice Follow settings" : "Set up Voice Follow" : model.video.enabled ? "Record video" : "Start prompting", needsSetup ? .microphone : .play) }
             .buttonStyle(StudioButtonStyle(primary: true, accent: needsSetup || !model.video.enabled ? StudioPalette.lavender : StudioPalette.coral)).disabled(model.wordCount == 0 || speech.isAuthorizing || (model.video.state == .saving || model.video.state == .preparing))
     }
 }

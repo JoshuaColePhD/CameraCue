@@ -59,6 +59,9 @@ struct CameraPresentationStage: View {
                         if video.state == .ready { video.closePreview() }
                         else { Task { _ = await video.prepare() } }
                     }.buttonStyle(StudioButtonStyle()).disabled(video.isBusy)
+                    if video.state == .preparing {
+                        Button("Cancel camera setup") { video.closePreview() }.buttonStyle(StudioButtonStyle())
+                    }
                     Spacer()
                     Text("Check your framing and lighting").font(.caption).foregroundStyle(StudioPalette.mutedInk)
                 }

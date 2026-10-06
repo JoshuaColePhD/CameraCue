@@ -38,14 +38,16 @@ import TeleprompterCore
     func authorize(whileCurrent: () -> Bool) async -> Bool {
         var speech = SFSpeechRecognizer.authorizationStatus()
         if requiresLegacySpeechAuthorization && speech == .notDetermined {
-            speech = await withCheckedContinuation { continuation in
-                SFSpeechRecognizer.requestAuthorization { @Sendable in continuation.resume(returning: $0) }
+            let allowed = await PermissionRequest.wait { callback in
+                SFSpeechRecognizer.requestAuthorization { @Sendable status in callback(status == .authorized) }
             }
+            guard allowed == true else { return false }
+            speech = .authorized
         }
         guard whileCurrent(), !requiresLegacySpeechAuthorization || speech == .authorized else { return false }
         var microphone = AVCaptureDevice.authorizationStatus(for: .audio) == .authorized
         if AVCaptureDevice.authorizationStatus(for: .audio) == .notDetermined {
-            microphone = await AVCaptureDevice.requestAccess(for: .audio)
+            microphone = await PermissionRequest.wait { AVCaptureDevice.requestAccess(for: .audio, completionHandler: $0) } == true
         }
         return whileCurrent() && microphone
     }
@@ -131,7 +133,8 @@ import TeleprompterCore
 
     var readiness: String {
         if let setupMessage { return setupMessage }
-        if isAuthorizing { return "Waiting for microphone and speech access…" }
+        if isAuthorizing { return "Check the macOS permission dialog. Setup will return if no response arrives." }
+        if state == .denied { return "Voice Follow access is not ready. Open System Settings to allow access, then return and try again." }
         if state == .interrupted { return "Audio input changed. Check your microphone, then resume prompting." }
         if state == .error { return "Audio stopped. Check your microphone, then resume prompting." }
         if permissionOverride == nil, engineChoice == .analyzer, !modernAvailable { return "Modern on-device speech is unavailable on this Mac or for this language." }
@@ -147,7 +150,12 @@ import TeleprompterCore
         guard state != .listening, !isAuthorizing else { return }
         engineChoice = choice
     }
-    func refreshReadiness() { objectWillChange.send() }
+    func refreshReadiness() {
+        if permissionOverride == nil, state == .denied,
+           AVCaptureDevice.authorizationStatus(for: .audio) == .authorized,
+           prefersModern || SFSpeechRecognizer.authorizationStatus() == .authorized { state = .idle }
+        objectWillChange.send()
+    }
 
     func prepare() async { await begin(capture: false) }
     func start() async { await begin(capture: true) }

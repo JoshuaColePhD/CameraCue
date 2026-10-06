@@ -22,7 +22,7 @@ import CoreAudio
         deviceName = Self.defaultInputName()
         if AVCaptureDevice.authorizationStatus(for: .audio) == .notDetermined {
             onPermissionPrompt(true)
-            _ = await AVCaptureDevice.requestAccess(for: .audio)
+            _ = await PermissionRequest.wait { AVCaptureDevice.requestAccess(for: .audio, completionHandler: $0) }
             onPermissionPrompt(false)
         }
         guard generation == current, !Task.isCancelled else { return }
