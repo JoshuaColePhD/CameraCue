@@ -44,7 +44,7 @@ Audio, user recordings and raw traces stay outside the Git repository. Offline m
 ## Delivery
 
 - [x] Relevant unit/integration tests and existing replay gates pass.
-- [ ] Mac CI is green and public docs match measured evidence.
+- [x] Mac CI is green and published evaluation docs match measured evidence.
 - [ ] Inspect native UI with isolated data, build/install and verify the final app.
 - [ ] Audit every requirement above before marking the goal complete.
 
@@ -53,12 +53,12 @@ Audio, user recordings and raw traces stay outside the Git repository. Offline m
 - Live modern engine and fallback are implemented; automatic selection retains legacy when available and authorized while comparison is pending. Explicit modern mode uses the measured faster reporting option.
 - Local pace learning/reset and recording transcript sidecars are implemented. Delivery review can seek to findings, analyze an existing recording on device, and move feedback to Trash.
 - A licensed sixteen-clip pilot, separate timestamp provenance, 1x evaluation, transcript-error model training, sequential comparison, pacing evaluation, and local boundary-review workflow are implemented.
-- Native suite passed before the latest evaluation/privacy changes; final regression, model promotion, CI, UI inspection, installation, and full acceptance audit remain pending.
-- The approved helper permission flow exposed an actor-isolation callback trap. Callbacks are now explicitly Sendable; the corrected legacy run is still to be verified.
+- Final native suite and CI pass. Final installation, hardware acceptance, and the full completion audit remain pending.
+- The approved helper permission flow exposed an actor-isolation callback trap. Callbacks are now explicitly Sendable. The corrected legacy run returns an authorization failure; that failed comparison is published rather than omitted.
 
 Measured pilot results and limitations: [AMI pilot](evaluation/ami-pilot/README.md).
 
-Pacing forecast verification currently uses reliable reference positions; live ASR forecast acceptance is still pending. Coaching analysis/UI and seek routing are implemented and fixture-rendered; actual media seeking and long-file analysis need final integration checks. The learned model remains unpromoted after unrestricted and short-context vetoes delayed legitimate restarts. Its next evaluation explicitly limits application to the short-script domain represented in training; long scripts retain the established tracker.
+Pacing forecast verification currently uses reliable reference positions; live ASR forecast acceptance is still pending. Coaching analysis/UI and seek routing are implemented and fixture-rendered. Generated-media integration verifies extraction and seeking, including requests queued before the player is ready; real user recordings and long-file analysis remain acceptance checks. Unrestricted and short-context model vetoes delayed legitimate restarts. The evaluated optional model is therefore limited to the short-script domain represented in training, remains off by default, and leaves long scripts on the established tracker.
 
 
 ## Verified checkpoint and remaining acceptance
@@ -67,8 +67,8 @@ Pacing forecast verification currently uses reliable reference positions; live A
 - The full short-script simulation retains no-candidate observations. Held-out within-two accuracy is 2061/2196 versus 2030/2196 for rules, with zero versus 24 wrong jumps. The optional check is off by default and capped at 88 normalized tokens.
 - The optional check leaves the sixteen real-ASR traces unchanged. No general recognition benefit is claimed for the classifier.
 - Generated MP4 audio extraction and decoding, sidecar timeline/validation, and native lifecycle fixtures pass. The feedback panel was rendered with synthetic data and visually corrected. Installed reading controls and Prepare-to-Present navigation were inspected without capture.
-- Final suite counts are generated from logs rather than maintained here. CI and the final release/signature checks remain required.
+- Final suite counts are generated from logs rather than maintained here. CI and the built release/signature checks pass; the final installed executable remains to be updated and verified.
 - Legacy file comparison is unavailable on the current development helper despite an enabled macOS grant. A stable local signing workflow is pending; failed rows remain in the evidence rather than being silently dropped.
 - Actual live-microphone coaching, manually reviewed word boundaries, display-render latency, and physical checks on both displays remain unverified. Raw recordings and ASR traces stay local and are ignored by Git.
 
-Mac CI passed checkpoint `7d60e3e` (native tests, frozen Voice Follow gates, app package/signature, learned-model regression). A later queued-playback fix passed its generated-media integration test; the final head must pass CI again. The modern live engine requires only microphone authorization; an authorized available legacy engine remains the automatic preference. New local profiles include natural-pause summaries without counting explicit prompting pauses or interpolated timing.
+Mac CI passed delivery checkpoint `b4c7e71` (native tests, frozen Voice Follow gates, app package/signature, learned-model regression): [verified run](https://github.com/JoshuaColePhD/CameraCue/actions/runs/37401366644). The queued-playback fix passed its generated-media integration test. The modern live engine requires only microphone authorization; an authorized available legacy engine remains the automatic preference. New local profiles include natural-pause summaries without counting explicit prompting pauses or interpolated timing.
