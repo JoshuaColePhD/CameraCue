@@ -1,6 +1,14 @@
 # Verification and remaining acceptance work
 
-Updated October 5, 2026. This file is tracked so verification references remain accessible from a fresh clone. Machine-specific logs and private media are intentionally not published.
+Updated October 7, 2026. This file is tracked so verification references remain accessible from a fresh clone. Machine-specific logs and private media are intentionally not published.
+
+## Current checkpoint — October 7
+
+The user completed short recordings on October 6 after the audio-tap and preview fixes. Native inspection confirmed a saved take in the recordings library, and another completed take showed a 22-second duration, **Video saved**, **Saved to Movies → CameraCue**, playback and Finder actions in Studio. This establishes that short-take recording/export completed on the development Mac. Audio synchronization, sustained live frame rate and speech-to-highlight latency were not measured in these checks.
+
+The latest implementation at `79b5139` passed [Mac CI](https://github.com/JoshuaColePhD/CameraCue/actions/runs/37472080601), including native tests, Voice Follow regression gates, package/signature verification and the scoped confidence-model gate. Earlier permission failures below are historical findings, not the current recording outcome. Developer ID notarization and wider hardware acceptance remain pending.
+
+The October 7 polish pass also reran the full native suite and frozen Voice Follow gate locally with zero failures. Production Home screenshots at 1230 × 800 and 900 × 680 and the reader screenshot were rendered from isolated sample scripts and inspected; the transcript-replay GIF was regenerated. No private script or recording was included in the documentation media. The completed-take setup action now says **Prepare another take**, matching its behavior.
 
 ## Completed in this pass
 
@@ -20,7 +28,7 @@ Updated October 5, 2026. This file is tracked so verification references remain 
 
 The code and replay results provide specific evidence, not a claim that every UI flow or hardware configuration is flawless.
 
-## Current recording-readiness check
+## Earlier recording-readiness check — October 5
 
 The installed CameraCue Studio release was inspected natively in Ready. Preparing a take does not start capture. With explicit permission for a short local camera/microphone test, microphone setup remained pending without a visible dialog even though System Settings showed its grant enabled. It eventually completed; camera preview then remained in preparation and was cancelled by leaving Record. No MP4 was saved in this attempt.
 
@@ -45,7 +53,7 @@ Ongoing balanced-quality person segmentation now runs on its own serial worker. 
 On the same local 60-frame camera clip, frame-processing median/p95 changed from 14.43/27.58 ms to 3.35/3.98 ms in focused runs. The initial mask still cost 88 ms in the latter run; it occurs during camera startup. These are local fixture processing costs, not measured live capture FPS, AVFoundation frame drops, or saved-video frame-rate guarantees. The full native regression passed, including generated MP4 export, subject/background preservation, bounded worker/reset tests and the audio-thread regression. Installed release signature and executable equality were verified.
 
 The patched app launches and reaches Record setup, but still reports microphone setup needed after the ad hoc rebuild. A fresh live recording and perceptual preview check remain required; the existing stable-local-signing decision is still pending. No successful recording is claimed from these tests.
-# Save confirmation and pacing feedback — October 6, 2026
+## Save confirmation and pacing feedback — October 6, 2026
 
 - Restart take: refresh control in the expanded notch footer and Studio during a take. It saves the previous MP4, resets script/timing, then starts a distinct recording with the existing count-in preference. Navigation stays locked during restart; duplicate requests are ignored. Save failure prevents another capture and preserves recovery. Verified with isolated capture/export fixtures (25 focused recording/presentation tests passed); no new live recording was made for this change.
 

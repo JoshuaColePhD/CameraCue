@@ -27,10 +27,12 @@ Built for educators, creators, professionals, and anyone who wants a more comfor
 
 1. **Write.** Start a script, import text, or develop an idea with AI. Add emphasis, pauses, and delivery cues without changing your spoken wording during formatting.
 2. **Rehearse.** Adjust the reader, choose a time target, and practice. Voice Follow tracks your speech; manual controls remain available.
-3. **Present.** Check your camera and microphone, then record. Keep the script near the lens and use pacing hints to watch your timing.
+3. **Record.** Check your camera and microphone, then record. Keep the script near the lens and use pacing hints to watch your timing.
 4. **Review.** Play back the saved MP4, find it in Finder, or try a different background and export a new version.
 
 Preparing a take opens the setup screen; it does not start recording. Pausing the prompter leaves video recording running, and Stop finishes and saves the take.
+
+Made a mistake? **↻ Restart take** saves the interrupted take and begins a new recording from the top, using your count-in setting. Saving errors retain a recoverable original instead of starting another recording. After a successful save, the notch confirms **Video saved** and collapses; Studio keeps the playback and actual save location visible.
 
 ## What you can do
 
@@ -102,7 +104,7 @@ On the held-out transcript replay, the revised tracker stayed within two tokens 
 
 ### Machine-learning work in progress
 
-An [AMI real-audio pilot](docs/evaluation/ami-pilot/README.md) compares standard and fast on-device SpeechAnalyzer reporting at 1x playback, with speaker-separated data and explicit timing provenance. Local pace calibration and timestamped recording feedback are implemented in the development build. Confidence-model promotion, legacy-engine comparison, and final hardware acceptance are still in progress; these are not claims of general production accuracy.
+An [AMI real-audio pilot](docs/evaluation/ami-pilot/README.md) compares standard and fast on-device SpeechAnalyzer reporting at 1x playback, with speaker-separated data and explicit timing provenance. Local pace calibration and timestamped recording feedback are implemented in the development build. An optional confidence model is scoped to short scripts and remains off by default; the legacy-engine comparison and broader hardware acceptance remain incomplete. The pilot does not establish general production accuracy.
 
 The AMI evaluation data and experimental weights carry CC BY 4.0 attribution. CameraCue source code remains MIT. Raw corpus audio and user recordings are excluded from the repository and application bundle.
 
@@ -147,7 +149,7 @@ The [Mac CI workflow](https://github.com/JoshuaColePhD/CameraCue/actions/workflo
 
 Graphics and encoding tests need access to macOS services. Private recorded-clip checks skip when their local fixture is unavailable; the repository intentionally excludes those videos. Automated tests do not start a live camera or microphone.
 
-Live speech recognition, dual-stream recording, lengthy takes, audio synchronization by listening, and varied monitor arrangements remain [hardware acceptance checks](docs/ACCEPTANCE.md). Background segmentation can soften fine edges, and offline processing may take longer than the clip's running time.
+Short recordings have been saved on the development Mac. Live speech accuracy/latency, lengthy takes, audio synchronization by listening, and varied monitor arrangements remain [hardware acceptance checks](docs/ACCEPTANCE.md). Background segmentation can soften fine edges, and offline processing may take longer than the clip's running time.
 
 ---
 

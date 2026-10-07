@@ -135,9 +135,9 @@ struct PresentationWorkspace: View {
                     .font(.caption).foregroundStyle(StudioPalette.mutedInk)
             } else if model.phase == .finished {
                 Text("Finished").font(.title3.bold())
-                Button { model.reset() } label: { StudioLabel(model.isRestartingTake ? "Restarting…" : model.video.enabled ? "Record another take" : "Practice again", .restart) }.buttonStyle(StudioButtonStyle(primary: true)).disabled(model.video.isBusy || model.isRestartingTake)
+                Button { model.reset() } label: { StudioLabel(model.isRestartingTake ? "Restarting…" : model.video.enabled ? "Prepare another take" : "Practice again", .restart) }.buttonStyle(StudioButtonStyle(primary: true)).disabled(model.video.isBusy || model.isRestartingTake)
                 Button { step = .write } label: { StudioLabel("Return to script", .back) }.buttonStyle(StudioButtonStyle()).disabled(model.isRestartingTake)
-                Text("Practice again returns to Ready. Your microphone stays off until you start.").font(.caption).foregroundStyle(StudioPalette.mutedInk)
+                Text(model.video.enabled ? "Return to setup. Your camera and microphone stay off until you press Record." : "Practice again returns to Ready. Your microphone stays off until you start.").font(.caption).foregroundStyle(StudioPalette.mutedInk)
             } else {
                 TimelineView(.periodic(from: .now, by: 1)) { context in
                     let snapshot = model.snapshot(at: context.date)
