@@ -44,6 +44,14 @@ Graphics/encoding tests need macOS services and a logged-in WindowServer locally
 
 To inspect native motion frame intervals, use `CAMERACUE_PROFILE_MOTION=1` with `NotchMotionTests`. Those intervals are not a guarantee of product FPS. Use `CAMERACUE_TIMER_SNAPSHOTS=1` with `TimerPopoverTests` for an isolated timer render. A physical dual-display check is still needed for menu containment, input routing and real refresh behavior.
 
+## Check actual on-device AI
+
+```sh
+CAMERACUE_TEST_ON_DEVICE_AI=1 swift test --disable-sandbox --filter OnDeviceAISmokeTests
+```
+
+This opt-in check calls the production revision, delivery-cue and formatting services with fictional text. It requires an available Apple on-device language model, checks that cue/formatting passes preserve spoken words, and saves no script or recording. Ordinary CI skips inference; model output and quality can vary between runs. Invalid-input and local-fallback tests run normally. A successful inference check establishes that the feature runs on that Mac, not factual accuracy for arbitrary drafts.
+
 ## Rebuild documentation media
 
 ```sh

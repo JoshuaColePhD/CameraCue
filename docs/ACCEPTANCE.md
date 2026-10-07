@@ -12,6 +12,10 @@ The October 7 polish pass also reran the full native suite and frozen Voice Foll
 
 ## Completed in this pass
 
+### On-device AI checkpoint — October 7
+
+Apple's on-device model reported available on the development Mac. The installed app's Draft with AI generated a 215-word script from a fictional gardening-club brief; the result was inspected and cancelled without saving. An opt-in production-service check generated a 45-word revision, added delivery cues without changing spoken tokens, and produced six AI formatting moments with a valid word-preserving plan. Input validation, formatting fallback, dashboard formatting, local pacing and coaching/tracking fixtures also passed. No camera or microphone was activated. These checks establish successful local inference and source-preservation safeguards, not factual accuracy or universal model availability. Luna is not integrated.
+
 - Compiled the native app and test targets in Swift 6 language mode.
 - Ran all XCTest targets with macOS graphics/encoding access: zero failures. Documentation rendering and motion profiling are opt-in and skip in an ordinary run. Current totals are generated in CI, rather than maintained in prose.
 - Compared the production aligner with an exact suffix baseline and the frozen earlier aligner on published transcripts with simulated errors. Tuned only the development corpus and evaluated the distinct held-out speech afterward. See [results and limitations](VOICE_FOLLOW_EVALUATION.md).
