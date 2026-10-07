@@ -58,6 +58,19 @@ Prefer QuickTime? Turn off CameraCue's camera recording and use it as a separate
 - **Existing recordings stay intact.** Background changes create new files. Optional original copies give you more flexibility later.
 - **Native editing and accessibility.** Standard text selection, undo/redo, keyboard navigation, descriptive controls, and Reduce Motion support.
 
+## AI compatibility
+
+Not every Mac supports Apple's on-device language model. CameraCue's **AI drafting, revision, delivery-cue generation, and AI-enhanced formatting** require:
+
+- An Apple Intelligence-compatible Mac, including **M1 and newer Apple silicon Macs**. **Intel Macs do not support Apple Intelligence.**
+- **macOS 26 or later** for the Foundation Models framework.
+- **Apple Intelligence enabled**, with its on-device model downloaded and ready.
+- A supported language and region; availability can vary.
+
+See [Apple's hardware and availability requirements](https://support.apple.com/en-us/121115) and [Foundation Models availability](https://developer.apple.com/documentation/FoundationModels/generating-content-and-performing-tasks-with-foundation-models).
+
+The **editor, camera recording, manual prompting, and basic local formatting do not require this language model**. When it is unavailable, formatting uses a clearly labeled, word-preserving local fallback; AI drafting and revision are unavailable. Voice Follow uses the separate speech recognition system and has its own permission and availability checks.
+
 ## Your files stay local
 
 CameraCue has no required cloud account or cloud video storage. Scripts and recordings are stored on your Mac; this repository does not include personal scripts, recordings, or settings.
@@ -117,7 +130,7 @@ The AMI evaluation data and experimental weights carry CC BY 4.0 attribution. Ca
 - macOS 15 or later.
 - Xcode with the macOS 26 SDK or later, Swift 6.2 or later, and command-line tools selected.
 - Python 3 for icon packaging; the packaging script uses its standard library and macOS `sips`.
-- Compatible hardware, macOS 26 or later, and an available Apple on-device model for AI drafting. The editor, recorder, and manual prompting do not require that model.
+- For generative AI features, the additional [AI compatibility requirements](#ai-compatibility) above apply. Core editing, recording, and manual prompting do not require Apple's language model.
 
 ### Build and install
 
