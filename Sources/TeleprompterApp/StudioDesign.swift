@@ -21,6 +21,7 @@ enum StudioPalette {
 
 struct StudioButtonStyle: ButtonStyle {
     var primary = false
+    var selected = false
     var accent: Color = StudioPalette.lavender
     @State private var hovered = false
     @Environment(\.isEnabled) private var enabled
@@ -30,7 +31,7 @@ struct StudioButtonStyle: ButtonStyle {
         configuration.label.font(.system(size: 14, weight: .medium))
             .foregroundStyle(StudioPalette.ink)
             .padding(.horizontal, 12).padding(.vertical, 8)
-            .background(primary ? accent : hovered ? StudioPalette.lavenderWash : StudioPalette.surface, in: RoundedRectangle(cornerRadius: 10))
+            .background(primary ? accent : selected || hovered ? StudioPalette.lavenderWash : StudioPalette.surface, in: RoundedRectangle(cornerRadius: 10))
             .overlay(RoundedRectangle(cornerRadius: 10).stroke(focused ? StudioPalette.violet : StudioPalette.outline, lineWidth: focused ? 2 : 1))
             .opacity(enabled ? configuration.isPressed ? 0.7 : 1 : 0.45)
             .onHover { hovered = $0 }
@@ -81,6 +82,37 @@ enum StudioLayout {
     static func columns(for width: CGFloat) -> Int { width >= 820 ? 3 : width >= 540 ? 2 : 1 }
     static func initiallyShowsPreview(width: CGFloat) -> Bool { width >= 900 }
     static func stacksCamera(width: CGFloat) -> Bool { width < 760 }
+    static func usesCompactWorkflowLabels(width: CGFloat) -> Bool { width < 720 }
+}
+
+/// Equal side regions keep workflow navigation stationary across all workspaces.
+struct StudioWorkflowBar: View {
+    @Binding var step: StudioStep
+    let width: CGFloat
+    var onScripts: () -> Void
+    var onCameraSettings: () -> Void
+    var body: some View {
+        HStack(spacing: 16) {
+            Button(action: onScripts) { StudioLabel("Scripts", .back) }
+                .buttonStyle(StudioButtonStyle()).fixedSize()
+                .frame(maxWidth: .infinity, alignment: .leading)
+            Picker("Workflow", selection: $step) {
+                ForEach(StudioStep.allCases, id: \.self) {
+                    Text($0 == .present ? "Record" : $0.rawValue).tag($0)
+                }
+            }.pickerStyle(.segmented).labelsHidden().frame(width: 240)
+            Group {
+                if step != .write {
+                    Button(action: onCameraSettings) {
+                        if StudioLayout.usesCompactWorkflowLabels(width: width) { Image(systemName: "video") }
+                        else { StudioLabel("Camera & recording", systemImage: "video") }
+                    }.buttonStyle(StudioButtonStyle()).fixedSize()
+                        .accessibilityLabel("Camera & recording")
+                        .help("Choose a camera, preview yourself, and set up MP4 recording")
+                } else { Color.clear.frame(height: 34).accessibilityHidden(true) }
+            }.frame(maxWidth: .infinity, alignment: .trailing)
+        }.padding(.horizontal, 24).padding(.vertical, 12).background(StudioPalette.surface)
+    }
 }
 
 struct StudioPageHeader: View {

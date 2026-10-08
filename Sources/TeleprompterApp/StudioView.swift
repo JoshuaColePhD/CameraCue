@@ -270,21 +270,9 @@ struct StudioView: View {
             } else {
             GeometryReader { detailGeometry in
             VStack(spacing: 0) {
-                HStack {
-                    Button { showingLibrary = true } label: { StudioLabel("Scripts", .back) }.buttonStyle(StudioButtonStyle())
-                    Spacer()
-                    Picker("Workflow", selection: $step) {
-                        ForEach(StudioStep.allCases, id: \.self) { Text($0 == .present ? "Record" : $0.rawValue).tag($0) }
-                    }.pickerStyle(.segmented).labelsHidden().frame(width: 240)
-                    Spacer()
-                    if step != .write {
-                    Button { showsRecordingSettings.toggle() } label: {
-                        StudioLabel("Camera & recording", systemImage: "video")
-                    }.buttonStyle(StudioButtonStyle())
-                        .help("Choose a camera, preview yourself, and set up MP4 recording")
-
-                    }
-                }.padding(.horizontal, 24).padding(.vertical, 12).background(StudioPalette.surface)
+                StudioWorkflowBar(step: $step, width: detailGeometry.size.width,
+                                  onScripts: { showingLibrary = true },
+                                  onCameraSettings: { showsRecordingSettings.toggle() })
                 if step != .write {
                     PresentationWorkspace(model: model, notch: notch, library: library, step: $step)
                 } else {
@@ -383,7 +371,7 @@ struct StudioView: View {
             }.buttonStyle(StudioButtonStyle()).fixedSize()
                 .disabled(isStyling || autoStylingScriptID == library.selectedID || editableWordCount == 0)
             Button { previewChoice.toggle() } label: { StudioLabel("Preview", systemImage: "sidebar.right") }
-                .buttonStyle(StudioButtonStyle()).fixedSize().accessibilityValue(previewChoice ? "Visible" : "Hidden")
+                .buttonStyle(StudioButtonStyle(selected: previewChoice)).fixedSize().accessibilityValue(previewChoice ? "Visible" : "Hidden")
             Menu {
                 Button("Reading settings…") { showsSettings = true }
                 Button("Camera & recording…") { showsRecordingSettings = true }

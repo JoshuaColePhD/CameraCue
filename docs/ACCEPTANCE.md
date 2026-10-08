@@ -1,8 +1,14 @@
 # Verification and remaining acceptance work
 
-Updated October 7, 2026. This file is tracked so verification references remain accessible from a fresh clone. Machine-specific logs and private media are intentionally not published.
+Updated October 8, 2026. This file is tracked so verification references remain accessible from a fresh clone. Machine-specific logs and private media are intentionally not published.
 
 ## Current checkpoint — October 7
+
+### Compact Studio iteration — October 8
+
+Workflow navigation now uses equal left/right regions so Write, Rehearse and Record stay centered between workspaces. Below 720 points of detail width, camera settings use a labeled accessible icon with a tooltip. The Preview toggle has a visible selected state. The production native workflow control was measured at 666- and 996-point detail widths across every step, within one point of center; 22 focused layout/placement/notch tests passed.
+
+The host currently reports only the LS24A600U external display (2560 × 1440 points, scale 1, 75 Hz, no physical camera housing). Compact-window checks do not count as a physical MacBook display check. Built-in display measurements and notch inspection remain pending; no camera/microphone capture was started for this iteration. Release signature and installed-executable equality were verified; native inspection of the installed Write and Record workspaces confirmed stationary workflow navigation and the Preview selected state.
 
 The user completed short recordings on October 6 after the audio-tap and preview fixes. Native inspection confirmed a saved take in the recordings library, and another completed take showed a 22-second duration, **Video saved**, **Saved to Movies → CameraCue**, playback and Finder actions in Studio. This establishes that short-take recording/export completed on the development Mac. Audio synchronization, sustained live frame rate and speech-to-highlight latency were not measured in these checks.
 
