@@ -1,5 +1,4 @@
 import Foundation
-import FoundationModels
 import TeleprompterCore
 
 enum ScriptDevelopmentMode: String, CaseIterable, Identifiable {
@@ -21,27 +20,25 @@ enum ScriptDevelopmentError: LocalizedError {
 
     var errorDescription: String? {
         switch self {
-        case .modelUnavailable: "The on-device language model is not ready on this Mac."
+        case .modelUnavailable: "Choose an available AI model in AI model settings."
         case .emptyIdea: "Describe the script you want to make first."
         case .emptyScript: "Add some script text before asking for a revision."
         case .scriptTooLong: "This script is too long for one AI pass. Shorten it to about 1,500 words and try again."
         case .emptyResponse: "The model returned an empty draft. Try a more specific request."
         case .changedSpokenWords: "The model changed spoken words while adding cues, so that version was discarded. Try again."
-        case .generationFailed: "Apple's on-device model could not generate a draft right now. Try again later."
+        case .generationFailed: "The selected model could not generate a draft right now. Try again later."
         }
     }
 }
 
 @MainActor enum ScriptDevelopmentService {
-    static func generate(mode: ScriptDevelopmentMode, brief: String, source: String?) async throws -> String {
+    static func generate(mode: ScriptDevelopmentMode, brief: String, source: String?, session: ScriptModelSession? = nil) async throws -> String {
         let trimmedBrief = brief.trimmingCharacters(in: .whitespacesAndNewlines)
         let original = source?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
         if mode == .draft && trimmedBrief.isEmpty { throw ScriptDevelopmentError.emptyIdea }
         if mode != .draft && original.isEmpty { throw ScriptDevelopmentError.emptyScript }
         if original.count > 9_000 { throw ScriptDevelopmentError.scriptTooLong }
-        guard #available(macOS 26.0, *), case .available = SystemLanguageModel.default.availability else {
-            throw ScriptDevelopmentError.modelUnavailable
-        }
+        let session = try session ?? LanguageModelSettings.shared.makeSession()
 
         let instructions = """
             You are a creative but disciplined script development partner for a presenter reading near a camera.
@@ -76,9 +73,8 @@ enum ScriptDevelopmentError: LocalizedError {
         }
 
         do {
-            let session = LanguageModelSession(instructions: instructions)
-            let response = try await session.respond(to: request)
-            let output = response.content.trimmingCharacters(in: .whitespacesAndNewlines)
+            let output = try await session.generate(instructions, request).trimmingCharacters(in: .whitespacesAndNewlines)
+            try Task.checkCancellation()
             guard !output.isEmpty else { throw ScriptDevelopmentError.emptyResponse }
             if mode == .cues && ScriptDocument(original).tokens != ScriptDocument(output).tokens {
                 throw ScriptDevelopmentError.changedSpokenWords
@@ -86,8 +82,11 @@ enum ScriptDevelopmentError: LocalizedError {
             return output
         } catch let error as ScriptDevelopmentError {
             throw error
+        } catch let error as ScriptModelError {
+            throw error
+        } catch is CancellationError {
+            throw CancellationError()
         } catch {
-            NSLog("CameraCue script development failed: %@", String(describing: error))
             throw ScriptDevelopmentError.generationFailed
         }
     }

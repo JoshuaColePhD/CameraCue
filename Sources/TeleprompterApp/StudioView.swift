@@ -16,6 +16,7 @@ struct StudioView: View {
     @State private var showsImporter = false
     @State private var showsSettings = false
     @State private var showsRecordingSettings = false
+    @State private var showsModelSettings = false
     @State private var isStyling = false
     @State private var suggestedPlan: PerformanceStylePlan?
     @State private var developmentRequest: DevelopmentRequest?
@@ -30,6 +31,7 @@ struct StudioView: View {
     @State private var isDropTargeted = false
     @State private var importError: String?
     @StateObject private var dashboardFormatting = DashboardFormatting()
+    @ObservedObject private var languageModels = LanguageModelSettings.shared
     private var selectedImportProgress: DashboardImportProgress? { library.selectedID.flatMap { dashboardFormatting.progress[$0] } }
     private var autoStylingScriptID: UUID? { selectedImportProgress?.phase == .formatting ? library.selectedID : nil }
     private var styleNoticeScriptID: UUID? { selectedImportProgress?.phase != .formatting ? selectedImportProgress?.scriptID : nil }
@@ -161,6 +163,7 @@ struct StudioView: View {
                 processImported(library.createDraft(title: title, body: body))
             }
         }
+        .sheet(isPresented: $showsModelSettings) { LanguageModelSettingsView() }
         .onAppear {
             if let script = library.selected { model.load(script) }
             notch.showCompact(model: model, library: library)
@@ -220,6 +223,19 @@ struct StudioView: View {
                     }.disabled(model.displayIsLocked).help(model.displayIsLocked ? "Finish the current take before reviewing recordings" : "Browse saved MP4 recordings")
                 }.padding(.horizontal, 14)
                 Spacer(minLength: 24)
+                Button { showsModelSettings = true } label: {
+                    HStack(spacing: 9) {
+                        Image(systemName: "cpu")
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text("AI model…")
+                            Text(languageModels.selected.provider.name).font(.system(size: 10)).foregroundStyle(StudioPalette.mutedInk).lineLimit(1)
+                        }
+                        Spacer(minLength: 0)
+                    }.frame(maxWidth: .infinity, alignment: .leading)
+                }
+                .buttonStyle(StudioButtonStyle()).padding(.horizontal, 14)
+                .accessibilityLabel("AI model settings")
+                .help("Use Apple Intelligence or connect your own model")
                 HStack {
                     Menu {
                         Button("Detached Reading Window") { openWindow(id: "prompter") }
@@ -313,7 +329,7 @@ struct StudioView: View {
                         } else if autoStylingScriptID == library.selectedID {
                             HStack(spacing: 7) {
                                 ProgressView().controlSize(.small)
-                                Text("Formatting the imported script with on-device AI…")
+                                Text("Preparing readable spacing for the imported script…")
                             }
                             .font(.caption).foregroundStyle(StudioPalette.violet)
                         } else if styleNoticeScriptID == library.selectedID, let styleNotice {
@@ -375,6 +391,7 @@ struct StudioView: View {
             Menu {
                 Button("Reading settings…") { showsSettings = true }
                 Button("Camera & recording…") { showsRecordingSettings = true }
+                Button("AI model…") { showsModelSettings = true }
             } label: { Text("More") }.menuStyle(.borderlessButton).fixedSize().accessibilityLabel("More writing tools")
                 .popover(isPresented: $showsSettings) { SettingsPopover().environmentObject(model) }
         }

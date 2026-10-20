@@ -12,6 +12,7 @@ import TeleprompterCore
         guard #available(macOS 26, *), case .available = SystemLanguageModel.default.availability else {
             throw XCTSkip("Apple's on-device model is unavailable")
         }
+        let appleSession = try LanguageModelSettings(defaults: nil, credentials: MemoryScriptModelCredentials()).makeSession()
         let source = """
         Welcome to our gardening club.
         You do not need to be an expert.
@@ -23,14 +24,14 @@ import TeleprompterCore
         Let us learn together.
         """
         let revised = try await ScriptDevelopmentService.generate(mode: .revise,
-            brief: "Make the welcome warmer. Keep it short and add no new facts.", source: source)
+            brief: "Make the welcome warmer. Keep it short and add no new facts.", source: source, session: appleSession)
         XCTAssertFalse(ScriptDocument(revised).tokens.isEmpty)
         print("AI smoke: revision produced \(ScriptDocument(revised).tokens.count) spoken words")
         let cues = try await ScriptDevelopmentService.generate(mode: .cues,
-            brief: "Add two short delivery directions. Preserve every spoken word.", source: source)
+            brief: "Add two short delivery directions. Preserve every spoken word.", source: source, session: appleSession)
         XCTAssertEqual(ScriptDocument(cues).tokens, ScriptDocument(source).tokens)
         print("AI smoke: delivery cues preserved all spoken words")
-        let result = await PerformanceStyleService.suggestWithStatus(for: source)
+        let result = await PerformanceStyleService.suggestWithStatus(for: source, session: appleSession)
         XCTAssertTrue(result.plan.isValid(for: source))
         XCTAssertTrue(result.plan.usedAI, result.status)
         XCTAssertFalse(result.plan.moments.isEmpty)

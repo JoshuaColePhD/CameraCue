@@ -2,7 +2,19 @@
 
 Updated October 20, 2026. This file is tracked so verification references remain accessible from a fresh clone. Machine-specific logs and private media are intentionally not published.
 
-## Source publication review — October 20
+## Bring-your-own model checkpoint — October 20
+
+CameraCue now has a native **AI model…** setup screen in the sidebar, macOS Settings and the AI drafting workflow. Apple Intelligence remains the default. Users can instead select OpenAI, Claude, Ollama, LM Studio or an OpenAI-compatible endpoint, discover model IDs, test a sample request and save their selection. Hosted requests use the user's own account directly; CameraCue includes no developer-funded API key or relay.
+
+- The full native suite, with documentation and model-settings rendering enabled, passed: 205 tests, 4 skipped, zero failures across three targets. Ten provider tests cover request formats, endpoint validation, credential scoping, preference persistence without keys, cancellation, sanitized failures, model-session consistency and word-preserving fallback. The on-device smoke tests explicitly select Apple Intelligence so they cannot use a saved hosted account.
+- Native interaction against an isolated localhost fixture confirmed model discovery, selection and a successful sample connection test. A redirect test returned an actionable error and the destination received no request. The fixture used a fake key and sample text; no user script, paid provider, camera or microphone was used. These checks used unsaved settings and left the user's selected model unchanged.
+- Production views were rendered with isolated sample data at normal and compact sizes. The README includes the model setup screenshot and a refreshed native Studio tour GIF.
+- The release app package built successfully and passed `codesign --verify --deep --strict` with the local ad hoc signature.
+- Ordinary imports use local formatting when an external model is selected. Sending script text to that model requires an explicit AI action. Provider failures preserve local formatting and never silently switch to a different provider.
+
+API keys are implemented with macOS Keychain storage scoped to the provider and API address. Automated persistence tests use an in-memory credential store; they do not establish a live Keychain round trip or compatibility with every hosted account. Real OpenAI/Claude billing accounts and local model runtimes remain user acceptance checks. Model availability and quality depend on the selected account/server. The hardware and distribution checks below still apply.
+
+## Source publication review — October 20, before model setup
 
 A clean checkout of the application code at `141bd36` was verified with Xcode 27.1 and Swift 6.4:
 
@@ -13,7 +25,7 @@ A clean checkout of the application code at `141bd36` was verified with Xcode 27
 - Gitleaks 8.30.1 found no secrets in the reachable Git history or commit messages. Historical filenames contained no raw recordings, private script-library files, or credential files. Documentation image versions were inspected and use sample content.
 - Local documentation links and existing asset/corpus attribution were checked. The README now makes the source-build status and on-device AI requirements explicit.
 
-Both AI services use Apple's on-device Foundation Models integration. No hosted LLM account or API key is included or required; macOS manages the language-model download. External providers and bring-your-own API keys are not implemented. Core editing, recording, and manual prompting remain available without the language model.
+At that checkpoint, both AI services used Apple's on-device Foundation Models integration and external providers were not implemented. The model setup checkpoint above supersedes that limitation. No hosted LLM account or API key is included; core editing, recording and manual prompting remain available without a language model.
 
 No live camera or microphone session was started for this review. The remaining hardware and distribution checks below still apply; no notarized installer has been produced.
 

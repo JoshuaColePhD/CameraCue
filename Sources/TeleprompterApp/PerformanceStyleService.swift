@@ -1,5 +1,4 @@
 import Foundation
-import FoundationModels
 import TeleprompterCore
 
 @MainActor enum PerformanceStyleService {
@@ -13,33 +12,30 @@ import TeleprompterCore
         await suggestWithStatus(for: source).plan
     }
 
-    static func suggestWithStatus(for source: String) async -> Result {
+    static func suggestWithStatus(for source: String, session: ScriptModelSession? = nil,
+                                  settings: LanguageModelSettings = .shared, allowsExternalModel: Bool = true) async -> Result {
         let local = PerformanceLayout.localPlan(for: source).styled(.natural, intensity: 0.65)
         guard local.isValid(for: source) else { return Result(plan: local, status: "Local formatting was used.") }
-        guard #available(macOS 26.0, *) else {
-            return Result(plan: local, status: "This macOS version does not support on-device AI. Local formatting was used.")
-        }
-        guard case .available = SystemLanguageModel.default.availability else {
-            return Result(plan: local, status: "On-device AI is not ready. Local formatting was used.")
-        }
         // Large imports can otherwise queue dozens of model requests. Keep them
         // responsive with the word-preserving local layout instead.
         if source.count > 20_000 || ScriptDocument(local.formattedBody).lines.count > 600 {
             return Result(plan: local, status: "This script is too long for one AI pass. Local formatting was used.")
         }
+        if !allowsExternalModel && settings.selected.provider != .apple {
+            return Result(plan: local, status: "Imported with local formatting. Choose Format for reading to use your selected model.")
+        }
         do {
-            let plan = try await suggestWithModel(local: local).styled(.natural, intensity: 0.65)
+            let session = try session ?? settings.makeSession()
+            let plan = try await suggestWithModel(local: local, session: session).styled(.natural, intensity: 0.65)
             return Result(plan: plan, status: plan.usedAI
-                ? "Formatted with on-device AI. Your original words are unchanged."
+                ? "Formatted with \(session.name). Your original words are unchanged."
                 : "The model found no valid accents. Local formatting was used.")
         } catch {
-            NSLog("CameraCue on-device styling failed: %@", String(describing: error))
-            return Result(plan: local, status: "Apple's on-device model could not finish. Local formatting was used.", needsRetry: true)
+            return Result(plan: local, status: "\(error is CancellationError ? "Formatting cancelled." : (error as? ScriptModelError)?.localizedDescription ?? "The selected model could not finish.") Local formatting was used.", needsRetry: !(error is CancellationError))
         }
     }
 
-    @available(macOS 26.0, *)
-    private static func suggestWithModel(local: PerformanceStylePlan) async throws -> PerformanceStylePlan {
+    private static func suggestWithModel(local: PerformanceStylePlan, session: ScriptModelSession) async throws -> PerformanceStylePlan {
         let document = ScriptDocument(local.formattedBody)
         let spokenLines = document.lines.filter { !$0.spokenText.isEmpty }
         var aiMoments: [PerformanceMoment] = []
@@ -48,7 +44,7 @@ import TeleprompterCore
             try Task.checkCancellation()
             let lines = spokenLines[batch..<min(batch + 32, spokenLines.count)]
             let numbered = lines.map { "\($0.id): \($0.spokenText)" }.joined(separator: "\n")
-            let session = LanguageModelSession(instructions: """
+            let instructions = """
                 You are a restrained but playful teleprompter typographer.
                 Pick performance moments that make a script fun and easy to read near a camera. Never rewrite the script.
                 Return 4 to 9 lines in exactly this format: line_number|exact short phrase|treatment
@@ -56,19 +52,21 @@ import TeleprompterCore
                 Copy each phrase exactly from its numbered line. Use only accent, big, huge, question, suspense, or pause as treatments.
                 Use huge rarely. Keep most lines unstyled. Return at most one suggestion per line.
                 Do not use Markdown, bullets, quotation marks around phrases, or explanatory text.
-                """)
+                """
             do {
-                let answer = try await session.respond(to: "Choose moments from these numbered lines:\n\(numbered)")
-                for responseLine in answer.content.components(separatedBy: .newlines) {
+                let answer = try await session.generate(instructions, "Choose moments from these numbered lines:\n\(numbered)")
+                try Task.checkCancellation()
+                for responseLine in answer.components(separatedBy: .newlines) {
                     guard let moment = parseMoment(responseLine),
                           let valid = PerformanceLayout.validatedMoment(moment, in: document),
                           lines.contains(where: { $0.id == valid.lineID }),
                           !aiMoments.contains(where: { $0.lineID == valid.lineID }) else { continue }
                     aiMoments.append(valid)
                 }
-            } catch {
+            } catch is CancellationError { throw CancellationError() }
+            catch let error as ScriptModelError { throw error }
+            catch {
                 lastError = error
-                NSLog("CameraCue style batch failed: %@", String(describing: error))
             }
         }
         guard !aiMoments.isEmpty else {

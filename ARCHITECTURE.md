@@ -38,7 +38,11 @@ The aligner is mutable and intentionally **not Sendable**. Production owns it on
 
 `ScriptLibrary` saves JSON in Application Support and preserves unreadable data for recovery. `NativeScriptEditor` supplies NSTextView selection, accessibility and undo. UTF-16 selections map to token occurrences through `ScriptTokenMap`, including repeated phrases and Unicode. Formatting must preserve spoken tokens; drafts and rewrites are reviewed separately. Edits during a take queue for the next take. Import completions cannot overwrite newer wording or redirect navigation.
 
-AI drafting/formatting use Foundation Models when available. Local formatting is an explicitly labeled fallback, not an LLM invocation. Videos remain ordinary files under the selected recording folder.
+AI drafting/formatting use a `ScriptModelSession` captured when an action begins. `LanguageModelSettings` defaults to Foundation Models and also supports user-configured OpenAI, Anthropic, Ollama, LM Studio, and compatible custom APIs. Model IDs and API addresses are preferences; API keys are stored separately in macOS Keychain, scoped to the provider and base URL. Readiness rendering uses cached key presence; generation reads the actual key at the action boundary. Editing a server address clears the unsaved credential.
+
+`RemoteScriptModelClient` uses stateless text requests, an ephemeral URLSession, timeouts, no response cache, no automatic retries, and a redirect delegate that declines forwarding. OpenAI uses Chat Completions with `max_completion_tokens` and `store: false`; compatible servers use `max_tokens`. Anthropic uses Messages, its version/key headers, and an optional workspace ID. HTTP errors are mapped to actionable messages without exposing response bodies, credentials, or script text in logs. Truncated output is rejected. One action retains its provider snapshot even if settings change while it runs.
+
+Automatic import formatting stays local when an external model is selected. Explicit generation and formatting actions may send relevant script text directly to the user's configured server; model discovery and connection tests run only on explicit actions. Local formatting is an explicitly labeled fallback, not an LLM invocation. Videos remain ordinary files under the selected recording folder and are not sent to language-model APIs.
 
 ## Verification boundaries
 

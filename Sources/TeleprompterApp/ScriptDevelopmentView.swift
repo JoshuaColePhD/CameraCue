@@ -12,6 +12,9 @@ struct ScriptDevelopmentView: View {
     @State private var output = ""
     @State private var isGenerating = false
     @State private var errorMessage: String?
+    @ObservedObject private var models = LanguageModelSettings.shared
+    @State private var showsModelSettings = false
+    @State private var generationTask: Task<Void, Never>?
 
     init(source: ScriptRecord?, onSave: @escaping (String, String) -> Void) {
         self.source = source
@@ -35,7 +38,7 @@ struct ScriptDevelopmentView: View {
                         .font(.system(size: 13)).foregroundStyle(.secondary)
                 }
                 Spacer()
-                    Text("ON-DEVICE")
+                    Text(models.selected.provider == .apple ? "ON-DEVICE" : "YOUR MODEL")
                     .font(.system(size: 10, weight: .bold)).tracking(1.2)
                     .foregroundStyle(StudioPalette.violet)
                     .padding(.horizontal, 9).padding(.vertical, 6)
@@ -43,9 +46,20 @@ struct ScriptDevelopmentView: View {
             }
             .padding(24)
             .background(StudioPalette.surface)
+            HStack(spacing: 12) {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("Model: \(models.selected.displayName)").font(.callout.bold()).lineLimit(1)
+                    Text(models.status).font(.caption).foregroundStyle(StudioPalette.mutedInk).lineLimit(2)
+                }
+                Spacer()
+                Button("Choose AI model…") { showsModelSettings = true }
+                    .buttonStyle(StudioButtonStyle()).disabled(isGenerating)
+            }.padding(.horizontal, 24).padding(.vertical, 10).background(StudioPalette.surface)
             Divider()
             HStack(spacing: 0) {
                 VStack(alignment: .leading, spacing: 17) {
+                ScrollView {
+                    VStack(alignment: .leading, spacing: 17) {
                     VStack(alignment: .leading, spacing: 7) {
                         Text("WHAT WOULD YOU LIKE TO DO?").font(.system(size: 10, weight: .bold)).tracking(1.3).foregroundStyle(.secondary)
                         Picker("Action", selection: $mode) {
@@ -92,7 +106,9 @@ struct ScriptDevelopmentView: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .background(StudioPalette.lavenderWash, in: RoundedRectangle(cornerRadius: 11))
                     }
-                    Button { Task { await generate() } } label: {
+                    }
+                }
+                    Button { generationTask = Task { await generate() } } label: {
                         if isGenerating {
                             HStack { ProgressView().controlSize(.small); Text("Generating…") }
                                 .frame(maxWidth: .infinity)
@@ -102,14 +118,13 @@ struct ScriptDevelopmentView: View {
                         }
                     }
                     .buttonStyle(StudioButtonStyle(primary: output.isEmpty))
-                    .disabled(isGenerating || (mode == .draft && brief.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty))
+                    .disabled(isGenerating || !models.canGenerate || (mode == .draft && brief.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty))
                     if let errorMessage {
                         StudioLabel(errorMessage, systemImage: "exclamationmark.triangle")
                             .font(.system(size: 12))
                             .foregroundStyle(StudioPalette.coral)
                             .fixedSize(horizontal: false, vertical: true)
                     }
-                    Spacer(minLength: 0)
                 }
                 .padding(24)
                 .frame(width: 330)
@@ -174,11 +189,13 @@ struct ScriptDevelopmentView: View {
             .padding(.horizontal, 22).padding(.vertical, 15)
             .background(StudioPalette.surface)
         }
-        .frame(minWidth: 880, minHeight: 620)
+        .frame(minWidth: 880, minHeight: 680)
         .background(StudioPalette.canvas)
         .tint(StudioPalette.violet)
         .preferredColorScheme(.light)
         .onChange(of: mode) { _, _ in output = ""; errorMessage = nil }
+        .sheet(isPresented: $showsModelSettings) { LanguageModelSettingsView() }
+        .onDisappear { generationTask?.cancel() }
     }
 
     @MainActor private func generate() async {
@@ -187,6 +204,8 @@ struct ScriptDevelopmentView: View {
         output = ""
         do {
             output = try await ScriptDevelopmentService.generate(mode: mode, brief: brief, source: source?.body)
+        } catch is CancellationError {
+            output = ""
         } catch {
             errorMessage = error.localizedDescription
         }

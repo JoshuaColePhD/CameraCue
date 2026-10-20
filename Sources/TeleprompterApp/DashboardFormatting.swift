@@ -16,7 +16,7 @@ struct DashboardImportProgress: Equatable {
     @Published var importingTitle: String?
     private var generations: [UUID: UUID] = [:]
     private let suggest: (String) async -> PerformanceStyleService.Result
-    init(suggest: @escaping (String) async -> PerformanceStyleService.Result = PerformanceStyleService.suggestWithStatus) {
+    init(suggest: @escaping (String) async -> PerformanceStyleService.Result = { await PerformanceStyleService.suggestWithStatus(for: $0, allowsExternalModel: false) }) {
         self.suggest = suggest
     }
     func start(_ script: ScriptRecord, library: ScriptLibrary) {

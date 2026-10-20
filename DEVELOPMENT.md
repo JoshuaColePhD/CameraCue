@@ -52,6 +52,19 @@ CAMERACUE_TEST_ON_DEVICE_AI=1 swift test --disable-sandbox --filter OnDeviceAISm
 
 This opt-in check calls the production revision, delivery-cue and formatting services with fictional text. It requires an available Apple on-device language model, checks that cue/formatting passes preserve spoken words, and saves no script or recording. Ordinary CI skips inference; model output and quality can vary between runs. Invalid-input and local-fallback tests run normally. A successful inference check establishes that the feature runs on that Mac, not factual accuracy for arbitrary drafts.
 
+## Bring-your-own model support
+
+The sidebar's **AI model…**, native **Settings**, and the draft window's **Choose AI model…** open the same setup surface. Apple Intelligence remains the default. Cloud users supply their own API credentials; local users supply a running Ollama, LM Studio, or compatible server and an installed text model. Model discovery does not assume a fixed model catalog.
+
+`LanguageModelSettings` owns nonsecret profile preferences and per-endpoint Keychain access. `RemoteScriptModelClient` owns the two supported wire formats (Chat Completions and Anthropic Messages). Services capture a model session per action, keep cue/formatting validation, and preserve local fallback. Automatic import formatting does not contact an external provider. Avoid adding provider calls to view appearance, navigation, readiness rendering, or background import.
+
+```sh
+swift test --disable-sandbox --filter LanguageModelTests
+CAMERACUE_MODEL_MEDIA="$PWD/ReviewArtifacts/ModelSettings" swift test --disable-sandbox --filter LanguageModelMediaTests
+```
+
+The provider tests intercept HTTP in memory; they do not use real keys, spend API credit, or open camera/microphone. They cover endpoint/key isolation, request formats, model discovery, cancellation, rejected/truncated output, provider snapshots, import privacy, and word preservation. The opt-in renderer uses isolated settings and fake credentials to produce normal/compact screenshots. On-device smoke tests explicitly select an isolated Apple model session, regardless of the user's configured provider. Live hosted-provider account acceptance still requires that user's own key and selected model.
+
 ## Rebuild documentation media
 
 ```sh

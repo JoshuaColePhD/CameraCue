@@ -43,6 +43,7 @@ import SwiftUI
                 Button("Focus Mode") { model.focusMode.toggle() }.keyboardShortcut("f")
             }
         }
+        Settings { LanguageModelSettingsView(showsDone: false) }
         WindowGroup(id: "prompter") {
             PrompterView()
                 .environmentObject(model)
