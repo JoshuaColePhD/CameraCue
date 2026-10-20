@@ -9,6 +9,8 @@
 [![macOS CI](https://github.com/JoshuaColePhD/CameraCue/actions/workflows/macos-ci.yml/badge.svg)](https://github.com/JoshuaColePhD/CameraCue/actions/workflows/macos-ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
+**Active development · Source and local builds available · No notarized installer yet**
+
 ![CameraCue Studio with sample scripts](docs/media/studio.png)
 
 <p align="center"><img src="docs/media/voice-follow.gif" width="548" alt="CameraCue highlights spoken words in a sample script" /></p>
@@ -59,6 +61,8 @@ Prefer QuickTime? Turn off CameraCue's camera recording and use it as a separate
 - **Native editing and accessibility.** Standard text selection, undo/redo, keyboard navigation, descriptive controls, and Reduce Motion support.
 
 ## AI compatibility
+
+**No API key or hosted LLM service is required.** CameraCue's current AI features use Apple's on-device language model through Foundation Models. The model is managed and downloaded by macOS; it is not bundled in this repository or the app. CameraCue does not route requests through a developer-funded AI account. External LLM providers and bring-your-own API keys are not currently supported.
 
 Not every Mac supports Apple's on-device language model. CameraCue's **AI drafting, revision, delivery-cue generation, and AI-enhanced formatting** require:
 

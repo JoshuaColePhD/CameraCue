@@ -1,6 +1,21 @@
 # Verification and remaining acceptance work
 
-Updated October 8, 2026. This file is tracked so verification references remain accessible from a fresh clone. Machine-specific logs and private media are intentionally not published.
+Updated October 20, 2026. This file is tracked so verification references remain accessible from a fresh clone. Machine-specific logs and private media are intentionally not published.
+
+## Source publication review — October 20
+
+A clean checkout of the application code at `141bd36` was verified with Xcode 27.1 and Swift 6.4:
+
+- Native suite: 194 tests, 7 skipped, zero failures across three targets. Opt-in and private-fixture skips retain their documented boundaries.
+- The documented release build produced a local app package and passed `codesign --verify --deep --strict`. The build left the checkout clean.
+- Voice Follow's frozen per-case regression gates passed. This remains transcript replay with simulated recognizer errors.
+- The scoped confidence-model simulation matched its versioned regression totals; no speech recognition or model download was needed.
+- Gitleaks 8.30.1 found no secrets in the reachable Git history or commit messages. Historical filenames contained no raw recordings, private script-library files, or credential files. Documentation image versions were inspected and use sample content.
+- Local documentation links and existing asset/corpus attribution were checked. The README now makes the source-build status and on-device AI requirements explicit.
+
+Both AI services use Apple's on-device Foundation Models integration. No hosted LLM account or API key is included or required; macOS manages the language-model download. External providers and bring-your-own API keys are not implemented. Core editing, recording, and manual prompting remain available without the language model.
+
+No live camera or microphone session was started for this review. The remaining hardware and distribution checks below still apply; no notarized installer has been produced.
 
 ## Current checkpoint — October 7
 

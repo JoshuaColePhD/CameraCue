@@ -1,6 +1,6 @@
 # Replay corpus v1
 
-These are published speech transcripts, not recordings from CameraCue users. The underlying speeches are public-domain U.S. presidential works (and the 1863 Lincoln text is also outside copyright). The MIT software license, if adopted, does not change their public-domain status.
+These are published speech transcripts, not recordings from CameraCue users. The underlying speeches are public-domain U.S. presidential works (and the 1863 Lincoln text is also outside copyright). The project's MIT software license does not change their public-domain status.
 
 | File | Source | Split |
 | --- | --- | --- |
