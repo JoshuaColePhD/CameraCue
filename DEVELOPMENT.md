@@ -58,7 +58,7 @@ This opt-in check calls the production revision, delivery-cue and formatting ser
 CAMERACUE_DOC_MEDIA="$PWD/docs/media" swift test --disable-sandbox --filter DocumentationMediaTests
 ```
 
-This opt-in renderer mounts production views with an isolated temporary script library and a fake speech source. It produces Studio/reader screenshots and a transcript-driven highlighting GIF. It does not touch the user's scripts or record camera/audio. The GIF is labeled as simulated in the README. Inspect the generated images before committing them.
+This opt-in renderer mounts production views with an isolated temporary script library and a fake speech source. It produces Studio/editor/recording-setup/reader screenshots, a `studio-demo.gif` tour, and a focused `voice-follow.gif`. The tour shows the library, editor, camera setup before capture, word highlighting, and paused prompting. It does not touch the user's scripts or record camera/audio. Simulated speech input is labeled in the README and the tour's reader scene. Inspect the generated images before committing them.
 
 ## Contribution hygiene
 

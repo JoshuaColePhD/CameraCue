@@ -11,11 +11,9 @@
 
 **Active development · Source and local builds available · No notarized installer yet**
 
-![CameraCue Studio with sample scripts](docs/media/studio.png)
+<p align="center"><img src="docs/media/studio-demo.gif" width="984" alt="CameraCue tour: script library, editor, recording setup, and Voice Follow word highlighting" /></p>
 
-<p align="center"><img src="docs/media/voice-follow.gif" width="548" alt="CameraCue highlights spoken words in a sample script" /></p>
-
-*Demo: production reader driven by simulated transcript callbacks. No live camera/microphone recording. [Reader screenshot](docs/media/reader.png).*
+*A short tour of production app views using sample scripts and simulated speech input. Camera and microphone stay off. [Studio screenshot](docs/media/studio.png) · [Reader screenshot](docs/media/reader.png) · [Focused Voice Follow GIF](docs/media/voice-follow.gif).*
 
 ---
 
